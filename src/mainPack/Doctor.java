@@ -10,9 +10,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
-import otros.VentanaDoctorInterna;
-
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
@@ -320,26 +317,24 @@ public class Doctor extends JPanel {
 			}
 		});
 
-		/*// Establecer el botón como predeterminado para la tecla "Enter"
-		getRootPane().setDefaultButton(btnGuardar);
-
-		// Agrega el ActionListener para la tecla "Enter" en el JFrame
-		addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyTyped(KeyEvent e) {
-				if (e.getKeyChar() == KeyEvent.VK_ENTER) {
-					// Simular el clic en el botón al presionar "Enter"
-					btnGuardar.doClick();
-				}
-			}
-		});*/
+		/*
+		 * // Establecer el botón como predeterminado para la tecla "Enter"
+		 * getRootPane().setDefaultButton(btnGuardar);
+		 * 
+		 * // Agrega el ActionListener para la tecla "Enter" en el JFrame
+		 * addKeyListener(new KeyAdapter() {
+		 * 
+		 * @Override public void keyTyped(KeyEvent e) { if (e.getKeyChar() ==
+		 * KeyEvent.VK_ENTER) { // Simular el clic en el botón al presionar "Enter"
+		 * btnGuardar.doClick(); } } });
+		 */
 
 		// BOTÓN VOLVER
 		JButton btnVolver = new JButton(icon13);
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				VentanaDoctorInterna ventanaDoctorInterna = new VentanaDoctorInterna();
+				VentanaPrincipal ventanaDoctorInterna = new VentanaPrincipal();
 				ventanaDoctorInterna.setVisible(true);
 
 			}

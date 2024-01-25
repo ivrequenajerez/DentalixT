@@ -35,10 +35,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import otros.DoctorConsultar;
-import otros.PacienteCRUD;
-import otros.VentanaCitaCRUD;
-
 public class VentanaEspectador extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -115,7 +111,7 @@ public class VentanaEspectador extends JFrame {
 		JButton button1 = new JButton(icon);
 		button1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				PacienteCRUD pacienteCRUD = new PacienteCRUD();
+				Paciente pacienteCRUD = new Paciente();
 				pacienteCRUD.setVisible(true);
 
 			}
@@ -132,7 +128,7 @@ public class VentanaEspectador extends JFrame {
 		JButton button2 = new JButton(icon2);
 		button2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				DoctorConsultar doctorConsultar = new DoctorConsultar();
+				Doctor doctorConsultar = new Doctor();
 				doctorConsultar.setVisible(true);
 			}
 		});
@@ -148,7 +144,7 @@ public class VentanaEspectador extends JFrame {
 		JButton button3 = new JButton(icon3);
 		button3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				VentanaCitaCRUD ventanaCitaCRUD = new VentanaCitaCRUD();
+				VentanaCitas ventanaCitaCRUD = new VentanaCitas();
 				ventanaCitaCRUD.setVisible(true);
 			}
 		});

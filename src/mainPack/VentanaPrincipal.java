@@ -39,9 +39,6 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.table.DefaultTableModel;
 
 import database.ConectorBBDD;
-import otros.DoctorConsultar;
-import otros.PacienteCRUD;
-import otros.VentanaDoctorInterna;
 
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
@@ -468,8 +465,8 @@ public class VentanaPrincipal extends JFrame {
 		Paciente ventanaPaciente = new Paciente();
 
 		// Instancia ventanas
-		PacienteCRUD pacienteCRUD = new PacienteCRUD();
-		DoctorConsultar ventanaDoctor = new DoctorConsultar();
+		Paciente pacienteCRUD = new Paciente();
+		Doctor ventanaDoctor = new Doctor();
 		VentanaCitas ventanaCita = new VentanaCitas();
 		VentanaMaterial ventanaMaterial = new VentanaMaterial();
 
@@ -483,8 +480,6 @@ public class VentanaPrincipal extends JFrame {
 
 				// Muestra la nueva ventana PacienteCRUD
 				pacienteCRUD.setVisible(true);
-				pacienteCRUD.setResizable(false);
-				pacienteCRUD.setLocationRelativeTo(null);
 			}
 		});
 
@@ -1094,9 +1089,8 @@ public class VentanaPrincipal extends JFrame {
 		mntmNewMenuItem_1.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				VentanaDoctorInterna doctor = new VentanaDoctorInterna();
+				Doctor doctor = new Doctor();
 				doctor.setVisible(true);
-				doctor.setLocationRelativeTo(null);
 				
 
 			}
