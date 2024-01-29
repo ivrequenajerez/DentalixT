@@ -30,13 +30,14 @@ public class VentanaOdontograma extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textField;
 	// trackea el diente que ha sido pulsado
 	private int nDientePulsado;
 	protected List<JButton> listaBotonesDiente;
 	protected List<ModeloDiente> listaDientes;
 	public ConectorBBDD conexionBD;
 	private static JFrame VentanaOdontograma;
+	private JTextField textFieldNDiente;
+	private JTextField textFieldDescrip;
 
 	/**
 	 * Launch the application.
@@ -272,13 +273,6 @@ public class VentanaOdontograma extends JFrame {
 		lblNewLabel_15.setBounds(860, 430, 46, 14);
 		panel.add(lblNewLabel_15);
 
-		textField = new JTextField();
-		textField.setBounds(253, 446, 622, 103);
-		textField.setBorder(BorderFactory.createLineBorder(Color.blue));
-		contentPane.add(textField);
-		
-		textField.setColumns(10); //
-
 		conexionBD = new ConectorBBDD();
 
 		String numeroDocumento = JOptionPane.showInputDialog("Ingrese el número del documento:");
@@ -302,11 +296,11 @@ public class VentanaOdontograma extends JFrame {
 		        // Buscar el diente pulsado
 		        for (ModeloDiente diente : listaDientes) {
 		            if (diente.getnDiente() == nDientePulsado) {
-		                // Actualizar la descripción del diente con el valor del textField
-		                diente.setDescripcion(textField.getText());
+		                // Actualizar la descripción del diente con el valor del textFieldDescrip
+		                diente.setDescripcion(textFieldDescrip.getText());
 
 		                // Actualizar la descripción en la base de datos
-		                conexionBD.actualizarDescripcion(diente.getIdDiente(), textField.getText());
+		                conexionBD.actualizarDescripcion(diente.getIdDiente(), textFieldDescrip.getText());
 
 		                // Puedes agregar un mensaje en la consola para indicar que se ha actualizado en
 		                // la base de datos
@@ -318,7 +312,6 @@ public class VentanaOdontograma extends JFrame {
 		        }
 		    }
 		});
-
 
 		btGuardar.setBounds(323, 560, 121, 66);
 		contentPane.add(btGuardar);
@@ -337,7 +330,7 @@ public class VentanaOdontograma extends JFrame {
 
 					if (diente.getnDiente() == nDientePulsado) {
 						diente.setDescripcion("");
-						textField.setText(diente.toString());
+						textFieldNDiente.setText(diente.toString());
 					}
 				}
 
@@ -367,6 +360,24 @@ public class VentanaOdontograma extends JFrame {
 
 		btVolver.setBounds(667, 560, 121, 66);
 		contentPane.add(btVolver);
+		
+		textFieldNDiente = new JTextField();
+		textFieldNDiente.setBounds(502, 454, 96, 19);
+		contentPane.add(textFieldNDiente);
+		textFieldNDiente.setColumns(10);
+		
+		textFieldDescrip = new JTextField();
+		textFieldDescrip.setBounds(502, 483, 96, 19);
+		contentPane.add(textFieldDescrip);
+		textFieldDescrip.setColumns(10);
+		
+		JLabel lblNewLabel_16 = new JLabel("N Diente");
+		lblNewLabel_16.setBounds(423, 457, 45, 13);
+		contentPane.add(lblNewLabel_16);
+		
+		JLabel lblNewLabel_17 = new JLabel("Descrip");
+		lblNewLabel_17.setBounds(423, 486, 45, 13);
+		contentPane.add(lblNewLabel_17);
 
 	}
 
@@ -388,7 +399,11 @@ public class VentanaOdontograma extends JFrame {
 
 	            dienteAux.addActionListener(new ActionListener() {
 	                public void actionPerformed(ActionEvent e) {
-	                    textField.setText(diente.getDescripcion());
+	                    // Mostrar el número del diente en textFieldNDiente
+	                    textFieldNDiente.setText(String.valueOf(diente.getnDiente()));
+	                    // Mostrar la descripción del diente en textFieldDescrip
+	                    textFieldDescrip.setText(diente.getDescripcion());
+
 	                    nDientePulsado = diente.getnDiente();
 	                }
 	            });
@@ -408,6 +423,4 @@ public class VentanaOdontograma extends JFrame {
 	    }
 	}
 
-
-	
 }
