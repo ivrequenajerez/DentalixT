@@ -462,34 +462,26 @@ public class VentanaPrincipal extends JFrame {
 		// Añadir //
 		JPanel ventanaPanel = new JPanel();
 
-		Paciente ventanaPaciente = new Paciente();
-
 		// Instancia ventanas
-		Paciente pacienteCRUD = new Paciente();
+		Paciente ventanaPaciente = new Paciente();
 		Doctor ventanaDoctor = new Doctor();
 		VentanaCitas ventanaCita = new VentanaCitas();
 		VentanaMaterial ventanaMaterial = new VentanaMaterial();
 
 		// Añadir paciente
 		botonAñadir.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-
-				// Cierra la ventana actual (VentanaPrincipal)
-				dispose();
-
-				// Muestra la nueva ventana PacienteCRUD
-				pacienteCRUD.setVisible(true);
-			}
+		    @Override
+		    public void actionPerformed(ActionEvent e) {
+		        System.out.println("Botón Añadir clicado");
+		        ventanaPaciente.setVisible(true);
+		    }
 		});
+
 
 		// Añadir doctor
 		botonAñadir2.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
-				// Cierra la ventana actual (VentanaPrincipal)
-				dispose();
 
 				// Muestra la nueva ventana doctor
 				ventanaDoctor.setVisible(true);
@@ -549,8 +541,9 @@ public class VentanaPrincipal extends JFrame {
 					dispose();
 
 					// Instancia y muestra la nueva ventana PacienteCRUD
-					pacienteCRUD.setVisible(true);
-					pacienteCRUD.labelPaciente.setText(nombre + " " + apellidos);
+					ventanaPaciente.setVisible(true);
+					ventanaPaciente.labelPaciente.setText(nombre + " " + apellidos);
+					
 				} else {
 					// Se canceló el ingreso del documento o se dejó en blanco
 				}

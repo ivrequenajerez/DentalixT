@@ -738,15 +738,19 @@ public class ConectorBBDD {
 
 			// Condicional para controlar si es admin o es doctor
 			if (resultSet.next()) {
+				
+				// Rol
 				String rol = resultSet.getString("rol");
 
+				// Si es admin...
 				if ("administrador".equals(rol)) {
 					credencialesValidas = true;
 
 					VentanaPrincipal ventanaPrincipal = new VentanaPrincipal();
 					ventanaPrincipal.setLocationRelativeTo(null);
 					ventanaPrincipal.setVisible(true);
-					new VentanaEspectador().setVisible(false);
+					new VentanaEspectador().setVisible(false); // Se oculta la ventana de doctores
+					
 				} else if ("doctor".equals(rol)) {
 					credencialesValidas = true;
 					new VentanaEspectador().setVisible(true);
