@@ -4,8 +4,10 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
@@ -19,18 +21,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.EmptyBorder;
 
 import database.ConectorBBDD;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-
-import database.ConectorBBDD;
 
 public class VentanaPaciente extends JFrame {
 
@@ -44,7 +38,7 @@ public class VentanaPaciente extends JFrame {
 	private JTextField textField_UltimaConsulta;
 	private JTextField textField_Id;
 	JButton btnGuardar;
-	JLabel labelPaciente = new JLabel("NOMBRE PACIENTE");
+	JLabel labelPaciente = new JLabel("Nombre y Apellidos");
 	ConectorBBDD conectorBBDDD;
 
 	/**
@@ -55,6 +49,10 @@ public class VentanaPaciente extends JFrame {
 			public void run() {
 				try {
 					VentanaPaciente frame = new VentanaPaciente();
+					frame.setResizable(false);
+					frame.setIconImage(
+							Toolkit.getDefaultToolkit().getImage(pantallaInicial.class.getResource("/logoAzul.png")));
+					frame.setLocationRelativeTo(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -67,13 +65,11 @@ public class VentanaPaciente extends JFrame {
 	 * Create the frame.
 	 */
 	public VentanaPaciente() {
-		setBounds(100, 100, 450, 300);
+
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
-
-		//
 
 		setBounds(0, -1, 1179, 691);
 		setBackground(Color.WHITE);
@@ -117,7 +113,7 @@ public class VentanaPaciente extends JFrame {
 
 		// L NOMBRE
 		JLabel label_Nombre = new JLabel("Nombre:");
-		label_Nombre.setBounds(591, 92, 85, 65);
+		label_Nombre.setBounds(520, 93, 200, 65);
 		panel.add(label_Nombre);
 
 		label_Nombre.setFont(fuenteLabel);
@@ -126,7 +122,7 @@ public class VentanaPaciente extends JFrame {
 		// APELLIDOS
 
 		JLabel label_Apellidos = new JLabel("Apellidos:");
-		label_Apellidos.setBounds(591, 168, 85, 65);
+		label_Apellidos.setBounds(520, 162, 200, 65);
 		panel.add(label_Apellidos);
 
 		label_Apellidos.setFont(fuenteLabel);
@@ -134,7 +130,7 @@ public class VentanaPaciente extends JFrame {
 		// TELEFONO
 
 		JLabel label_Telefono = new JLabel("Teléfono:");
-		label_Telefono.setBounds(591, 297, 82, 65);
+		label_Telefono.setBounds(520, 300, 100, 65);
 		panel.add(label_Telefono);
 
 		label_Telefono.setFont(fuenteLabel);
@@ -142,7 +138,7 @@ public class VentanaPaciente extends JFrame {
 		// DIRECCION
 
 		JLabel label_Direccion = new JLabel("Dirección:");
-		label_Direccion.setBounds(583, 229, 93, 65);
+		label_Direccion.setBounds(520, 231, 200, 65);
 		panel.add(label_Direccion);
 
 		label_Direccion.setFont(fuenteLabel);
@@ -150,15 +146,15 @@ public class VentanaPaciente extends JFrame {
 		// SALARIO
 
 		JLabel lblId = new JLabel("ID:");
-		lblId.setBounds(636, 449, 40, 65);
+		lblId.setBounds(555, 420, 40, 65);
 		panel.add(lblId);
 
 		lblId.setFont(fuenteLabel);
 
 		// EMAIL
 
-		JLabel lblUltimaConsulta = new JLabel("Ultima Consulta:");
-		lblUltimaConsulta.setBounds(532, 373, 168, 65);
+		JLabel lblUltimaConsulta = new JLabel("Últ. Consulta:");
+		lblUltimaConsulta.setBounds(520, 360, 200, 65);
 		panel.add(lblUltimaConsulta);
 
 		lblUltimaConsulta.setFont(fuenteLabel);
@@ -173,15 +169,15 @@ public class VentanaPaciente extends JFrame {
 		panel.add(textField_nombre);
 
 		JTextField textField_apellidos = new JTextField();
-		textField_apellidos.setBounds(673, yPosition + separacionVertical * 2, 379, 38);
+		textField_apellidos.setBounds(673, 175, 379, 38);
 		panel.add(textField_apellidos);
 
 		JTextField textField_direccion = new JTextField();
-		textField_direccion.setBounds(673, yPosition + separacionVertical * 3, 379, 38);
+		textField_direccion.setBounds(673, 245, 379, 38);
 		panel.add(textField_direccion);
 
 		JTextField textField_tlf = new JTextField();
-		textField_tlf.setBounds(673, yPosition + separacionVertical * 4, 379, 38);
+		textField_tlf.setBounds(673, 315, 379, 38);
 		textField_tlf.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
@@ -218,11 +214,11 @@ public class VentanaPaciente extends JFrame {
 
 			}
 		});
-		textField_UltimaConsulta.setBounds(673, yPosition + separacionVertical * 5, 379, 38);
+		textField_UltimaConsulta.setBounds(673, 375, 379, 38);
 		panel.add(textField_UltimaConsulta);
 
 		textField_Id = new JTextField();
-		textField_Id.setBounds(673, yPosition + separacionVertical * 6, 379, 38);
+		textField_Id.setBounds(673, 435, 379, 38);
 		panel.add(textField_Id);
 
 		// ERRORES
@@ -243,10 +239,11 @@ public class VentanaPaciente extends JFrame {
 
 			}
 		});
+		labelPaciente.setHorizontalAlignment(SwingConstants.CENTER);
 
-		labelPaciente.setBounds(53, 43, 533, 47);
+		labelPaciente.setBounds(0, 40, 533, 47);
 		panel.add(labelPaciente);
-		labelPaciente.setFont(fuenteGrande);
+		labelPaciente.setFont(new Font("Montserrat", Font.PLAIN, 40));
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setBounds(591, 550, 592, 75);
@@ -323,6 +320,18 @@ public class VentanaPaciente extends JFrame {
 		panel_1.add(btnEliminar);
 		btnEliminar.setPreferredSize(new Dimension(96, 96));
 		btnEliminar.setContentAreaFilled(false);
+
+		// Atajo de teclado
+		InputMap inputMap = getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+		KeyStroke keyStroke = KeyStroke.getKeyStroke(KeyEvent.VK_W, InputEvent.CTRL_DOWN_MASK);
+		inputMap.put(keyStroke, "cerrarVentana");
+
+		getRootPane().getActionMap().put("cerrarVentana", new AbstractAction() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+			}
+		});
 
 	}
 

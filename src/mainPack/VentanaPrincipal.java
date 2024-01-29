@@ -10,12 +10,15 @@ import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
+import javax.swing.InputMap;
+
 import java.awt.Dimension;
 import java.awt.Desktop;
 import java.awt.event.ActionEvent;
@@ -28,6 +31,8 @@ import java.sql.SQLException;
 import java.awt.Cursor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
+import javax.swing.AbstractAction;
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.JLabel;
@@ -1197,6 +1202,18 @@ public class VentanaPrincipal extends JFrame {
 				pantallaInicial inicio = new pantallaInicial();
 				inicio.setVisible(true);
 
+			}
+		});
+
+		// Atajo de teclado
+		InputMap inputMap = getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+		KeyStroke keyStroke = KeyStroke.getKeyStroke(KeyEvent.VK_W, InputEvent.CTRL_DOWN_MASK);
+		inputMap.put(keyStroke, "cerrarVentana");
+
+		getRootPane().getActionMap().put("cerrarVentana", new AbstractAction() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
 			}
 		});
 
