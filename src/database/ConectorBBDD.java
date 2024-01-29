@@ -70,7 +70,6 @@ public class ConectorBBDD {
 			this.conexion = DriverManager.getConnection(url + DB, usuario, contrasenia);
 		} catch (ClassNotFoundException | SQLException e) {
 			JOptionPane.showMessageDialog(null, e.getMessage());
-			System.exit(0);
 		}
 		return this.conexion;
 	}
@@ -829,59 +828,76 @@ public class ConectorBBDD {
 		}
 	}
 
+	// Método para cargar el odontograma por documento
 	public List<ModeloDiente> cargarOdontogramaPorDocumento(int idPaciente) {
-		List<ModeloDiente> listaDientes = new ArrayList<>();
-		PreparedStatement statement = null;
-		ResultSet resultado = null;
+        List<ModeloDiente> odontograma = new ArrayList<>();
 
-		try {
-			if (conexion == null || conexion.isClosed()) {
-				conectarConBBDD();
-			}
+        // Consulta SQL para obtener el odontograma del paciente
+        String consulta = "SELECT D.id_diente, D.numero_diente, D.descripcion " +
+                "FROM dentilax.odontograma O " +
+                "JOIN dentilax.diente D ON O.id_diente = D.id_diente " +
+                "WHERE D.idPaciente = ?";
 
-			// Consulta SQL para obtener los odontogramas del paciente
-			String consulta = "SELECT * FROM dentilax.dientes WHERE idPacienteFK = ?";
-			statement = conexion.prepareStatement(consulta);
-			statement.setInt(1, idPaciente); // añado id paciente a la consulta
 
-			resultado = statement.executeQuery();
+        try (Connection conexion = obtenerConexion();
+             PreparedStatement statement = conexion.prepareStatement(consulta)) {
 
-			// Procesar y guardar los resultados en la lista
-			while (resultado.next()) {
-				int idDiente = resultado.getInt("idDiente");
-				int nDiente = resultado.getInt("nDiente");
-				String descripcion = resultado.getString("descripcion");
-				int idPacienteFk = resultado.getInt("idPacienteFK");
+            // Establecer el parámetro (idPaciente) en la consulta
+            statement.setInt(1, idPaciente);
 
-				// Crear un objeto Odontograma y agregarlo a la lista
-				ModeloDiente diente = new ModeloDiente(idDiente, nDiente, descripcion, idPacienteFk);
-				listaDientes.add(diente);
-			}
+            // Ejecutar la consulta
+            try (ResultSet resultado = statement.executeQuery()) {
+                // Recorrer el resultado y construir la lista de ModeloDiente
+                while (resultado.next()) {
+                    int idDiente = resultado.getInt("id_diente");
+                    int numeroDiente = resultado.getInt("numero_diente");
+                    String descripcion = resultado.getString("descripcion");
 
-		} catch (SQLException ex) {
-			ex.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Error SQL al cargar el odontograma", "Error",
-					JOptionPane.ERROR_MESSAGE);
-		} finally {
-			cerrarRecursos(resultado, statement);
-		}
+                    // Crear un nuevo objeto ModeloDiente con los valores obtenidos de la base de datos
+                    ModeloDiente diente = new ModeloDiente(idDiente, numeroDiente, descripcion, idPaciente);
+                    odontograma.add(diente);
+                }
+            }
 
-		// Devolver la lista de odontogramas
-		return listaDientes;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Puedes manejar la excepción según tus necesidades (lanzarla, loggearla, etc.)
+        }
+
+        return odontograma;
+    }
+
+	public void actualizarDescripcion(int idDiente, String nuevaDescripcion) {
+	    String consulta = "UPDATE dentilax.diente SET descripcion = ? WHERE id_diente = ?";
+
+	    try {
+	        
+	        try (Connection conexion = obtenerConexion();
+	             PreparedStatement statement = conexion.prepareStatement(consulta)) {
+
+	            // Establecer los parámetros en la consulta
+	            statement.setString(1, nuevaDescripcion);
+	            statement.setInt(2, idDiente);
+
+	            // Ejecutar la actualización
+	            int filasActualizadas = statement.executeUpdate();
+
+	            if (filasActualizadas > 0) {
+	                System.out.println("Descripción actualizada en la base de datos para el diente con ID: " + idDiente);
+	            } else {
+	                System.out.println("No se pudo actualizar la descripción en la base de datos para el diente con ID: " + idDiente);
+	            }
+	        }
+	        
+	        System.out.println("Después de la actualización en la base de datos para el diente con ID: " + idDiente);
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        System.out.println("Error al actualizar la descripción en la base de datos para el diente con ID: " + idDiente);
+	    }
 	}
 
-	public void actualizarDiente(ModeloDiente diente) {
 
-		String sqlUpdate = "UPDATE dientes SET descripcion = ? WHERE idDiente = ?";
-		try (PreparedStatement statement = conexion.prepareStatement(sqlUpdate)) {
-			statement.setString(1, diente.getDescripcion());
-			statement.setInt(2, diente.getnDiente());
-			statement.executeUpdate();
-		} catch (SQLException ex) {
-			ex.printStackTrace();
-			// Manejar la excepción según tus necesidades
-		}
-	}
 
 	// listaBotonesDientes((nDiente-1)) //
 

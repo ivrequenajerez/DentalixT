@@ -175,7 +175,7 @@ public class pantallaInicial extends JFrame {
 
                 loginBoton.addActionListener(new ActionListener() {
                     @Override
-                    public void actionPerformed(ActionEvent e) {
+                    public void actionPerformed(ActionEvent e) { 
                         String usuario = usuarioTextField.getText();
                         char[] contrasenia = contraseniaTextField.getPassword();
 
