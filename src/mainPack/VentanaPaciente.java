@@ -51,7 +51,7 @@ public class VentanaPaciente extends JFrame {
 					VentanaPaciente frame = new VentanaPaciente();
 					frame.setResizable(false);
 					frame.setIconImage(
-							Toolkit.getDefaultToolkit().getImage(pantallaInicial.class.getResource("/logoAzul.png")));
+							Toolkit.getDefaultToolkit().getImage(VentanaInicial.class.getResource("/logoAzul.png")));
 					frame.setLocationRelativeTo(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -293,6 +293,10 @@ public class VentanaPaciente extends JFrame {
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				VentanaPrincipal ventanaPrincipal = new VentanaPrincipal();
+				ventanaPrincipal.setResizable(false);
+				ventanaPrincipal.setIconImage(
+						Toolkit.getDefaultToolkit().getImage(VentanaInicial.class.getResource("/logoAzul.png")));
+				ventanaPrincipal.setLocationRelativeTo(null);
 				ventanaPrincipal.setVisible(true);
 
 			}

@@ -1,5 +1,6 @@
 package database;
 
+import java.awt.Toolkit;
 // Importaciones BBDD
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -16,6 +17,7 @@ import com.mysql.cj.jdbc.DatabaseMetaData;
 
 import mainPack.VentanaOdontograma;
 import mainPack.VentanaEspectador;
+import mainPack.VentanaInicial;
 import mainPack.VentanaPrincipal;
 import Modelo.ModeloDiente;
 
@@ -743,6 +745,9 @@ public class ConectorBBDD {
 					credencialesValidas = true;
 
 					VentanaPrincipal ventanaPrincipal = new VentanaPrincipal();
+					ventanaPrincipal.setResizable(false);
+					ventanaPrincipal.setIconImage(
+							Toolkit.getDefaultToolkit().getImage(VentanaInicial.class.getResource("/logoAzul.png")));
 					ventanaPrincipal.setLocationRelativeTo(null);
 					ventanaPrincipal.setVisible(true);
 					new VentanaEspectador().setVisible(false); // Se oculta la ventana de doctores

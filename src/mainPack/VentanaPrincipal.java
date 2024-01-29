@@ -70,12 +70,8 @@ public class VentanaPrincipal extends JFrame {
 			public void run() {
 				try {
 					VentanaPrincipal frame = new VentanaPrincipal();
-					frame.setResizable(false);
 					frame.setIconImage(
-							Toolkit.getDefaultToolkit().getImage(pantallaInicial.class.getResource("/logoAzul.png")));
-
-					frame.setVisible(true);
-
+							Toolkit.getDefaultToolkit().getImage(VentanaInicial.class.getResource("/logoAzul.png")));
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -89,8 +85,11 @@ public class VentanaPrincipal extends JFrame {
 		// asdasd
 
 		super("Dentilax");
-		VentanaPrincipal.this.setLocationRelativeTo(null);
+		
 		setResizable(false);
+		
+
+		setVisible(true);
 
 		// Icono
 		ImageIcon icono1 = new ImageIcon("/logoDentilax.png");
@@ -470,6 +469,10 @@ public class VentanaPrincipal extends JFrame {
 
 		// Instancia ventanas
 		VentanaPaciente ventanaPaciente = new VentanaPaciente();
+		ventanaPaciente.setResizable(false);
+		ventanaPaciente.setIconImage(
+				Toolkit.getDefaultToolkit().getImage(VentanaInicial.class.getResource("/logoAzul.png")));
+		ventanaPaciente.setLocationRelativeTo(null);
 		Doctor ventanaDoctor = new Doctor();
 		VentanaCitas ventanaCita = new VentanaCitas();
 		VentanaMaterial ventanaMaterial = new VentanaMaterial();
@@ -1195,12 +1198,17 @@ public class VentanaPrincipal extends JFrame {
 			}
 		});
 
+		// Acción botónSalir
 		botonSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
 				setVisible(false);
-				pantallaInicial inicio = new pantallaInicial();
-				inicio.setVisible(true);
+				VentanaInicial frame = new VentanaInicial();
+				frame.setResizable(false);
+				frame.setIconImage(
+						Toolkit.getDefaultToolkit().getImage(VentanaInicial.class.getResource("/logoAzul.png")));
+				frame.setLocationRelativeTo(null);
+				frame.setVisible(true);
 
 			}
 		});

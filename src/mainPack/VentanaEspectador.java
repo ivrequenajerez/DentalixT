@@ -52,7 +52,7 @@ public class VentanaEspectador extends JFrame {
 				try {
 					VentanaPrincipal frame = new VentanaPrincipal();
 					frame.setIconImage(Toolkit.getDefaultToolkit()
-							.getImage(pantallaInicial.class.getResource("/logoDentilax.png")));
+							.getImage(VentanaInicial.class.getResource("/logoDentilax.png")));
 
 					frame.setVisible(true);
 				} catch (Exception e) {

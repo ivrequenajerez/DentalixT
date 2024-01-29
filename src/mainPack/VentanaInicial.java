@@ -34,7 +34,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class pantallaInicial extends JFrame {
+public class VentanaInicial extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -47,10 +47,10 @@ public class pantallaInicial extends JFrame {
 	public static void main(String[] args) {
 		EventQueue.invokeLater(() -> {
 			try {
-				pantallaInicial frame = new pantallaInicial();
+				VentanaInicial frame = new VentanaInicial();
 				frame.setResizable(false);
 				frame.setIconImage(
-						Toolkit.getDefaultToolkit().getImage(pantallaInicial.class.getResource("/logoAzul.png")));
+						Toolkit.getDefaultToolkit().getImage(VentanaInicial.class.getResource("/logoAzul.png")));
 				frame.setLocationRelativeTo(null);
 				frame.setVisible(true);
 
@@ -61,7 +61,7 @@ public class pantallaInicial extends JFrame {
 
 	}
 
-	public pantallaInicial() {
+	public VentanaInicial() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1280, 720);
 
@@ -259,14 +259,14 @@ public class pantallaInicial extends JFrame {
 
 	private void recordarContrasenia(String usuario, String contrasenia) {
 		// Utilizamos las preferencias del sistema para almacenar la contraseña
-		Preferences prefs = Preferences.userNodeForPackage(pantallaInicial.class);
+		Preferences prefs = Preferences.userNodeForPackage(VentanaInicial.class);
 		prefs.put("usuario", usuario);
 		prefs.put("contrasenia", contrasenia);
 	}
 
 	private void cargarPreferencias(JTextField usuarioTextField, JPasswordField contraseniaTextField) {
 		// Cargamos las preferencias al iniciar la aplicación
-		Preferences prefs = Preferences.userNodeForPackage(pantallaInicial.class);
+		Preferences prefs = Preferences.userNodeForPackage(VentanaInicial.class);
 		String usuario = prefs.get("usuario", "");
 		String contrasenia = prefs.get("contrasenia", "");
 
@@ -279,7 +279,7 @@ public class pantallaInicial extends JFrame {
 
 	private void eliminarPreferencias() {
 		// Elimina las preferencias almacenadas
-		Preferences prefs = Preferences.userNodeForPackage(pantallaInicial.class);
+		Preferences prefs = Preferences.userNodeForPackage(VentanaInicial.class);
 		prefs.remove("usuario");
 		prefs.remove("contrasenia");
 	}

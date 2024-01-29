@@ -52,7 +52,7 @@ public class VentanaCitas extends JFrame {
 					VentanaCitas frame = new VentanaCitas();
 					frame.setResizable(false);
 					frame.setIconImage(
-							Toolkit.getDefaultToolkit().getImage(pantallaInicial.class.getResource("/logoAzul.png")));
+							Toolkit.getDefaultToolkit().getImage(VentanaInicial.class.getResource("/logoAzul.png")));
 
 					frame.setVisible(true);
 				} catch (Exception e) {
