@@ -21,6 +21,7 @@ import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.IOException;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -90,7 +91,7 @@ public class VentanaPrincipal extends JFrame {
 		ImageIcon icono1 = new ImageIcon("/logoDentilax.png");
 		VentanaPrincipal.this.setIconImage(icono1.getImage());
 
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 1292, 737);
 
 		contentPane = new JPanel();
@@ -470,13 +471,12 @@ public class VentanaPrincipal extends JFrame {
 
 		// Añadir paciente
 		botonAñadir.addActionListener(new ActionListener() {
-		    @Override
-		    public void actionPerformed(ActionEvent e) {
-		        System.out.println("Botón Añadir clicado");
-		        ventanaPaciente.setVisible(true);
-		    }
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+				ventanaPaciente.setVisible(true);
+			}
 		});
-
 
 		// Añadir doctor
 		botonAñadir2.addActionListener(new ActionListener() {
@@ -543,7 +543,7 @@ public class VentanaPrincipal extends JFrame {
 					// Instancia y muestra la nueva ventana PacienteCRUD
 					ventanaPaciente.setVisible(true);
 					ventanaPaciente.labelPaciente.setText(nombre + " " + apellidos);
-					
+
 				} else {
 					// Se canceló el ingreso del documento o se dejó en blanco
 				}
@@ -585,138 +585,138 @@ public class VentanaPrincipal extends JFrame {
 		});
 
 		botonEditar3.addActionListener(new ActionListener() {
-		    @Override
-		    public void actionPerformed(ActionEvent e) {
-		        // Muestra un cuadro de diálogo de entrada
-		        String documento = JOptionPane.showInputDialog("Introduzca el Documento:");
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// Muestra un cuadro de diálogo de entrada
+				String documento = JOptionPane.showInputDialog("Introduzca el Documento:");
 
-		        // Comprueba si se ingresó un documento
-		        if (documento != null && !documento.isEmpty()) {
-		            // Realizar la búsqueda en la base de datos
-		            conector.realizarBusqueda(documento, modeloTabla);
+				// Comprueba si se ingresó un documento
+				if (documento != null && !documento.isEmpty()) {
+					// Realizar la búsqueda en la base de datos
+					conector.realizarBusqueda(documento, modeloTabla);
 
-		            // Obtener el nombre y apellidos del primer resultado
-		            String nombre = "";
-		            String apellidos = "";
+					// Obtener el nombre y apellidos del primer resultado
+					String nombre = "";
+					String apellidos = "";
 
-		            if (modeloTabla.getRowCount() > 0) {
-		                nombre = (String) modeloTabla.getValueAt(0, 0);
-		                apellidos = (String) modeloTabla.getValueAt(0, 1);
-		            }
+					if (modeloTabla.getRowCount() > 0) {
+						nombre = (String) modeloTabla.getValueAt(0, 0);
+						apellidos = (String) modeloTabla.getValueAt(0, 1);
+					}
 
-		            bienvenido.setVisible(false);
-		            texto1.setVisible(false);
-		            playBoton.setVisible(false);
-		            dispose();
+					bienvenido.setVisible(false);
+					texto1.setVisible(false);
+					playBoton.setVisible(false);
+					dispose();
 
-		            ventanaCita.setVisible(true);
+					ventanaCita.setVisible(true);
 
-		            // Acción que va a realizar...
-		            ventanaCita.labelCitas.setText("Cita de " + nombre); // Nombre del paciente en grande
+					// Acción que va a realizar...
+					ventanaCita.labelCitas.setText("Cita de " + nombre); // Nombre del paciente en grande
 
-		            // Realizar la búsqueda de la cita asociada al paciente
-		            String consulta = "SELECT * FROM cita WHERE idPaciente_FK = ?";
+					// Realizar la búsqueda de la cita asociada al paciente
+					String consulta = "SELECT * FROM cita WHERE idPaciente_FK = ?";
 
-		            try {
-		                conector.conectarConBBDD();
-		                PreparedStatement statement = conector.obtenerConexion().prepareStatement(consulta);
-		                statement.setString(1, documento);
+					try {
+						conector.conectarConBBDD();
+						PreparedStatement statement = conector.obtenerConexion().prepareStatement(consulta);
+						statement.setString(1, documento);
 
-		                ResultSet resultSet = statement.executeQuery();
+						ResultSet resultSet = statement.executeQuery();
 
-		                if (resultSet.next()) {
-		                    // Obtiene los valores de la base de datos
-		                    String fecha = resultSet.getString("fecha");
-		                    String hora = resultSet.getString("hora");
-		                    String motivo = resultSet.getString("motivo");
-		                    String idDoctor = resultSet.getString("idDoctor_FK");
+						if (resultSet.next()) {
+							// Obtiene los valores de la base de datos
+							String fecha = resultSet.getString("fecha");
+							String hora = resultSet.getString("hora");
+							String motivo = resultSet.getString("motivo");
+							String idDoctor = resultSet.getString("idDoctor_FK");
 
-		                    // Llena los campos de la interfaz gráfica con la información obtenida
-		                    ventanaCita.textField_Doc.setText(documento);
-		                    ventanaCita.textField_Motivo.setText(motivo);
-		                    ventanaCita.textField_Fecha.setText(fecha);
-		                    ventanaCita.textField_Hora.setText(hora);
-		                    ventanaCita.textField_DocDoctor.setText(idDoctor);
-		                }
+							// Llena los campos de la interfaz gráfica con la información obtenida
+							ventanaCita.textField_Doc.setText(documento);
+							ventanaCita.textField_Motivo.setText(motivo);
+							ventanaCita.textField_Fecha.setText(fecha);
+							ventanaCita.textField_Hora.setText(hora);
+							ventanaCita.textField_DocDoctor.setText(idDoctor);
+						}
 
-		                // Cierra los recursos
-		                resultSet.close();
-		                statement.close();
-		                conector.cerrarConexion();
+						// Cierra los recursos
+						resultSet.close();
+						statement.close();
+						conector.cerrarConexion();
 
-		            } catch (SQLException ex) {
-		                ex.printStackTrace();
-		                // Manejo de errores
-		            }
-		        } else {
-		            // Se canceló el ingreso del documento o se dejó en blanco
-		        }
-		    }
+					} catch (SQLException ex) {
+						ex.printStackTrace();
+						// Manejo de errores
+					}
+				} else {
+					// Se canceló el ingreso del documento o se dejó en blanco
+				}
+			}
 		});
 
 		// Editar material
 		botonEditar4.addActionListener(new ActionListener() {
 			@Override
-		    public void actionPerformed(ActionEvent e) {
-		        // Muestra un cuadro de diálogo de entrada
-		        String documento = JOptionPane.showInputDialog("Introduzca el Material:");
+			public void actionPerformed(ActionEvent e) {
+				// Muestra un cuadro de diálogo de entrada
+				String documento = JOptionPane.showInputDialog("Introduzca el Material:");
 
-		        // Comprueba si se ingresó un documento
-		        if (documento != null && !documento.isEmpty()) {
-		            // Realizar la búsqueda en la base de datos
-		            conector.realizarBusqueda(documento, modeloTabla);
+				// Comprueba si se ingresó un documento
+				if (documento != null && !documento.isEmpty()) {
+					// Realizar la búsqueda en la base de datos
+					conector.realizarBusqueda(documento, modeloTabla);
 
-		            // Obtener el nombre y apellidos del primer resultado
-		            String nombre = "";
+					// Obtener el nombre y apellidos del primer resultado
+					String nombre = "";
 
-		            if (modeloTabla.getRowCount() > 0) {
-		                nombre = (String) modeloTabla.getValueAt(0, 0);
-		            }
+					if (modeloTabla.getRowCount() > 0) {
+						nombre = (String) modeloTabla.getValueAt(0, 0);
+					}
 
-		            bienvenido.setVisible(false);
-		            texto1.setVisible(false);
-		            playBoton.setVisible(false);
-		            dispose();
+					bienvenido.setVisible(false);
+					texto1.setVisible(false);
+					playBoton.setVisible(false);
+					dispose();
 
-		            ventanaMaterial.setVisible(true);
+					ventanaMaterial.setVisible(true);
 
-		            // Acción que va a realizar...
-		            ventanaCita.labelCitas.setText(nombre); 
+					// Acción que va a realizar...
+					ventanaCita.labelCitas.setText(nombre);
 
-		            String consulta = "SELECT * FROM material WHERE nombre = ?";
+					String consulta = "SELECT * FROM material WHERE nombre = ?";
 
-		            try {
-		                conector.conectarConBBDD();
-		                PreparedStatement statement = conector.obtenerConexion().prepareStatement(consulta);
-		                statement.setString(1, documento);
+					try {
+						conector.conectarConBBDD();
+						PreparedStatement statement = conector.obtenerConexion().prepareStatement(consulta);
+						statement.setString(1, documento);
 
-		                ResultSet resultSet = statement.executeQuery();
+						ResultSet resultSet = statement.executeQuery();
 
-		                if (resultSet.next()) {
-		                    // Obtiene los valores de la base de datos
-		                    String nombreM = resultSet.getString("nombre");
-		                    String cantidad = resultSet.getString("cantidad");
-		                    String precio = resultSet.getString("precio");
+						if (resultSet.next()) {
+							// Obtiene los valores de la base de datos
+							String nombreM = resultSet.getString("nombre");
+							String cantidad = resultSet.getString("cantidad");
+							String precio = resultSet.getString("precio");
 
-		                    // Llena los campos de la interfaz gráfica con la información obtenida
-		                    ventanaMaterial.textField_nombre.setText(nombreM);
-		                    ventanaMaterial.textField_cantidad.setText(cantidad);
-		                    ventanaMaterial.textField_precio.setText(precio);
-		                }
+							// Llena los campos de la interfaz gráfica con la información obtenida
+							ventanaMaterial.textField_nombre.setText(nombreM);
+							ventanaMaterial.textField_cantidad.setText(cantidad);
+							ventanaMaterial.textField_precio.setText(precio);
+						}
 
-		                // Cierra los recursos
-		                resultSet.close();
-		                statement.close();
-		                conector.cerrarConexion();
+						// Cierra los recursos
+						resultSet.close();
+						statement.close();
+						conector.cerrarConexion();
 
-		            } catch (SQLException ex) {
-		                ex.printStackTrace();
-		                // Manejo de errores
-		            }
-		        } else {
-		            // Se canceló el ingreso del documento o se dejó en blanco
-		        }
-		    }
+					} catch (SQLException ex) {
+						ex.printStackTrace();
+						// Manejo de errores
+					}
+				} else {
+					// Se canceló el ingreso del documento o se dejó en blanco
+				}
+			}
 		});
 
 		// Funcionalidad componentes //
@@ -1078,13 +1078,12 @@ public class VentanaPrincipal extends JFrame {
 		mntmNewMenuItem_1.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F2, 0));
 		mnNewMenu_1.add(mntmNewMenuItem_1);
 		mnNewMenu.add(mnNewMenu_1);
-		
+
 		mntmNewMenuItem_1.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Doctor doctor = new Doctor();
 				doctor.setVisible(true);
-				
 
 			}
 		});
@@ -1095,31 +1094,52 @@ public class VentanaPrincipal extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				VentanaOdontograma odontograma = new VentanaOdontograma();
+				String numeroDocumento;
+
+				do {
+					numeroDocumento = JOptionPane.showInputDialog("Ingrese el número del documento:");
+
+					if (numeroDocumento == null) {
+						// El usuario hizo clic en "Cancelar"
+						// Puedes decidir qué hacer en este caso (por ejemplo, no hacer nada o mostrar
+						// un mensaje)
+						return;
+					} else if (numeroDocumento.isEmpty()) {
+						// El campo está vacío, mostrar un mensaje indicando que debe ingresar el
+						// documento
+						JOptionPane.showMessageDialog(null, "Debe ingresar el número de documento.");
+					} else if (!esNumeroDocumentoValido(numeroDocumento)) {
+						// Mostrar un mensaje indicando que el número de documento no es válido
+						JOptionPane.showMessageDialog(null,
+								"Número de documento no válido. Por favor, inténtelo de nuevo.");
+					}
+				} while (numeroDocumento == null || numeroDocumento.isEmpty()
+						|| !esNumeroDocumentoValido(numeroDocumento));
+
+				// El número de documento es válido, mostrar la ventana
+				setVisible(false);
 				odontograma.setVisible(true);
 				odontograma.setLocationRelativeTo(null);
+				odontograma.mostrar(numeroDocumento);
 			}
 		});
 
 		mnNewMenu_1.add(odontograma);
 
-		mnNewMenu_1.add(odontograma);
-		
 		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Ayuda");
 		mntmNewMenuItem_2.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, InputEvent.CTRL_DOWN_MASK));
 		mnNewMenu_1.add(mntmNewMenuItem_2);
-		
-		
-		
+
 		mntmNewMenuItem_2.addActionListener(new ActionListener() {
-		    @Override
-		    public void actionPerformed(ActionEvent e) {
-		        Ayuda ventanaAyuda = new Ayuda();
-		       
-		        ventanaAyuda.setVisible(true);
-		        ventanaAyuda.setLocationRelativeTo(null);
-                ventanaAyuda.setResizable(false);
-                VentanaPrincipal.dispose();
-		    }
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Ayuda ventanaAyuda = new Ayuda();
+
+				ventanaAyuda.setVisible(true);
+				ventanaAyuda.setLocationRelativeTo(null);
+				ventanaAyuda.setResizable(false);
+				VentanaPrincipal.dispose();
+			}
 		});
 
 		mntmNewMenuItem_1.addActionListener(new ActionListener() {
@@ -1183,4 +1203,53 @@ public class VentanaPrincipal extends JFrame {
 		});
 
 	}
+
+	private boolean esNumeroDocumentoValido(String numeroDocumento) {
+	    // Verificar si el número de documento contiene solo números y letras
+	    if (!numeroDocumento.matches("^[a-zA-Z0-9]+$")) {
+	        // Si no cumple el formato, retorna falso
+	        return false;
+	    }
+
+	    // Utilizar la instancia existente de ConectorBBDD
+	    ConectorBBDD conexionBD = ConectorBBDD.getInstancia();
+	    Connection conexion = null;
+	    PreparedStatement statement = null;
+	    ResultSet resultSet = null;
+
+	    try {
+	        // Abrir la conexión
+	        conexion = conexionBD.obtenerConexion();
+
+	        // Consulta SQL para verificar la existencia del número de documento en la tabla dentilax.paciente
+	        String consulta = "SELECT COUNT(*) FROM dentilax.paciente WHERE idPaciente = ?";
+	        statement = conexion.prepareStatement(consulta);
+	        statement.setString(1, numeroDocumento);
+
+	        // Ejecutar la consulta
+	        resultSet = statement.executeQuery();
+
+	        // Obtener el resultado de la consulta
+	        if (resultSet.next()) {
+	            int count = resultSet.getInt(1);
+	            return count > 0; // Si count > 0, el número de documento existe en la base de datos
+	        }
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        // Cerrar recursos
+	        try {
+	            if (resultSet != null) resultSet.close();
+	            if (statement != null) statement.close();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+
+	    // En caso de error o si no se encuentra el número de documento en la base de datos
+	    return false;
+	}
+
+
 }

@@ -91,10 +91,10 @@ public class ConectorBBDD {
 		}
 		return instancia;
 	}
-	
+
 	public Connection obtenerConexion() {
-        return this.conexion;
-    }
+		return this.conexion;
+	}
 
 	public void insertarPaciente(String nombre, String apellidos, String direccion, String telefono,
 			String ultimaConsulta, String id) {
@@ -127,100 +127,97 @@ public class ConectorBBDD {
 			JOptionPane.showMessageDialog(null, "Error SQL al insertar paciente", "Error", JOptionPane.ERROR_MESSAGE);
 		}
 	}
-	
+
 	public void insertarCita(String idPaciente, String motivo, String fecha, String hora, String idDoctor) {
-	    try {
-	        if (this.conexion != null) {
-	            String consulta = "INSERT INTO cita (fecha, hora, motivo, idPaciente_FK, idDoctor_FK) VALUES (?, ?, ?, ?, ?)";
-	            PreparedStatement statement = conexion.prepareStatement(consulta);
-	            statement.setString(1, fecha);
-	            statement.setString(2, hora);
-	            statement.setString(3, motivo);
-	            statement.setString(4, idPaciente);
-	            statement.setString(5, idDoctor);
+		try {
+			if (this.conexion != null) {
+				String consulta = "INSERT INTO cita (fecha, hora, motivo, idPaciente_FK, idDoctor_FK) VALUES (?, ?, ?, ?, ?)";
+				PreparedStatement statement = conexion.prepareStatement(consulta);
+				statement.setString(1, fecha);
+				statement.setString(2, hora);
+				statement.setString(3, motivo);
+				statement.setString(4, idPaciente);
+				statement.setString(5, idDoctor);
 
-	            int filasAfectadas = statement.executeUpdate();
+				int filasAfectadas = statement.executeUpdate();
 
-	            if (filasAfectadas > 0) {
-	                JOptionPane.showMessageDialog(null, "Cita insertada correctamente", "Éxito",
-	                        JOptionPane.INFORMATION_MESSAGE);
-	            } else {
-	                JOptionPane.showMessageDialog(null, "Error al insertar cita", "Error",
-	                        JOptionPane.ERROR_MESSAGE);
-	            }
+				if (filasAfectadas > 0) {
+					JOptionPane.showMessageDialog(null, "Cita insertada correctamente", "Éxito",
+							JOptionPane.INFORMATION_MESSAGE);
+				} else {
+					JOptionPane.showMessageDialog(null, "Error al insertar cita", "Error", JOptionPane.ERROR_MESSAGE);
+				}
 
-	            cerrarConexion();
-	        }
-	    } catch (SQLException ex) {
-	        ex.printStackTrace();
-	        JOptionPane.showMessageDialog(null, "Error SQL al insertar cita", "Error", JOptionPane.ERROR_MESSAGE);
-	    }
+				cerrarConexion();
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Error SQL al insertar cita", "Error", JOptionPane.ERROR_MESSAGE);
+		}
 	}
 
 	public void actualizarDatosCita(String documento, String motivo, String fecha, String hora, String docDoctor) {
-	    // Lógica para actualizar los datos en la base de datos
-	    String consulta = "UPDATE cita SET motivo = ?, fecha = ?, hora = ?, idDoctor_FK = ? WHERE idPaciente_FK = ?";
+		// Lógica para actualizar los datos en la base de datos
+		String consulta = "UPDATE cita SET motivo = ?, fecha = ?, hora = ?, idDoctor_FK = ? WHERE idPaciente_FK = ?";
 
-	    try {
-	        conectarConBBDD();
-	        PreparedStatement statement = obtenerConexion().prepareStatement(consulta);
-	        statement.setString(1, motivo);
-	        statement.setString(2, fecha);
-	        statement.setString(3, hora);
-	        statement.setString(4, docDoctor);
-	        statement.setString(5, documento);
+		try {
+			conectarConBBDD();
+			PreparedStatement statement = obtenerConexion().prepareStatement(consulta);
+			statement.setString(1, motivo);
+			statement.setString(2, fecha);
+			statement.setString(3, hora);
+			statement.setString(4, docDoctor);
+			statement.setString(5, documento);
 
-	        int filasAfectadas = statement.executeUpdate();
+			int filasAfectadas = statement.executeUpdate();
 
-	        if (filasAfectadas > 0) {
-	            JOptionPane.showMessageDialog(null, "Datos de la cita actualizados correctamente", "Éxito",
-	                    JOptionPane.INFORMATION_MESSAGE);
-	        } else {
-	            JOptionPane.showMessageDialog(null, "Error al actualizar datos de la cita", "Error",
-	                    JOptionPane.ERROR_MESSAGE);
-	        }
+			if (filasAfectadas > 0) {
+				JOptionPane.showMessageDialog(null, "Datos de la cita actualizados correctamente", "Éxito",
+						JOptionPane.INFORMATION_MESSAGE);
+			} else {
+				JOptionPane.showMessageDialog(null, "Error al actualizar datos de la cita", "Error",
+						JOptionPane.ERROR_MESSAGE);
+			}
 
-	        // Cierra los recursos
-	        statement.close();
-	        cerrarConexion();
+			// Cierra los recursos
+			statement.close();
+			cerrarConexion();
 
-	    } catch (SQLException ex) {
-	        ex.printStackTrace();
-	        JOptionPane.showMessageDialog(null, "Error SQL al actualizar datos de la cita", "Error",
-	                JOptionPane.ERROR_MESSAGE);
-	    }
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Error SQL al actualizar datos de la cita", "Error",
+					JOptionPane.ERROR_MESSAGE);
+		}
 	}
-	
+
 	public void actualizarDatosMaterial(String nombre, String cantidad, String precio) {
-	    // Lógica para actualizar los datos en la base de datos
-	    String consulta = "UPDATE material SET nombre = ?, cantidad = ?, precio = ?";
+		// Lógica para actualizar los datos en la base de datos
+		String consulta = "UPDATE material SET nombre = ?, cantidad = ?, precio = ?";
 
-	    try {
-	        conectarConBBDD();
-	        PreparedStatement statement = obtenerConexion().prepareStatement(consulta);
-	        statement.setString(1, nombre);
-	        statement.setString(2, cantidad);
-	        statement.setString(3, precio);
+		try {
+			conectarConBBDD();
+			PreparedStatement statement = obtenerConexion().prepareStatement(consulta);
+			statement.setString(1, nombre);
+			statement.setString(2, cantidad);
+			statement.setString(3, precio);
 
-	        int filasAfectadas = statement.executeUpdate();
+			int filasAfectadas = statement.executeUpdate();
 
-	        if (filasAfectadas > 0) {
-	            JOptionPane.showMessageDialog(null, "Datos actualizados correctamente", "Éxito",
-	                    JOptionPane.INFORMATION_MESSAGE);
-	        } else {
-	            JOptionPane.showMessageDialog(null, "Error al actualizar datos", "Error",
-	                    JOptionPane.ERROR_MESSAGE);
-	        }
+			if (filasAfectadas > 0) {
+				JOptionPane.showMessageDialog(null, "Datos actualizados correctamente", "Éxito",
+						JOptionPane.INFORMATION_MESSAGE);
+			} else {
+				JOptionPane.showMessageDialog(null, "Error al actualizar datos", "Error", JOptionPane.ERROR_MESSAGE);
+			}
 
-	        // Cierra los recursos
-	        statement.close();
-	        cerrarConexion();
+			// Cierra los recursos
+			statement.close();
+			cerrarConexion();
 
-	    } catch (SQLException ex) {
-	        ex.printStackTrace();
-	        JOptionPane.showMessageDialog(null, "Error SQL al actualizar datos", "Error",
-	                JOptionPane.ERROR_MESSAGE);
-	    }
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Error SQL al actualizar datos", "Error", JOptionPane.ERROR_MESSAGE);
+		}
 	}
 
 	public void realizarBusqueda(String criterio, DefaultTableModel modeloTabla) {
@@ -540,7 +537,7 @@ public class ConectorBBDD {
 				int filasAfectadas = statement.executeUpdate();
 
 				if (filasAfectadas > 0) {
-					
+
 					JOptionPane.showMessageDialog(null, "Paciente insertado correctamente", "Éxito",
 							JOptionPane.INFORMATION_MESSAGE);
 				} else {
@@ -737,7 +734,7 @@ public class ConectorBBDD {
 
 			// Condicional para controlar si es admin o es doctor
 			if (resultSet.next()) {
-				
+
 				// Rol
 				String rol = resultSet.getString("rol");
 
@@ -749,7 +746,7 @@ public class ConectorBBDD {
 					ventanaPrincipal.setLocationRelativeTo(null);
 					ventanaPrincipal.setVisible(true);
 					new VentanaEspectador().setVisible(false); // Se oculta la ventana de doctores
-					
+
 				} else if ("doctor".equals(rol)) {
 					credencialesValidas = true;
 					new VentanaEspectador().setVisible(true);
@@ -830,74 +827,72 @@ public class ConectorBBDD {
 
 	// Método para cargar el odontograma por documento
 	public List<ModeloDiente> cargarOdontogramaPorDocumento(int idPaciente) {
-        List<ModeloDiente> odontograma = new ArrayList<>();
+		List<ModeloDiente> odontograma = new ArrayList<>();
 
-        // Consulta SQL para obtener el odontograma del paciente
-        String consulta = "SELECT D.id_diente, D.numero_diente, D.descripcion " +
-                "FROM dentilax.odontograma O " +
-                "JOIN dentilax.diente D ON O.id_diente = D.id_diente " +
-                "WHERE D.idPaciente = ?";
+		// Consulta SQL para obtener el odontograma del paciente
+		String consulta = "SELECT D.id_diente, D.numero_diente, D.descripcion " + "FROM dentilax.odontograma O "
+				+ "JOIN dentilax.diente D ON O.id_diente = D.id_diente " + "WHERE D.idPaciente = ?";
 
+		try (Connection conexion = obtenerConexion();
+				PreparedStatement statement = conexion.prepareStatement(consulta)) {
 
-        try (Connection conexion = obtenerConexion();
-             PreparedStatement statement = conexion.prepareStatement(consulta)) {
+			// Establecer el parámetro (idPaciente) en la consulta
+			statement.setInt(1, idPaciente);
 
-            // Establecer el parámetro (idPaciente) en la consulta
-            statement.setInt(1, idPaciente);
+			// Ejecutar la consulta
+			try (ResultSet resultado = statement.executeQuery()) {
+				// Recorrer el resultado y construir la lista de ModeloDiente
+				while (resultado.next()) {
+					int idDiente = resultado.getInt("id_diente");
+					int numeroDiente = resultado.getInt("numero_diente");
+					String descripcion = resultado.getString("descripcion");
 
-            // Ejecutar la consulta
-            try (ResultSet resultado = statement.executeQuery()) {
-                // Recorrer el resultado y construir la lista de ModeloDiente
-                while (resultado.next()) {
-                    int idDiente = resultado.getInt("id_diente");
-                    int numeroDiente = resultado.getInt("numero_diente");
-                    String descripcion = resultado.getString("descripcion");
+					// Crear un nuevo objeto ModeloDiente con los valores obtenidos de la base de
+					// datos
+					ModeloDiente diente = new ModeloDiente(idDiente, numeroDiente, descripcion, idPaciente);
+					odontograma.add(diente);
+				}
+			}
 
-                    // Crear un nuevo objeto ModeloDiente con los valores obtenidos de la base de datos
-                    ModeloDiente diente = new ModeloDiente(idDiente, numeroDiente, descripcion, idPaciente);
-                    odontograma.add(diente);
-                }
-            }
+		} catch (SQLException e) {
+			e.printStackTrace();
+			// Puedes manejar la excepción según tus necesidades (lanzarla, loggearla, etc.)
+		}
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-            // Puedes manejar la excepción según tus necesidades (lanzarla, loggearla, etc.)
-        }
-
-        return odontograma;
-    }
-
-	public void actualizarDescripcion(int idDiente, String nuevaDescripcion) {
-	    String consulta = "UPDATE dentilax.diente SET descripcion = ? WHERE id_diente = ?";
-
-	    try {
-	        
-	        try (Connection conexion = obtenerConexion();
-	             PreparedStatement statement = conexion.prepareStatement(consulta)) {
-
-	            // Establecer los parámetros en la consulta
-	            statement.setString(1, nuevaDescripcion);
-	            statement.setInt(2, idDiente);
-
-	            // Ejecutar la actualización
-	            int filasActualizadas = statement.executeUpdate();
-
-	            if (filasActualizadas > 0) {
-	                System.out.println("Descripción actualizada en la base de datos para el diente con ID: " + idDiente);
-	            } else {
-	                System.out.println("No se pudo actualizar la descripción en la base de datos para el diente con ID: " + idDiente);
-	            }
-	        }
-	        
-	        System.out.println("Después de la actualización en la base de datos para el diente con ID: " + idDiente);
-
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	        System.out.println("Error al actualizar la descripción en la base de datos para el diente con ID: " + idDiente);
-	    }
+		return odontograma;
 	}
 
+	// Método para guardar la descripción; los cambios realizados se actualizan en
+	// la BBDD
+	public void actualizarDescripcion(int idDiente, String nuevaDescripcion) {
+		String consulta = "UPDATE dentilax.diente SET descripcion = ? WHERE id_diente = ?";
 
+		try {
+
+			try (Connection conexion = obtenerConexion();
+					PreparedStatement statement = conexion.prepareStatement(consulta)) {
+
+				// Establecer los parámetros en la consulta
+				statement.setString(1, nuevaDescripcion);
+				statement.setInt(2, idDiente);
+
+				// Ejecutar la actualización
+				int filasActualizadas = statement.executeUpdate();
+
+				if (filasActualizadas > 0) {
+					JOptionPane.showMessageDialog(null, "Descripción actualizada para el diente con ID: " + idDiente);
+				} else {
+					JOptionPane.showMessageDialog(null, "Actualización fallida para el diente con ID: " + idDiente);
+				}
+
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println(
+					"Error al actualizar la descripción en la base de datos para el diente con ID: " + idDiente);
+		}
+	}
 
 	// listaBotonesDientes((nDiente-1)) //
 

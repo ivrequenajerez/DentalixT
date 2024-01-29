@@ -38,6 +38,7 @@ public class VentanaOdontograma extends JFrame {
 	private static JFrame VentanaOdontograma;
 	private JTextField textFieldNDiente;
 	private JTextField textFieldDescrip;
+	VentanaPrincipal ventanaPrincipal = new VentanaPrincipal();
 
 	/**
 	 * Launch the application.
@@ -275,17 +276,7 @@ public class VentanaOdontograma extends JFrame {
 
 		conexionBD = new ConectorBBDD();
 
-		String numeroDocumento = JOptionPane.showInputDialog("Ingrese el número del documento:");
-		if (numeroDocumento != null) {
-			// El usuario ingresó un número de documento
-			mostrar(numeroDocumento);
-		} else {
-			// El usuario canceló la operación
-			System.exit(0); 
-		}
-
 		// BOTON GUARDAR
-
 		java.net.URL imgUrl17 = getClass().getResource("/save.png");
 		ImageIcon icon17 = new ImageIcon(imgUrl17);
 		JButton btGuardar = new JButton(icon17);
@@ -302,11 +293,6 @@ public class VentanaOdontograma extends JFrame {
 		                // Actualizar la descripción en la base de datos
 		                conexionBD.actualizarDescripcion(diente.getIdDiente(), textFieldDescrip.getText());
 
-		                // Puedes agregar un mensaje en la consola para indicar que se ha actualizado en
-		                // la base de datos
-		                System.out.println("Descripción actualizada en la base de datos para el diente con ID: "
-		                        + diente.getIdDiente());
-
 		                break; // Terminar el bucle una vez que se encuentra y actualiza el diente.
 		            }
 		        }
@@ -317,7 +303,6 @@ public class VentanaOdontograma extends JFrame {
 		contentPane.add(btGuardar);
 
 		// BOTON ELIMINAR
-
 		java.net.URL imgUrl18 = getClass().getResource("/eliminar.png");
 		ImageIcon icon18 = new ImageIcon(imgUrl18);
 
@@ -330,17 +315,18 @@ public class VentanaOdontograma extends JFrame {
 
 					if (diente.getnDiente() == nDientePulsado) {
 						diente.setDescripcion("");
-						textFieldNDiente.setText(diente.toString());
+						textFieldDescrip.setText("");
+						JOptionPane.showMessageDialog(null, "Descripción borrada. Haga click en ✔️ para guardar los datos.");
 					}
 				}
 
 			}
 		});
+		
 		btEliminar.setBounds(502, 560, 121, 66);
 		contentPane.add(btEliminar);
 
 		// BOTON VOLVER
-
 		java.net.URL imgUrl19 = getClass().getResource("/volverIcono.png");
 		ImageIcon icon19 = new ImageIcon(imgUrl19);
 
@@ -349,9 +335,8 @@ public class VentanaOdontograma extends JFrame {
 
 		btVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//
-
-				VentanaPrincipal ventanaPrincipal = new VentanaPrincipal();
+				
+				setVisible(false);
 				ventanaPrincipal.setVisible(true);
 				ventanaPrincipal.setLocationRelativeTo(null);
 
@@ -392,7 +377,6 @@ public class VentanaOdontograma extends JFrame {
 
 	        // recorro los dientes para asignarle el boton que le corresponde
 	        for (ModeloDiente diente : listaDientes) {
-	            System.out.println(diente.toString());
 
 	            // jbutton del diente correspondiente
 	            JButton dienteAux = listaBotonesDiente.get(diente.getnDiente() - 1);
