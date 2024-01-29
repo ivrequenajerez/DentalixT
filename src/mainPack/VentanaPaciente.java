@@ -1,5 +1,24 @@
 package mainPack;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 import javax.swing.border.EmptyBorder;
 
 import database.ConectorBBDD;
@@ -11,9 +30,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-public class Paciente extends JPanel {
+import database.ConectorBBDD;
 
+public class VentanaPaciente extends JFrame {
+
+	// Variables
 	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
 	private static final Font fuenteLabel = new Font("Montserrat", Font.PLAIN, 20);
 	private static final Font fuenteGrande = new Font("Montserrat", Font.PLAIN, 50);
 	int yPosition = 40;
@@ -25,17 +48,38 @@ public class Paciente extends JPanel {
 	ConectorBBDD conectorBBDDD;
 
 	/**
-	 * Create the panel.
+	 * Launch the application.
 	 */
-	public Paciente() {
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					VentanaPaciente frame = new VentanaPaciente();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 
-		// Código existente...
+	/**
+	 * Create the frame.
+	 */
+	public VentanaPaciente() {
+		setBounds(100, 100, 450, 300);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		setContentPane(contentPane);
+
+		//
+
 		setBounds(0, -1, 1179, 691);
-		setBorder(new EmptyBorder(5, 5, 5, 5));
 		setBackground(Color.WHITE);
-		setLayout(null);
+		getContentPane().setLayout(null);
 		setBackground(Color.decode("#008cce"));
-		setLayout(null); // Layout nulo para posicionar manualmente los componentes
+		getContentPane().setLayout(null); // Layout nulo para posicionar manualmente los componentes
 
 		// BOTON GUARDAR
 		java.net.URL imgUrl11 = getClass().getResource("/save.png");
@@ -53,7 +97,7 @@ public class Paciente extends JPanel {
 
 		JScrollPane editarPanel = new JScrollPane();
 		editarPanel.setBounds(0, -1, 1179, 691);
-		this.add(editarPanel);
+		getContentPane().add(editarPanel);
 
 		// Panel donde están los labels
 		JPanel panel = new JPanel(); // PANEL DONDE ESTAN LOS LABELS
@@ -205,7 +249,7 @@ public class Paciente extends JPanel {
 		labelPaciente.setFont(fuenteGrande);
 
 		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(591, 593, 592, 75);
+		panel_1.setBounds(591, 550, 592, 75);
 		panel_1.setForeground(Color.BLACK);
 		panel_1.setBorder(null);
 		panel_1.setBackground(new Color(70, 130, 180));
@@ -246,7 +290,7 @@ public class Paciente extends JPanel {
 				}
 			}
 		});
-		
+
 		// BOTÓN VOLVER
 		JButton btnVolver = new JButton(icon13);
 		btnVolver.addActionListener(new ActionListener() {

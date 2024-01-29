@@ -51,7 +51,7 @@ public class VentanaPrincipal extends JFrame {
 	private JPanel contentPane;
 	private JLabel bienvenido;
 	private JLabel texto1;
-	private JButton playBoton;
+	private JButton botonSalir;
 	private ConectorBBDD conector = new ConectorBBDD();
 	private JTextField fieldBuscar;
 	private static JFrame VentanaPrincipal;
@@ -187,9 +187,9 @@ public class VentanaPrincipal extends JFrame {
 		panelComponentes.add(fieldBuscar);
 
 		// Botón Añadir (PACIENTES)
-		JButton botonAñadir = new JButton("AÑADIR PACIENTE");
-		botonAñadir.setBounds(22, 40, 97, 21);
-		panelComponentes.add(botonAñadir);
+		JButton botonAñadirPaciente = new JButton("AÑADIR PACIENTE");
+		botonAñadirPaciente.setBounds(22, 40, 97, 21);
+		panelComponentes.add(botonAñadirPaciente);
 
 		// Botón Editar
 		JButton botonEditar = new JButton("EDITAR");
@@ -265,9 +265,9 @@ public class VentanaPrincipal extends JFrame {
 		panelMenuDer4.setBounds(1038, 0, 141, 691);
 
 		panelComponentes.setBackground(new Color(0, 140, 206));
-		botonAñadir.setBackground(Color.WHITE);
-		botonAñadir.setForeground(new Color(0, 140, 206));
-		botonAñadir.setFont(new Font("Montserrat", Font.BOLD, 12));
+		botonAñadirPaciente.setBackground(Color.WHITE);
+		botonAñadirPaciente.setForeground(new Color(0, 140, 206));
+		botonAñadirPaciente.setFont(new Font("Montserrat", Font.BOLD, 12));
 		botonEditar.setBackground(Color.WHITE);
 		botonEditar.setForeground(new Color(0, 140, 206));
 		botonEditar.setFont(new Font("Montserrat", Font.BOLD, 12));
@@ -464,13 +464,13 @@ public class VentanaPrincipal extends JFrame {
 		JPanel ventanaPanel = new JPanel();
 
 		// Instancia ventanas
-		Paciente ventanaPaciente = new Paciente();
+		VentanaPaciente ventanaPaciente = new VentanaPaciente();
 		Doctor ventanaDoctor = new Doctor();
 		VentanaCitas ventanaCita = new VentanaCitas();
 		VentanaMaterial ventanaMaterial = new VentanaMaterial();
 
 		// Añadir paciente
-		botonAñadir.addActionListener(new ActionListener() {
+		botonAñadirPaciente.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
@@ -537,7 +537,7 @@ public class VentanaPrincipal extends JFrame {
 					// Actualizar el texto de labelPaciente con el nombre y apellidos
 					bienvenido.setVisible(false);
 					texto1.setVisible(false);
-					playBoton.setVisible(false);
+					botonSalir.setVisible(false);
 					dispose();
 
 					// Instancia y muestra la nueva ventana PacienteCRUD
@@ -573,7 +573,7 @@ public class VentanaPrincipal extends JFrame {
 
 					bienvenido.setVisible(false);
 					texto1.setVisible(false);
-					playBoton.setVisible(false);
+					botonSalir.setVisible(false);
 					dispose();
 
 					ventanaDoctor.setVisible(true);
@@ -606,7 +606,7 @@ public class VentanaPrincipal extends JFrame {
 
 					bienvenido.setVisible(false);
 					texto1.setVisible(false);
-					playBoton.setVisible(false);
+					botonSalir.setVisible(false);
 					dispose();
 
 					ventanaCita.setVisible(true);
@@ -675,7 +675,7 @@ public class VentanaPrincipal extends JFrame {
 
 					bienvenido.setVisible(false);
 					texto1.setVisible(false);
-					playBoton.setVisible(false);
+					botonSalir.setVisible(false);
 					dispose();
 
 					ventanaMaterial.setVisible(true);
@@ -744,7 +744,7 @@ public class VentanaPrincipal extends JFrame {
 					// Se oculta lo que estaba antes en el "panel principal", por llamarlo así
 					bienvenido.setVisible(false);
 					texto1.setVisible(false);
-					playBoton.setVisible(false);
+					botonSalir.setVisible(false);
 					/*
 					 * // Si la conexión a la base de datos es correcta, se cargan los datos de la
 					 * // tabla paciente de la bbdd en nuestra tabla
@@ -788,7 +788,7 @@ public class VentanaPrincipal extends JFrame {
 					// Se oculta lo que estaba antes en el "panel principal", por llamarlo así
 					bienvenido.setVisible(false);
 					texto1.setVisible(false);
-					playBoton.setVisible(false);
+					botonSalir.setVisible(false);
 
 					// Si la conexión a la base de datos es correcta, se cargan los datos de la
 					// tabla paciente de la bbdd en nuestra tabla
@@ -829,7 +829,7 @@ public class VentanaPrincipal extends JFrame {
 
 					bienvenido.setVisible(false);
 					texto1.setVisible(false);
-					playBoton.setVisible(false);
+					botonSalir.setVisible(false);
 					if (conector.conexion != null) {
 						conector.cargarDatosCitas(modeloTabla);
 						tablasPanel.setVisible(true);
@@ -868,7 +868,7 @@ public class VentanaPrincipal extends JFrame {
 
 					bienvenido.setVisible(false);
 					texto1.setVisible(false);
-					playBoton.setVisible(false);
+					botonSalir.setVisible(false);
 					if (conector.conexion != null) {
 						conector.cargarDatosMaterial(modeloTabla);
 						tablasPanel.setVisible(true);
@@ -904,7 +904,7 @@ public class VentanaPrincipal extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				bienvenido.setVisible(false);
 				texto1.setVisible(false);
-				playBoton.setVisible(false);
+				botonSalir.setVisible(false);
 			}
 		});
 
@@ -922,7 +922,7 @@ public class VentanaPrincipal extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				bienvenido.setVisible(false);
 				texto1.setVisible(false);
-				playBoton.setVisible(false);
+				botonSalir.setVisible(false);
 			}
 		});
 
@@ -940,7 +940,7 @@ public class VentanaPrincipal extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				bienvenido.setVisible(false);
 				texto1.setVisible(false);
-				playBoton.setVisible(false);
+				botonSalir.setVisible(false);
 			}
 		});
 
@@ -958,7 +958,7 @@ public class VentanaPrincipal extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				bienvenido.setVisible(false);
 				texto1.setVisible(false);
-				playBoton.setVisible(false);
+				botonSalir.setVisible(false);
 			}
 		});
 
@@ -1027,19 +1027,19 @@ public class VentanaPrincipal extends JFrame {
 		contentPane.add(bienvenido);
 
 		texto1 = new JLabel(
-				"<html><div align='center'>Pulsa para un tutorial corto y te<br>mostramos cómo utilizar la<br> aplicación</div></html>");
+				"<html><div align='center'>Pulsa para salir <br>al inicio de la <br> aplicación</div></html>");
 		texto1.setHorizontalAlignment(SwingConstants.CENTER);
 		texto1.setFont(new Font("Montserrat Medium", Font.PLAIN, 20));
-		texto1.setBounds(499, 282, 421, 109);
+		texto1.setBounds(499, 270, 421, 109);
 		contentPane.add(texto1);
 
-		java.net.URL imgUrl11 = getClass().getResource("/play.png");
+		java.net.URL imgUrl11 = getClass().getResource("/salir.png");
 		Icon icon11 = new ImageIcon(imgUrl11);
-		playBoton = new JButton(icon11);
-		playBoton.setBounds(679, 400, 57, 55);
-		playBoton.setPreferredSize(new Dimension(icon10.getIconWidth(), icon10.getIconHeight()));
-		playBoton.setBackground(Color.WHITE);
-		contentPane.add(playBoton);
+		botonSalir = new JButton(icon11);
+		botonSalir.setBounds(679, 370, 57, 55);
+		botonSalir.setPreferredSize(new Dimension(icon10.getIconWidth(), icon10.getIconHeight()));
+		botonSalir.setBackground(Color.WHITE);
+		contentPane.add(botonSalir);
 
 		// JMENU BAR JITEM ETC
 
@@ -1067,7 +1067,7 @@ public class VentanaPrincipal extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				bienvenido.setVisible(false);
 				texto1.setVisible(false);
-				playBoton.setVisible(false);
+				botonSalir.setVisible(false);
 				tablasPanel.setVisible(false);
 				ventanaPanel.add(ventanaPaciente);
 				ventanaPanel.setVisible(true);
@@ -1147,7 +1147,7 @@ public class VentanaPrincipal extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				bienvenido.setVisible(false);
 				texto1.setVisible(false);
-				playBoton.setVisible(false);
+				botonSalir.setVisible(false);
 				tablasPanel.setVisible(false);
 				ventanaPanel.add(ventanaDoctor);
 				ventanaPanel.setVisible(true);
@@ -1160,7 +1160,7 @@ public class VentanaPrincipal extends JFrame {
 
 				bienvenido.setVisible(true);
 				texto1.setVisible(true);
-				playBoton.setVisible(true);
+				botonSalir.setVisible(true);
 				ventanaPanel.setVisible(false);
 				tablasPanel.setVisible(false);
 			}
@@ -1178,7 +1178,7 @@ public class VentanaPrincipal extends JFrame {
 			}
 		});
 
-		playBoton.addMouseListener(new MouseAdapter() {
+		botonSalir.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -1190,66 +1190,67 @@ public class VentanaPrincipal extends JFrame {
 			}
 		});
 
-		playBoton.addActionListener(new ActionListener() {
+		botonSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String videoPath = "C:\\Users\\ianre\\git\\DentalixTeam\\recursos\\tutorial1.mkv";
 
-				try {
-					Desktop.getDesktop().open(new File(videoPath));
-				} catch (IOException ex) {
-					ex.printStackTrace();
-				}
+				setVisible(false);
+				pantallaInicial inicio = new pantallaInicial();
+				inicio.setVisible(true);
+
 			}
 		});
 
 	}
 
 	private boolean esNumeroDocumentoValido(String numeroDocumento) {
-	    // Verificar si el número de documento contiene solo números y letras
-	    if (!numeroDocumento.matches("^[a-zA-Z0-9]+$")) {
-	        // Si no cumple el formato, retorna falso
-	        return false;
-	    }
+		// Verificar si el número de documento contiene solo números y letras
+		if (!numeroDocumento.matches("^[a-zA-Z0-9]+$")) {
+			// Si no cumple el formato, retorna falso
+			return false;
+		}
 
-	    // Utilizar la instancia existente de ConectorBBDD
-	    ConectorBBDD conexionBD = ConectorBBDD.getInstancia();
-	    Connection conexion = null;
-	    PreparedStatement statement = null;
-	    ResultSet resultSet = null;
+		// Utilizar la instancia existente de ConectorBBDD
+		ConectorBBDD conexionBD = ConectorBBDD.getInstancia();
+		Connection conexion = null;
+		PreparedStatement statement = null;
+		ResultSet resultSet = null;
 
-	    try {
-	        // Abrir la conexión
-	        conexion = conexionBD.obtenerConexion();
+		try {
+			// Abrir la conexión
+			conexion = conexionBD.obtenerConexion();
 
-	        // Consulta SQL para verificar la existencia del número de documento en la tabla dentilax.paciente
-	        String consulta = "SELECT COUNT(*) FROM dentilax.paciente WHERE idPaciente = ?";
-	        statement = conexion.prepareStatement(consulta);
-	        statement.setString(1, numeroDocumento);
+			// Consulta SQL para verificar la existencia del número de documento en la tabla
+			// dentilax.paciente
+			String consulta = "SELECT COUNT(*) FROM dentilax.paciente WHERE idPaciente = ?";
+			statement = conexion.prepareStatement(consulta);
+			statement.setString(1, numeroDocumento);
 
-	        // Ejecutar la consulta
-	        resultSet = statement.executeQuery();
+			// Ejecutar la consulta
+			resultSet = statement.executeQuery();
 
-	        // Obtener el resultado de la consulta
-	        if (resultSet.next()) {
-	            int count = resultSet.getInt(1);
-	            return count > 0; // Si count > 0, el número de documento existe en la base de datos
-	        }
+			// Obtener el resultado de la consulta
+			if (resultSet.next()) {
+				int count = resultSet.getInt(1);
+				return count > 0; // Si count > 0, el número de documento existe en la base de datos
+			}
 
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	    } finally {
-	        // Cerrar recursos
-	        try {
-	            if (resultSet != null) resultSet.close();
-	            if (statement != null) statement.close();
-	        } catch (SQLException e) {
-	            e.printStackTrace();
-	        }
-	    }
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// Cerrar recursos
+			try {
+				if (resultSet != null)
+					resultSet.close();
+				if (statement != null)
+					statement.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 
-	    // En caso de error o si no se encuentra el número de documento en la base de datos
-	    return false;
+		// En caso de error o si no se encuentra el número de documento en la base de
+		// datos
+		return false;
 	}
-
 
 }

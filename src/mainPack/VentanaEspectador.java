@@ -111,7 +111,7 @@ public class VentanaEspectador extends JFrame {
 		JButton button1 = new JButton(icon);
 		button1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Paciente pacienteCRUD = new Paciente();
+				VentanaPaciente pacienteCRUD = new VentanaPaciente();
 				pacienteCRUD.setVisible(true);
 
 			}

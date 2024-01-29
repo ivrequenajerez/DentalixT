@@ -25,6 +25,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import java.awt.Font;
 
 public class VentanaOdontograma extends JFrame {
 
@@ -36,8 +37,8 @@ public class VentanaOdontograma extends JFrame {
 	protected List<ModeloDiente> listaDientes;
 	public ConectorBBDD conexionBD;
 	private static JFrame VentanaOdontograma;
-	private JTextField textFieldNDiente;
 	private JTextField textFieldDescrip;
+	private JLabel lblNDiente;
 	VentanaPrincipal ventanaPrincipal = new VentanaPrincipal();
 
 	/**
@@ -346,23 +347,26 @@ public class VentanaOdontograma extends JFrame {
 		btVolver.setBounds(667, 560, 121, 66);
 		contentPane.add(btVolver);
 		
-		textFieldNDiente = new JTextField();
-		textFieldNDiente.setBounds(502, 454, 96, 19);
-		contentPane.add(textFieldNDiente);
-		textFieldNDiente.setColumns(10);
-		
 		textFieldDescrip = new JTextField();
-		textFieldDescrip.setBounds(502, 483, 96, 19);
+		textFieldDescrip.setFont(new Font("Montserrat", Font.PLAIN, 12));
+		textFieldDescrip.setBounds(302, 483, 300, 67);
 		contentPane.add(textFieldDescrip);
 		textFieldDescrip.setColumns(10);
 		
-		JLabel lblNewLabel_16 = new JLabel("N Diente");
-		lblNewLabel_16.setBounds(423, 457, 45, 13);
+		JLabel lblNewLabel_16 = new JLabel("Número:");
+		lblNewLabel_16.setFont(new Font("Montserrat", Font.BOLD, 20));
+		lblNewLabel_16.setBounds(152, 442, 121, 16);
 		contentPane.add(lblNewLabel_16);
 		
-		JLabel lblNewLabel_17 = new JLabel("Descrip");
-		lblNewLabel_17.setBounds(423, 486, 45, 13);
+		JLabel lblNewLabel_17 = new JLabel("Descripción:");
+		lblNewLabel_17.setFont(new Font("Montserrat", Font.BOLD, 20));
+		lblNewLabel_17.setBounds(152, 483, 133, 19);
 		contentPane.add(lblNewLabel_17);
+		
+		lblNDiente = new JLabel("New label");
+		lblNDiente.setFont(new Font("Montserrat", Font.PLAIN, 12));
+		lblNDiente.setBounds(305, 447, 77, 13);
+		contentPane.add(lblNDiente);
 
 	}
 
@@ -383,8 +387,7 @@ public class VentanaOdontograma extends JFrame {
 
 	            dienteAux.addActionListener(new ActionListener() {
 	                public void actionPerformed(ActionEvent e) {
-	                    // Mostrar el número del diente en textFieldNDiente
-	                    textFieldNDiente.setText(String.valueOf(diente.getnDiente()));
+	                	lblNDiente.setText(String.valueOf(diente.getnDiente()));
 	                    // Mostrar la descripción del diente en textFieldDescrip
 	                    textFieldDescrip.setText(diente.getDescripcion());
 
