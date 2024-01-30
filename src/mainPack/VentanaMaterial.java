@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -54,7 +55,7 @@ public class VentanaMaterial extends JFrame {
 	 * Create the frame.
 	 */
 	public VentanaMaterial() {
-		
+
 		// BOTON GUARDAR
 
 		java.net.URL imgUrl11 = getClass().getResource("/save.png");
@@ -90,25 +91,22 @@ public class VentanaMaterial extends JFrame {
 		JLabel labelImagen = new JLabel(imagen1);
 		labelImagen.setBounds(77, 119, 512, 512);
 		panel.add(labelImagen);
-		
+
 		JLabel lblNewLabel = new JLabel("Nombre");
 		lblNewLabel.setFont(new Font("Montserrat", Font.BOLD, 18));
 		lblNewLabel.setBounds(727, 187, 164, 35);
 		panel.add(lblNewLabel);
-		
+
 		JLabel lblCantidad = new JLabel("Cantidad");
 		lblCantidad.setFont(new Font("Montserrat", Font.BOLD, 18));
 		lblCantidad.setBounds(727, 259, 164, 35);
 		panel.add(lblCantidad);
-		
+
 		JLabel lblPrecio = new JLabel("Precio\r\n\r\n");
 		lblPrecio.setFont(new Font("Montserrat", Font.BOLD, 18));
 		lblPrecio.setBounds(727, 327, 164, 35);
 		panel.add(lblPrecio);
-		
-		
-		
-		
+
 		JPanel panel_1 = new JPanel();
 		panel_1.setBounds(698, 522, 480, 76);
 		panel_1.setForeground(Color.BLACK);
@@ -117,9 +115,7 @@ public class VentanaMaterial extends JFrame {
 		panel.add(panel_1);
 		panel_1.setLayout(null);
 		panel_1.setBackground(Color.decode("#FFFFFF"));
-		
-		
-		
+
 		// BOTÓN GUARDAR
 		JButton btnGuardar = new JButton(icon11);
 
@@ -134,14 +130,13 @@ public class VentanaMaterial extends JFrame {
 				String cantidad = textField_cantidad.getText();
 				String precio = textField_precio.getText();
 
-
-				if (nombre.isEmpty() || cantidad.isEmpty() || precio.isEmpty() ) {
+				if (nombre.isEmpty() || cantidad.isEmpty() || precio.isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Rellena todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
 				} else if (!nombre.isEmpty() && !cantidad.isEmpty() && !precio.isEmpty()) {
-		            // Ejecutar la función para actualizar los datos en la base de datos
-		            conectorBBDD.actualizarDatosMaterial(nombre, cantidad, precio);
-		            
-		        }else {
+					// Ejecutar la función para actualizar los datos en la base de datos
+					conectorBBDD.actualizarDatosMaterial(nombre, cantidad, precio);
+
+				} else {
 					// Crear una instancia de ConectorBBDD (asegúrate de que sea accesible desde
 					// esta clase)
 
@@ -151,8 +146,7 @@ public class VentanaMaterial extends JFrame {
 				}
 			}
 		});
-		
-		
+
 		// BOTÓN ELIMINAR
 		JButton btnEliminar = new JButton(icon12);
 		btnEliminar.addActionListener(new ActionListener() {
@@ -162,43 +156,52 @@ public class VentanaMaterial extends JFrame {
 				textField_cantidad.setText("");
 				textField_precio.setText("");
 
-
 			}
 		});
 		btnEliminar.setBounds(202, 11, 78, 54);
 		panel_1.add(btnEliminar);
 		btnEliminar.setPreferredSize(new Dimension(96, 96));
 		btnEliminar.setContentAreaFilled(false);
-		
-		
-		
-		
-		
+
 		// BOTÓN VOLVER
 		JButton btnVolver = new JButton(icon13);
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				VentanaPrincipal ventanaPrincipall = new VentanaPrincipal();
-				ventanaPrincipall.setVisible(true);
+				VentanaPrincipal ventanaPrincipal = new VentanaPrincipal();
+				// Posicionar la ventana en el centro
+				ventanaPrincipal.setLocationRelativeTo(null);
+				// Ajuste para que no se pueda cambiar el tamaño de la ventana
+				ventanaPrincipal.setResizable(false);
+				// Icono pequeño para la ventana (superior izq)
+				ventanaPrincipal.setIconImage(
+						Toolkit.getDefaultToolkit().getImage(VentanaInicial.class.getResource("/logoAzul.png")));
+				// Se hace visible la ventana
+				ventanaPrincipal.setVisible(true);
+
+				// Cargar la lista de materiales
+				ventanaPrincipal.getButton4().doClick();
+				ventanaPrincipal.getButton4().setVisible(true);
+
+				dispose();
 
 			}
 		});
-		
+
 		btnVolver.setBounds(392, 11, 78, 54);
 		panel_1.add(btnVolver);
 		btnVolver.setPreferredSize(new Dimension(96, 96));
 		btnVolver.setContentAreaFilled(false);
-		
+
 		textField_nombre = new JTextField();
 		textField_nombre.setBounds(873, 183, 257, 48);
 		panel.add(textField_nombre);
 		textField_nombre.setColumns(10);
-		
+
 		textField_cantidad = new JTextField();
 		textField_cantidad.setColumns(10);
 		textField_cantidad.setBounds(873, 259, 257, 48);
-		
+
 		textField_cantidad.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
@@ -216,14 +219,10 @@ public class VentanaMaterial extends JFrame {
 		});
 		panel.add(textField_cantidad);
 
-
-		
-		
-		
 		textField_precio = new JTextField();
 		textField_precio.setColumns(10);
 		textField_precio.setBounds(873, 327, 257, 48);
-		
+
 		textField_precio.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
@@ -240,10 +239,9 @@ public class VentanaMaterial extends JFrame {
 			}
 		});
 		panel.add(textField_precio);
-		
-		
-	
+
 	}
+
 	public JLabel getlabelMateriales() {
 		return labelMateriales;
 	}
