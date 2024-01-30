@@ -38,7 +38,7 @@ import javax.swing.JMenuBar;
 import javax.swing.KeyStroke;
 import java.awt.event.InputEvent;
 
-public class Doctor extends JPanel {
+public class VentanaDoctor extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private static final Font fuenteLabel = new Font("Montserrat", Font.PLAIN, 20);
@@ -55,7 +55,7 @@ public class Doctor extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public Doctor() {
+	public VentanaDoctor() {
 
 		// Código existente...
 		setBounds(0, -1, 1179, 691);

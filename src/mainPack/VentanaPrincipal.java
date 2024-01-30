@@ -61,6 +61,8 @@ public class VentanaPrincipal extends JFrame {
 	private JTextField fieldBuscar;
 	private static JFrame VentanaPrincipal;
 	private JButton button1;
+	private JButton button2;
+	private JButton button3;
 
 	/**
 	 * Autores: David Andrade Pablo Rodriguez Ian Requena 2023
@@ -473,7 +475,7 @@ public class VentanaPrincipal extends JFrame {
 		ventanaPaciente
 				.setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaInicial.class.getResource("/logoAzul.png")));
 		ventanaPaciente.setLocationRelativeTo(null);
-		Doctor ventanaDoctor = new Doctor();
+		VentanaDoctor ventanaDoctor = new VentanaDoctor();
 		VentanaCitas ventanaCita = new VentanaCitas();
 		VentanaMaterial ventanaMaterial = new VentanaMaterial();
 
@@ -784,7 +786,7 @@ public class VentanaPrincipal extends JFrame {
 
 		java.net.URL imgUrl2 = getClass().getResource("/doctoresIcono.png");
 		Icon icon2 = new ImageIcon(imgUrl2);
-		JButton button2 = new JButton(icon2);
+		button2 = new JButton(icon2);
 		button2.setBounds(20, 85, 50, 58);
 		button2.setPreferredSize(new Dimension(icon2.getIconWidth(), icon2.getIconHeight()));
 		button2.setBackground(Color.WHITE);
@@ -826,7 +828,7 @@ public class VentanaPrincipal extends JFrame {
 
 		java.net.URL imgUrl3 = getClass().getResource("/consultasIcono.png");
 		Icon icon3 = new ImageIcon(imgUrl3);
-		JButton button3 = new JButton(icon3);
+		button3 = new JButton(icon3);
 		button3.setBounds(20, 159, 50, 58);
 		button3.setPreferredSize(new Dimension(icon3.getIconWidth(), icon3.getIconHeight()));
 		button3.setBackground(Color.WHITE);
@@ -836,7 +838,7 @@ public class VentanaPrincipal extends JFrame {
 		button3.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				try {
+				try {   
 
 					bienvenido.setVisible(false);
 					texto1.setVisible(false);
@@ -1093,7 +1095,7 @@ public class VentanaPrincipal extends JFrame {
 		mntmNewMenuItem_1.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Doctor doctor = new Doctor();
+				VentanaDoctor doctor = new VentanaDoctor();
 				doctor.setVisible(true);
 
 			}
@@ -1289,8 +1291,15 @@ public class VentanaPrincipal extends JFrame {
 	// Getters y Setters
 
 	// Getter para button1
+
 	public JButton getButton1() {
 		return button1;
+	}
+	public JButton getButton2() {
+		return button2;
+	}
+	public JButton getButton3() {
+		return button3;
 	}
 
 }

@@ -156,9 +156,12 @@ public class VentanaCitas extends JFrame {
 		JButton btnVolver = new JButton(icon13);
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				VentanaPrincipal ventanaPrincipall = new VentanaPrincipal();
-				ventanaPrincipall.setVisible(true);
+				VentanaPrincipal ventanaPrincipal = new VentanaPrincipal();
+				ventanaPrincipal.setVisible(true);
 				dispose();
+				
+				ventanaPrincipal.getButton3().doClick();
+				ventanaPrincipal.getButton3().setVisible(true);
 			}
 		});
 
