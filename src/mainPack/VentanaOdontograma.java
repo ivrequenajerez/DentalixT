@@ -39,7 +39,6 @@ public class VentanaOdontograma extends JFrame {
 	private static JFrame VentanaOdontograma;
 	private JTextField textFieldDescrip;
 	private JLabel lblNDiente;
-	VentanaPrincipal ventanaPrincipal = new VentanaPrincipal();
 
 	/**
 	 * Launch the application.
@@ -61,6 +60,7 @@ public class VentanaOdontograma extends JFrame {
 	 * Create the frame.
 	 */
 	public VentanaOdontograma() {
+		
 		listaBotonesDiente = new LinkedList<JButton>();
 		listaDientes = new LinkedList<ModeloDiente>();
 		setBounds(0, -1, 1179, 691);
@@ -338,6 +338,7 @@ public class VentanaOdontograma extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				setVisible(false);
+				VentanaPrincipal ventanaPrincipal = new VentanaPrincipal();
 				ventanaPrincipal.setVisible(true);
 				ventanaPrincipal.setLocationRelativeTo(null);
 

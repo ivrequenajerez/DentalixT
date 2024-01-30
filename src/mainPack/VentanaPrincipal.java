@@ -85,9 +85,8 @@ public class VentanaPrincipal extends JFrame {
 		// asdasd
 
 		super("Dentilax");
-		
+
 		setResizable(false);
-		
 
 		setVisible(true);
 
@@ -470,8 +469,8 @@ public class VentanaPrincipal extends JFrame {
 		// Instancia ventanas
 		VentanaPaciente ventanaPaciente = new VentanaPaciente();
 		ventanaPaciente.setResizable(false);
-		ventanaPaciente.setIconImage(
-				Toolkit.getDefaultToolkit().getImage(VentanaInicial.class.getResource("/logoAzul.png")));
+		ventanaPaciente
+				.setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaInicial.class.getResource("/logoAzul.png")));
 		ventanaPaciente.setLocationRelativeTo(null);
 		Doctor ventanaDoctor = new Doctor();
 		VentanaCitas ventanaCita = new VentanaCitas();
@@ -1095,16 +1094,18 @@ public class VentanaPrincipal extends JFrame {
 
 			}
 		});
-		JMenuItem odontograma = new JMenuItem("Odontograma");
-		odontograma.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_DOWN_MASK));
+		
+		JMenuItem botonMenuOdontograma = new JMenuItem("Odontograma");
+		botonMenuOdontograma.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_DOWN_MASK));
 
-		odontograma.addActionListener(new ActionListener() {
+		botonMenuOdontograma.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				VentanaOdontograma odontograma = new VentanaOdontograma();
+
 				String numeroDocumento;
 
 				do {
+					
 					numeroDocumento = JOptionPane.showInputDialog("Ingrese el número del documento:");
 
 					if (numeroDocumento == null) {
@@ -1123,16 +1124,17 @@ public class VentanaPrincipal extends JFrame {
 					}
 				} while (numeroDocumento == null || numeroDocumento.isEmpty()
 						|| !esNumeroDocumentoValido(numeroDocumento));
-
 				// El número de documento es válido, mostrar la ventana
+				VentanaOdontograma odontogramaV = new VentanaOdontograma();
 				setVisible(false);
-				odontograma.setVisible(true);
-				odontograma.setLocationRelativeTo(null);
-				odontograma.mostrar(numeroDocumento);
+				odontogramaV.setVisible(true);
+				odontogramaV.setLocationRelativeTo(null);
+				odontogramaV.mostrar(numeroDocumento);
+
 			}
 		});
 
-		mnNewMenu_1.add(odontograma);
+		mnNewMenu_1.add(botonMenuOdontograma);
 
 		JMenuItem mntmNewMenuItem_2 = new JMenuItem("Ayuda");
 		mntmNewMenuItem_2.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, InputEvent.CTRL_DOWN_MASK));
