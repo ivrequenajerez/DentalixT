@@ -66,6 +66,8 @@ public class VentanaCitas extends JFrame {
 	 * Create the frame.
 	 */
 	public VentanaCitas() {
+		setLocationRelativeTo(null);
+		setResizable(false);
 		setBounds(100, 100, 1292, 737);
 		panel = new JPanel();
 		panel.setBackground(new Color(255, 255, 255));

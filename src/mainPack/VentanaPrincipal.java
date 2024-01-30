@@ -63,6 +63,7 @@ public class VentanaPrincipal extends JFrame {
 	private JButton button1;
 	private JButton button2;
 	private JButton button3;
+	private JButton button4;
 
 	/**
 	 * Autores: David Andrade Pablo Rodriguez Ian Requena 2023
@@ -75,6 +76,7 @@ public class VentanaPrincipal extends JFrame {
 					VentanaPrincipal frame = new VentanaPrincipal();
 					frame.setIconImage(
 							Toolkit.getDefaultToolkit().getImage(VentanaInicial.class.getResource("/logoAzul.png")));
+					frame.setLocationRelativeTo(null);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -518,6 +520,13 @@ public class VentanaPrincipal extends JFrame {
 
 				// Muestra la nueva ventana cita
 				ventanaMaterial.setVisible(true);
+				ventanaMaterial.setResizable(false);
+				ventanaMaterial.setIconImage(
+						Toolkit.getDefaultToolkit().getImage(VentanaInicial.class.getResource("/logoAzul.png")));
+				ventanaMaterial.setLocationRelativeTo(null);
+				dispose();
+				// Esto es para mostrar
+				
 			}
 		});
 
@@ -866,7 +875,7 @@ public class VentanaPrincipal extends JFrame {
 
 		java.net.URL imgUrl4 = getClass().getResource("/materialIcono.png");
 		Icon icon4 = new ImageIcon(imgUrl4);
-		JButton button4 = new JButton(icon4);
+		button4 = new JButton(icon4);
 		button4.setBounds(20, 228, 50, 58);
 		button4.setPreferredSize(new Dimension(icon4.getIconWidth(), icon4.getIconHeight()));
 		button4.setBackground(Color.WHITE);
@@ -882,12 +891,14 @@ public class VentanaPrincipal extends JFrame {
 					texto1.setVisible(false);
 					botonSalir.setVisible(false);
 					if (conector.conexion != null) {
+						
 						conector.cargarDatosMaterial(modeloTabla);
 						tablasPanel.setVisible(true);
 						panelMenuDer3.setVisible(false);
 						panelMenuDer2.setVisible(false);
 						panelMenuDer.setVisible(false);
 						panelMenuDer4.setVisible(true);
+						
 					} else {
 						JOptionPane.showMessageDialog(VentanaPrincipal.this, "Error al conectar con la base de datos",
 								"Error", JOptionPane.ERROR_MESSAGE);
@@ -1299,6 +1310,9 @@ public class VentanaPrincipal extends JFrame {
 	}
 	public JButton getButton3() {
 		return button3;
+	}
+	public JButton getButton4() {
+		return button4;
 	}
 
 }
