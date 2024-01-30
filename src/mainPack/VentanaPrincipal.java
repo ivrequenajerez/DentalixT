@@ -1101,7 +1101,6 @@ public class VentanaPrincipal extends JFrame {
 		odontograma.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				VentanaOdontograma odontograma = new VentanaOdontograma();
 				String numeroDocumento;
 
 				do {
@@ -1125,6 +1124,7 @@ public class VentanaPrincipal extends JFrame {
 						|| !esNumeroDocumentoValido(numeroDocumento));
 
 				// El número de documento es válido, mostrar la ventana
+				VentanaOdontograma odontograma = new VentanaOdontograma();
 				setVisible(false);
 				odontograma.setVisible(true);
 				odontograma.setLocationRelativeTo(null);

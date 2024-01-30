@@ -205,9 +205,9 @@ public class VentanaPaciente extends JFrame {
 					return;
 				}
 
-				if (!Character.isDigit(c) && c != ':') {
+				if (!Character.isDigit(c) && c != '-') {
 					e.consume();
-					JOptionPane.showMessageDialog(null, "Solo se pueden introducir números y ':'", "Advertencia",
+					JOptionPane.showMessageDialog(null, "Solo se pueden introducir números y '-'", "Advertencia",
 							JOptionPane.WARNING_MESSAGE);
 
 				}
@@ -298,6 +298,7 @@ public class VentanaPaciente extends JFrame {
 						Toolkit.getDefaultToolkit().getImage(VentanaInicial.class.getResource("/logoAzul.png")));
 				ventanaPrincipal.setLocationRelativeTo(null);
 				ventanaPrincipal.setVisible(true);
+				dispose();
 
 			}
 		});
