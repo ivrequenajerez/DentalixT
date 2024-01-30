@@ -751,8 +751,7 @@ public class VentanaPrincipal extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					System.out.println("Button1 clicked!");
-					// Se oculta lo que estaba antes en el "panel principal", por llamarlo así
+					// Se oculta lo que estaba antes en el panel principal
 					bienvenido.setVisible(false);
 					texto1.setVisible(false);
 					botonSalir.setVisible(false);
@@ -774,12 +773,14 @@ public class VentanaPrincipal extends JFrame {
 					}
 
 				} catch (Exception ex) {
+					
 					ex.printStackTrace();
 					JOptionPane.showMessageDialog(VentanaPrincipal.this, "Error al cargar los datos de pacientes",
 							"Error", JOptionPane.ERROR_MESSAGE);
 				}
 
 			}
+			
 		});
 
 		java.net.URL imgUrl2 = getClass().getResource("/doctoresIcono.png");
