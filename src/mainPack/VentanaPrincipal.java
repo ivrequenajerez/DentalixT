@@ -60,6 +60,7 @@ public class VentanaPrincipal extends JFrame {
 	private ConectorBBDD conector = new ConectorBBDD();
 	private JTextField fieldBuscar;
 	private static JFrame VentanaPrincipal;
+	private JButton button1;
 
 	/**
 	 * Autores: David Andrade Pablo Rodriguez Ian Requena 2023
@@ -85,9 +86,8 @@ public class VentanaPrincipal extends JFrame {
 		// asdasd
 
 		super("Dentilax");
-		
+
 		setResizable(false);
-		
 
 		setVisible(true);
 
@@ -470,8 +470,8 @@ public class VentanaPrincipal extends JFrame {
 		// Instancia ventanas
 		VentanaPaciente ventanaPaciente = new VentanaPaciente();
 		ventanaPaciente.setResizable(false);
-		ventanaPaciente.setIconImage(
-				Toolkit.getDefaultToolkit().getImage(VentanaInicial.class.getResource("/logoAzul.png")));
+		ventanaPaciente
+				.setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaInicial.class.getResource("/logoAzul.png")));
 		ventanaPaciente.setLocationRelativeTo(null);
 		Doctor ventanaDoctor = new Doctor();
 		VentanaCitas ventanaCita = new VentanaCitas();
@@ -735,7 +735,7 @@ public class VentanaPrincipal extends JFrame {
 		java.net.URL imgUrl1 = getClass().getResource("/pacientesIcono.png");
 		Icon icon = new ImageIcon(imgUrl1);
 		buttonPanel.setLayout(null);
-		JButton button1 = new JButton(icon);
+		button1 = new JButton(icon);
 		button1.setForeground(new Color(255, 255, 255));
 		button1.setBounds(20, 10, 50, 58);
 		button1.setPreferredSize(new Dimension(icon.getIconWidth(), icon.getIconHeight()));
@@ -749,6 +749,7 @@ public class VentanaPrincipal extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
+					System.out.println("Button1 clicked!");
 					// Se oculta lo que estaba antes en el "panel principal", por llamarlo así
 					bienvenido.setVisible(false);
 					texto1.setVisible(false);
@@ -1276,6 +1277,13 @@ public class VentanaPrincipal extends JFrame {
 		// En caso de error o si no se encuentra el número de documento en la base de
 		// datos
 		return false;
+	}
+
+	// Getters y Setters
+
+	// Getter para button1
+	public JButton getButton1() {
+		return button1;
 	}
 
 }

@@ -158,7 +158,7 @@ public class VentanaCitas extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				VentanaPrincipal ventanaPrincipall = new VentanaPrincipal();
 				ventanaPrincipall.setVisible(true);
-
+				dispose();
 			}
 		});
 
