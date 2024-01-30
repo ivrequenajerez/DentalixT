@@ -491,8 +491,9 @@ public class VentanaPrincipal extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				// Muestra la nueva ventana doctor
+				setVisible(false);
 				ventanaDoctor.setVisible(true);
+				
 			}
 		});
 
