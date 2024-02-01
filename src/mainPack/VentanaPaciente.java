@@ -292,13 +292,29 @@ public class VentanaPaciente extends JFrame {
 		JButton btnVolver = new JButton(icon13);
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+
+				// Instancia
 				VentanaPrincipal ventanaPrincipal = new VentanaPrincipal();
+				ventanaPrincipal.setVisible(false);
+				// Posicionar la ventana en el centro
+				ventanaPrincipal.setLocationRelativeTo(null);
+				// Ajuste para que no se pueda cambiar el tamaño de la ventana
 				ventanaPrincipal.setResizable(false);
+				// Icono pequeño para la ventana (superior izq)
 				ventanaPrincipal.setIconImage(
 						Toolkit.getDefaultToolkit().getImage(VentanaInicial.class.getResource("/logoAzul.png")));
-				ventanaPrincipal.setLocationRelativeTo(null);
+				// Se hace visible la ventana
 				ventanaPrincipal.setVisible(true);
 				dispose();
+
+				/*
+				 * AL hacer click debe volver a VP, al botón de P (lista)
+				 * 
+				 */
+
+				ventanaPrincipal.getButton1().doClick();
+				ventanaPrincipal.getButton1().setVisible(true);
+
 
 			}
 		});

@@ -60,6 +60,10 @@ public class VentanaPrincipal extends JFrame {
 	private ConectorBBDD conector = new ConectorBBDD();
 	private JTextField fieldBuscar;
 	private static JFrame VentanaPrincipal;
+	private JButton button1;
+	private JButton button2;
+	private JButton button3;
+	private JButton button4;
 
 	/**
 	 * Autores: David Andrade Pablo Rodriguez Ian Requena 2023
@@ -72,6 +76,7 @@ public class VentanaPrincipal extends JFrame {
 					VentanaPrincipal frame = new VentanaPrincipal();
 					frame.setIconImage(
 							Toolkit.getDefaultToolkit().getImage(VentanaInicial.class.getResource("/logoAzul.png")));
+					frame.setLocationRelativeTo(null);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -472,7 +477,7 @@ public class VentanaPrincipal extends JFrame {
 		ventanaPaciente
 				.setIconImage(Toolkit.getDefaultToolkit().getImage(VentanaInicial.class.getResource("/logoAzul.png")));
 		ventanaPaciente.setLocationRelativeTo(null);
-		Doctor ventanaDoctor = new Doctor();
+		VentanaDoctor ventanaDoctor = new VentanaDoctor();
 		VentanaCitas ventanaCita = new VentanaCitas();
 		VentanaMaterial ventanaMaterial = new VentanaMaterial();
 
@@ -480,8 +485,10 @@ public class VentanaPrincipal extends JFrame {
 		botonAñadirPaciente.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				
 				setVisible(false);
 				ventanaPaciente.setVisible(true);
+				
 			}
 		});
 
@@ -490,8 +497,9 @@ public class VentanaPrincipal extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				// Muestra la nueva ventana doctor
+				setVisible(false);
 				ventanaDoctor.setVisible(true);
+				
 			}
 		});
 
@@ -515,6 +523,13 @@ public class VentanaPrincipal extends JFrame {
 
 				// Muestra la nueva ventana cita
 				ventanaMaterial.setVisible(true);
+				ventanaMaterial.setResizable(false);
+				ventanaMaterial.setIconImage(
+						Toolkit.getDefaultToolkit().getImage(VentanaInicial.class.getResource("/logoAzul.png")));
+				ventanaMaterial.setLocationRelativeTo(null);
+				dispose();
+				// Esto es para mostrar
+				
 			}
 		});
 
@@ -734,7 +749,7 @@ public class VentanaPrincipal extends JFrame {
 		java.net.URL imgUrl1 = getClass().getResource("/pacientesIcono.png");
 		Icon icon = new ImageIcon(imgUrl1);
 		buttonPanel.setLayout(null);
-		JButton button1 = new JButton(icon);
+		button1 = new JButton(icon);
 		button1.setForeground(new Color(255, 255, 255));
 		button1.setBounds(20, 10, 50, 58);
 		button1.setPreferredSize(new Dimension(icon.getIconWidth(), icon.getIconHeight()));
@@ -748,7 +763,7 @@ public class VentanaPrincipal extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					// Se oculta lo que estaba antes en el "panel principal", por llamarlo así
+					// Se oculta lo que estaba antes en el panel principal
 					bienvenido.setVisible(false);
 					texto1.setVisible(false);
 					botonSalir.setVisible(false);
@@ -770,17 +785,19 @@ public class VentanaPrincipal extends JFrame {
 					}
 
 				} catch (Exception ex) {
+					
 					ex.printStackTrace();
 					JOptionPane.showMessageDialog(VentanaPrincipal.this, "Error al cargar los datos de pacientes",
 							"Error", JOptionPane.ERROR_MESSAGE);
 				}
 
 			}
+			
 		});
 
 		java.net.URL imgUrl2 = getClass().getResource("/doctoresIcono.png");
 		Icon icon2 = new ImageIcon(imgUrl2);
-		JButton button2 = new JButton(icon2);
+		button2 = new JButton(icon2);
 		button2.setBounds(20, 85, 50, 58);
 		button2.setPreferredSize(new Dimension(icon2.getIconWidth(), icon2.getIconHeight()));
 		button2.setBackground(Color.WHITE);
@@ -822,7 +839,7 @@ public class VentanaPrincipal extends JFrame {
 
 		java.net.URL imgUrl3 = getClass().getResource("/consultasIcono.png");
 		Icon icon3 = new ImageIcon(imgUrl3);
-		JButton button3 = new JButton(icon3);
+		button3 = new JButton(icon3);
 		button3.setBounds(20, 159, 50, 58);
 		button3.setPreferredSize(new Dimension(icon3.getIconWidth(), icon3.getIconHeight()));
 		button3.setBackground(Color.WHITE);
@@ -832,7 +849,7 @@ public class VentanaPrincipal extends JFrame {
 		button3.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				try {
+				try {   
 
 					bienvenido.setVisible(false);
 					texto1.setVisible(false);
@@ -861,7 +878,7 @@ public class VentanaPrincipal extends JFrame {
 
 		java.net.URL imgUrl4 = getClass().getResource("/materialIcono.png");
 		Icon icon4 = new ImageIcon(imgUrl4);
-		JButton button4 = new JButton(icon4);
+		button4 = new JButton(icon4);
 		button4.setBounds(20, 228, 50, 58);
 		button4.setPreferredSize(new Dimension(icon4.getIconWidth(), icon4.getIconHeight()));
 		button4.setBackground(Color.WHITE);
@@ -877,12 +894,14 @@ public class VentanaPrincipal extends JFrame {
 					texto1.setVisible(false);
 					botonSalir.setVisible(false);
 					if (conector.conexion != null) {
+						
 						conector.cargarDatosMaterial(modeloTabla);
 						tablasPanel.setVisible(true);
 						panelMenuDer3.setVisible(false);
 						panelMenuDer2.setVisible(false);
 						panelMenuDer.setVisible(false);
 						panelMenuDer4.setVisible(true);
+						
 					} else {
 						JOptionPane.showMessageDialog(VentanaPrincipal.this, "Error al conectar con la base de datos",
 								"Error", JOptionPane.ERROR_MESSAGE);
@@ -1089,7 +1108,7 @@ public class VentanaPrincipal extends JFrame {
 		mntmNewMenuItem_1.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Doctor doctor = new Doctor();
+				VentanaDoctor doctor = new VentanaDoctor();
 				doctor.setVisible(true);
 
 			}
@@ -1280,6 +1299,23 @@ public class VentanaPrincipal extends JFrame {
 		// En caso de error o si no se encuentra el número de documento en la base de
 		// datos
 		return false;
+	}
+
+	// Getters y Setters
+
+	// Getter para button1
+
+	public JButton getButton1() {
+		return button1;
+	}
+	public JButton getButton2() {
+		return button2;
+	}
+	public JButton getButton3() {
+		return button3;
+	}
+	public JButton getButton4() {
+		return button4;
 	}
 
 }

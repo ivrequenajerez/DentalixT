@@ -509,19 +509,26 @@ public class ConectorBBDD {
 			} else {
 				return false; // Devuelve false si no se cargaron datos
 			}
+			
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Error SQL al cargar los datos de materal", "Error",
 					JOptionPane.ERROR_MESSAGE);
 			return false;
+			
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Error al cargar los datos de material", "Error",
 					JOptionPane.ERROR_MESSAGE);
 			return false;
+			
 		} finally {
 			// Indicar que se ha terminado de cargar datos, ya sea con éxito o con error
 			setCargandoDatos(false);
+		    
+		    // Desconectar
+		    cerrarConexion();
+		    
 		}
 	}
 

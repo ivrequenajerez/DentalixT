@@ -66,6 +66,8 @@ public class VentanaCitas extends JFrame {
 	 * Create the frame.
 	 */
 	public VentanaCitas() {
+		setLocationRelativeTo(null);
+		setResizable(false);
 		setBounds(100, 100, 1292, 737);
 		panel = new JPanel();
 		panel.setBackground(new Color(255, 255, 255));
@@ -156,9 +158,12 @@ public class VentanaCitas extends JFrame {
 		JButton btnVolver = new JButton(icon13);
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				VentanaPrincipal ventanaPrincipall = new VentanaPrincipal();
-				ventanaPrincipall.setVisible(true);
-
+				VentanaPrincipal ventanaPrincipal = new VentanaPrincipal();
+				ventanaPrincipal.setVisible(true);
+				dispose();
+				
+				ventanaPrincipal.getButton3().doClick();
+				ventanaPrincipal.getButton3().setVisible(true);
 			}
 		});
 

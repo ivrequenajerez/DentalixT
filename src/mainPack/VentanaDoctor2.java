@@ -1,46 +1,32 @@
 package mainPack;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.EventQueue;
-import java.awt.GridLayout;
-import java.awt.Image;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JScrollPane;
-import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
 import java.awt.Dimension;
 
-import javax.print.DocFlavor.URL;
-import javax.swing.BoxLayout;
 import javax.swing.Icon;
 import javax.swing.JLabel;
 import java.awt.Font;
 
 import javax.swing.JTextField;
-import java.awt.Label;
-import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JPopupMenu;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import javax.swing.JMenuBar;
-import javax.swing.KeyStroke;
-import java.awt.event.InputEvent;
+import javax.swing.SwingConstants;
 
-public class Doctor extends JPanel {
+public class VentanaDoctor2 extends JFrame {
 
 	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
 	private static final Font fuenteLabel = new Font("Montserrat", Font.PLAIN, 20);
 	private static final Font fuenteGrande = new Font("Montserrat", Font.PLAIN, 50);
 	int yPosition = 30;
@@ -50,20 +36,40 @@ public class Doctor extends JPanel {
 	private JTextField textField_especialidad;
 	private JTextField textField_id;
 	private JOptionPane joptionPane;
-	JLabel labelDoctor = new JLabel("NOMBRE DOCTOR");
+	JLabel labelDoctor = new JLabel("Nombre y Apellidos");
 
 	/**
-	 * Create the panel.
+	 * Launch the application.
 	 */
-	public Doctor() {
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					VentanaDoctor2 frame = new VentanaDoctor2();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public VentanaDoctor2() {
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		setContentPane(contentPane);
 
 		// Código existente...
 		setBounds(0, -1, 1179, 691);
-		setBorder(new EmptyBorder(5, 5, 5, 5));
 		setBackground(Color.WHITE);
-		setLayout(null);
+		getContentPane().setLayout(null);
 		setBackground(Color.decode("#008cce"));
-		setLayout(null); // Layout nulo para posicionar manualmente los componentes
+		getContentPane().setLayout(null); // Layout nulo para posicionar manualmente los componentes
 
 		// BOTON GUARDAR
 
@@ -84,7 +90,7 @@ public class Doctor extends JPanel {
 
 		JScrollPane editarPanel = new JScrollPane();
 		editarPanel.setBounds(0, -1, 1179, 691);
-		this.add(editarPanel);
+		getContentPane().add(editarPanel);
 
 		// Panel donde están los labels
 		JPanel panel = new JPanel(); // PANEL DONDE ESTAN LOS LABELS
@@ -116,7 +122,7 @@ public class Doctor extends JPanel {
 
 		// L NOMBRE
 		JLabel label_Nombre = new JLabel("Nombre:");
-		label_Nombre.setBounds(591, 13, 85, 65);
+		label_Nombre.setBounds(520, 35, 200, 65);
 		panel.add(label_Nombre);
 
 		label_Nombre.setFont(fuenteLabel);
@@ -125,7 +131,7 @@ public class Doctor extends JPanel {
 		// APELLIDOS
 
 		JLabel label_Apellidos = new JLabel("Apellidos:");
-		label_Apellidos.setBounds(583, 89, 85, 65);
+		label_Apellidos.setBounds(520, 89, 85, 65);
 		panel.add(label_Apellidos);
 
 		label_Apellidos.setFont(fuenteLabel);
@@ -133,7 +139,7 @@ public class Doctor extends JPanel {
 		// TELEFONO
 
 		JLabel label_Telefono = new JLabel("Teléfono:");
-		label_Telefono.setBounds(591, 223, 82, 65);
+		label_Telefono.setBounds(520, 223, 82, 65);
 		panel.add(label_Telefono);
 
 		label_Telefono.setFont(fuenteLabel);
@@ -141,7 +147,7 @@ public class Doctor extends JPanel {
 		// DIRECCION
 
 		JLabel label_Direccion = new JLabel("Dirección:");
-		label_Direccion.setBounds(583, 159, 93, 65);
+		label_Direccion.setBounds(520, 159, 93, 65);
 		panel.add(label_Direccion);
 
 		label_Direccion.setFont(fuenteLabel);
@@ -149,7 +155,7 @@ public class Doctor extends JPanel {
 		// ID ESPECIALIDAD
 
 		JLabel label_IDEspecialidad = new JLabel("ID Especialidad:");
-		label_IDEspecialidad.setBounds(526, 435, 150, 65);
+		label_IDEspecialidad.setBounds(520, 435, 150, 65);
 		panel.add(label_IDEspecialidad);
 
 		label_IDEspecialidad.setFont(fuenteLabel);
@@ -157,7 +163,7 @@ public class Doctor extends JPanel {
 		// SALARIO
 
 		JLabel label_Salario = new JLabel("Salario:");
-		label_Salario.setBounds(602, 359, 74, 65);
+		label_Salario.setBounds(520, 359, 74, 65);
 		panel.add(label_Salario);
 
 		label_Salario.setFont(fuenteLabel);
@@ -165,7 +171,7 @@ public class Doctor extends JPanel {
 		// EMAIL
 
 		JLabel label_Email = new JLabel("Email:");
-		label_Email.setBounds(606, 299, 62, 65);
+		label_Email.setBounds(520, 299, 62, 65);
 		panel.add(label_Email);
 
 		label_Email.setFont(fuenteLabel);
@@ -272,10 +278,11 @@ public class Doctor extends JPanel {
 			}
 		});
 		panel.add(textField_id);
+		labelDoctor.setHorizontalAlignment(SwingConstants.CENTER);
 
-		labelDoctor.setBounds(113, 45, 468, 47);
+		labelDoctor.setBounds(0, 40, 533, 47);
 		panel.add(labelDoctor);
-		labelDoctor.setFont(new Font("Montserrat", Font.PLAIN, 50));
+		labelDoctor.setFont(new Font("Montserrat", Font.PLAIN, 40));
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setBounds(591, 593, 592, 75);
@@ -317,18 +324,6 @@ public class Doctor extends JPanel {
 			}
 		});
 
-		/*
-		 * // Establecer el botón como predeterminado para la tecla "Enter"
-		 * getRootPane().setDefaultButton(btnGuardar);
-		 * 
-		 * // Agrega el ActionListener para la tecla "Enter" en el JFrame
-		 * addKeyListener(new KeyAdapter() {
-		 * 
-		 * @Override public void keyTyped(KeyEvent e) { if (e.getKeyChar() ==
-		 * KeyEvent.VK_ENTER) { // Simular el clic en el botón al presionar "Enter"
-		 * btnGuardar.doClick(); } } });
-		 */
-
 		// BOTÓN VOLVER
 		JButton btnVolver = new JButton(icon13);
 		btnVolver.addActionListener(new ActionListener() {
@@ -356,4 +351,5 @@ public class Doctor extends JPanel {
 	public JLabel getLabelDoctor() {
 		return labelDoctor;
 	}
+
 }
