@@ -25,9 +25,11 @@ import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.awt.Cursor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -86,8 +88,6 @@ public class VentanaPrincipal extends JFrame {
 	}
 
 	public VentanaPrincipal() {
-
-		// asdasd
 
 		super("Dentilax");
 
@@ -200,9 +200,9 @@ public class VentanaPrincipal extends JFrame {
 		panelComponentes.add(botonAñadirPaciente);
 
 		// Botón Editar
-		JButton botonEditar = new JButton("EDITAR");
-		botonEditar.setBounds(22, 66, 97, 21);
-		panelComponentes.add(botonEditar);
+		JButton botonEditar1 = new JButton("EDITAR");
+		botonEditar1.setBounds(22, 66, 97, 21);
+		panelComponentes.add(botonEditar1);
 
 		// ---- Componentes Panel DOCTORES ---- //
 		JPanel panelComponentes2 = new JPanel();
@@ -276,9 +276,9 @@ public class VentanaPrincipal extends JFrame {
 		botonAñadirPaciente.setBackground(Color.WHITE);
 		botonAñadirPaciente.setForeground(new Color(0, 140, 206));
 		botonAñadirPaciente.setFont(new Font("Montserrat", Font.BOLD, 12));
-		botonEditar.setBackground(Color.WHITE);
-		botonEditar.setForeground(new Color(0, 140, 206));
-		botonEditar.setFont(new Font("Montserrat", Font.BOLD, 12));
+		botonEditar1.setBackground(Color.WHITE);
+		botonEditar1.setForeground(new Color(0, 140, 206));
+		botonEditar1.setFont(new Font("Montserrat", Font.BOLD, 12));
 		fieldBuscar.setBackground(Color.WHITE);
 		fieldBuscar.setForeground(Color.GRAY);
 		fieldBuscar.setFont(new Font("Montserrat", Font.PLAIN, 12));
@@ -536,41 +536,60 @@ public class VentanaPrincipal extends JFrame {
 		// Editar //
 
 		// Editar paciente
-		botonEditar.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// Muestra un cuadro de diálogo de entrada
-				String documento = JOptionPane.showInputDialog("Introduzca el Documento:");
+		botonEditar1.addActionListener(new ActionListener() {
+		    @Override
+		    public void actionPerformed(ActionEvent e) {
+		        // Muestra un cuadro de diálogo de entrada
+		        String documento = JOptionPane.showInputDialog("Introduzca el Documento:");
 
-				// Comprueba si se ingresó un documento
-				if (documento != null && !documento.isEmpty()) {
-					// Realizar la búsqueda en la base de datos
-					conector.realizarBusqueda(documento, modeloTabla);
+		        // Comprueba si se ingresó un documento
+		        if (documento != null && !documento.isEmpty()) {
+		        	
+		        	conector.realizarBusqueda(documento, modeloTabla);
 
-					// Obtener el nombre y apellidos del primer resultado
-					String nombre = "";
-					String apellidos = "";
+		            int id = 0;
+		            String nombre = "";
+		            String apellidos = "";
+		            String direccion = "";
+		            String telefono = ""; 
+		            String idString = String.valueOf(id);
+		            String fecha = "";
 
-					if (modeloTabla.getRowCount() > 0) {
-						nombre = (String) modeloTabla.getValueAt(0, 0);
-						apellidos = (String) modeloTabla.getValueAt(0, 1);
-					}
+		            if (modeloTabla.getRowCount() > 0) {
+		                nombre = (String) modeloTabla.getValueAt(0, 0);
+		                apellidos = (String) modeloTabla.getValueAt(0, 1);
+		                idString = String.valueOf(modeloTabla.getValueAt(0, 2));
+		                direccion = (String) modeloTabla.getValueAt(0, 3);
+		                telefono = (String) modeloTabla.getValueAt(0, 4);
+		                fecha = (String) modeloTabla.getValueAt(0, 5);
+		                
+		            } else {
+		                JOptionPane.showMessageDialog(null, "No se encontraron resultados en la búsqueda.", "Sin Documento", JOptionPane.WARNING_MESSAGE);
+		            }
 
-					// Actualizar el texto de labelPaciente con el nombre y apellidos
-					bienvenido.setVisible(false);
-					texto1.setVisible(false);
-					botonSalir.setVisible(false);
-					dispose();
+		            bienvenido.setVisible(false);
+		            texto1.setVisible(false);
+		            botonSalir.setVisible(false);
+		            dispose();
 
-					// Instancia y muestra la nueva ventana PacienteCRUD
-					ventanaPaciente.setVisible(true);
-					ventanaPaciente.labelPaciente.setText(nombre + " " + apellidos);
-
-				} else {
-					// Se canceló el ingreso del documento o se dejó en blanco
-				}
-			}
+		            ventanaPaciente.setVisible(true);
+		            ventanaPaciente.labelPaciente.setText(nombre + " " + apellidos);
+		            ventanaPaciente.lblIDPaciente.setText(idString);
+		            ventanaPaciente.textField_nombre.setText(nombre);
+		            ventanaPaciente.textField_apellidos.setText(apellidos);
+		            ventanaPaciente.textField_direccion.setText(direccion);
+		            ventanaPaciente.textField_tlf.setText(telefono);
+		            ventanaPaciente.textField_nombre.setText(nombre);
+		            ventanaPaciente.textField_UltimaConsulta.setText(fecha);
+		            
+		        } else {
+		            JOptionPane.showMessageDialog(null, "No se ingresó un documento.", "Sin Documento", JOptionPane.WARNING_MESSAGE);
+		        }
+		    }
 		});
+
+
+
 
 		// Editar doctor
 		botonEditar2.addActionListener(new ActionListener() {
@@ -668,7 +687,6 @@ public class VentanaPrincipal extends JFrame {
 
 					} catch (SQLException ex) {
 						ex.printStackTrace();
-						// Manejo de errores
 					}
 				} else {
 					// Se canceló el ingreso del documento o se dejó en blanco

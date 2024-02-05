@@ -3,6 +3,7 @@ package database;
 import java.awt.Toolkit;
 // Importaciones BBDD
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.ResultSet;
@@ -16,6 +17,7 @@ import javax.swing.table.DefaultTableModel;
 import com.mysql.cj.jdbc.DatabaseMetaData;
 
 import mainPack.VentanaOdontograma;
+import mainPack.VentanaPaciente;
 import mainPack.VentanaEspectador;
 import mainPack.VentanaInicial;
 import mainPack.VentanaPrincipal;
@@ -239,10 +241,14 @@ public class ConectorBBDD {
 			}
 
 			// CONSULTA SQL para la tabla 'dentilax.paciente'
-			String consultaPaciente = "SELECT nombre, apellidos, idPaciente, ultimaConsulta FROM dentilax.paciente WHERE nombre LIKE ? OR idPaciente LIKE ?";
+			String consultaPaciente = "SELECT nombre, apellidos, idPaciente, direccion, telefono, ultimaConsulta FROM dentilax.paciente WHERE nombre LIKE ? OR apellidos LIKE ? OR idPaciente LIKE ? OR direccion LIKE ? OR telefono LIKE ? OR ultimaConsulta LIKE ?";
 			statementPaciente = conexion.prepareStatement(consultaPaciente);
 			statementPaciente.setString(1, "%" + criterio + "%");
 			statementPaciente.setString(2, "%" + criterio + "%");
+			statementPaciente.setString(3, "%" + criterio + "%");
+			statementPaciente.setString(4, "%" + criterio + "%");
+			statementPaciente.setString(5, "%" + criterio + "%");
+			statementPaciente.setString(6, "%" + criterio + "%");
 
 			resultadoPaciente = statementPaciente.executeQuery();
 
@@ -276,10 +282,16 @@ public class ConectorBBDD {
 				String nombre = resultadoPaciente.getString("nombre");
 				String apellidos = resultadoPaciente.getString("apellidos");
 				int idPaciente = resultadoPaciente.getInt("idPaciente");
+				String direccion = resultadoPaciente.getString("direccion");
+				String telefono = resultadoPaciente.getString("telefono");
 				String ultimaConsulta = resultadoPaciente.getString("ultimaConsulta");
 
 				// Agregar la fila a la tabla
-				modeloTabla.addRow(new Object[] { nombre, apellidos, idPaciente, ultimaConsulta });
+				modeloTabla.addRow(new Object[] { nombre, apellidos, idPaciente, direccion, telefono, ultimaConsulta });
+
+				// Si solo necesitas el primer resultado, puedes salir del bucle después de la
+				// primera iteración
+				break;
 			}
 
 			// Procesar y mostrar los resultados para 'dentilax.doctor'
@@ -315,7 +327,7 @@ public class ConectorBBDD {
 				// Agregar la fila a la tabla
 				modeloTabla.addRow(new Object[] { nombre, cantidad, precio });
 			}
-
+			
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Error SQL al realizar la búsqueda", "Error",
@@ -404,19 +416,17 @@ public class ConectorBBDD {
 			Vector<String> columnas = new Vector<>();
 			columnas.add("Nombre");
 			columnas.add("Apellidos");
-			columnas.add("Documento");
+			columnas.add("Documento"); // idPaciente
+			columnas.add("Dirección");
+			columnas.add("Teléfono");
 			columnas.add("Última Consulta");
 
 			modeloTabla.setColumnIdentifiers(columnas);
 
-			// Verifica si la conexión es null antes de utilizarla
-//			System.out.println("Conexión a la base de datos: " + (this.conexion != null ? "exitosa" : "fallida"));
-
+			// Verifica si hay conexión, si la hay se realiza la consulta
 			if (this.conexion != null) {
-				// CONSULTA SQL
-				String consulta = "SELECT nombre, apellidos, idPaciente, ultimaConsulta FROM dentilax.paciente";
-//				System.out.println("Consulta SQL: " + consulta);
 
+				String consulta = "SELECT nombre, apellidos, idPaciente, direccion, telefono, ultimaConsulta FROM dentilax.paciente";
 				Statement statement = conexion.createStatement();
 				ResultSet resultado = statement.executeQuery(consulta);
 
@@ -426,21 +436,21 @@ public class ConectorBBDD {
 
 				while (resultado.next()) {
 					Object[] fila = { resultado.getString("nombre"), resultado.getString("apellidos"),
-							resultado.getInt("idPaciente"), resultado.getString("ultimaConsulta") };
+							resultado.getInt("idPaciente"), resultado.getString("direccion"),
+							resultado.getString("telefono"), resultado.getString("ultimaConsulta") };
 					modeloTabla.addRow(fila);
 				}
 
-//				System.out.println("Filas en la tabla de pacientes: " + modeloTabla.getRowCount());
 			} else {
-//				System.out.println("La conexión es null. Asegúrate de haber establecido la conexión.");
+
 			}
 
 			// cerrarConexion(); // Puedes habilitar esto si necesitas cerrar la conexión en
 			// este punto
 			if (modeloTabla.getRowCount() > 0) {
-				return true; // Devuelve true solo si se cargaron datos
+				return true;
 			} else {
-				return false; // Devuelve false si no se cargaron datos
+				return false;
 			}
 		} catch (SQLException ex) {
 			ex.printStackTrace();
@@ -509,26 +519,26 @@ public class ConectorBBDD {
 			} else {
 				return false; // Devuelve false si no se cargaron datos
 			}
-			
+
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Error SQL al cargar los datos de materal", "Error",
 					JOptionPane.ERROR_MESSAGE);
 			return false;
-			
+
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Error al cargar los datos de material", "Error",
 					JOptionPane.ERROR_MESSAGE);
 			return false;
-			
+
 		} finally {
 			// Indicar que se ha terminado de cargar datos, ya sea con éxito o con error
 			setCargandoDatos(false);
-		    
-		    // Desconectar
-		    cerrarConexion();
-		    
+
+			// Desconectar
+			cerrarConexion();
+
 		}
 	}
 
@@ -757,7 +767,7 @@ public class ConectorBBDD {
 							Toolkit.getDefaultToolkit().getImage(VentanaInicial.class.getResource("/logoAzul.png")));
 					ventanaPrincipal.setLocationRelativeTo(null);
 					ventanaPrincipal.setVisible(true);
-					new VentanaEspectador().setVisible(false); // Se oculta la ventana de doctores
+					new VentanaEspectador().setVisible(false);
 
 				} else if ("doctor".equals(rol)) {
 					credencialesValidas = true;
