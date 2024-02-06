@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.Map;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -22,7 +23,15 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import org.apache.commons.collections4.map.HashedMap;
+
 import database.ConectorBBDD;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
 
 import javax.swing.*;
 
@@ -39,7 +48,8 @@ public class VentanaPaciente extends JFrame {
 	private JTextField textField_Id;
 	JButton btnGuardar;
 	JLabel labelPaciente = new JLabel("Nombre y Apellidos");
-	ConectorBBDD conectorBBDDD;
+	static ConectorBBDD conectorBBDDD;
+	private JasperReport reporte;
 
 	/**
 	 * Launch the application.
@@ -48,6 +58,7 @@ public class VentanaPaciente extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+				  conectorBBDDD = new ConectorBBDD();
 					VentanaPaciente frame = new VentanaPaciente();
 					frame.setResizable(false);
 					frame.setIconImage(
@@ -341,6 +352,28 @@ public class VentanaPaciente extends JFrame {
 		panel_1.add(btnEliminar);
 		btnEliminar.setPreferredSize(new Dimension(96, 96));
 		btnEliminar.setContentAreaFilled(false);
+		
+		JButton btnNewButton = new JButton("Facturacion");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+				Map<String, Object> parametros = new HashedMap<String, Object>();
+				parametros.put("idPaciente", textField_Id.getText());
+				reporte = JasperCompileManager.compileReport("factura.jrxml");
+				JasperPrint p = JasperFillManager.fillReport(reporte, parametros, conectorBBDDD.conectarConBBDD());
+				JasperViewer viewer = new JasperViewer(p, false);
+	            viewer.setVisible(true);
+	            dispose();
+	            viewer.toFront();
+				}catch (JRException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+			}
+		});
+		btnNewButton.setBounds(647, 40, 137, 42);
+		panel.add(btnNewButton);
 
 		// Atajo de teclado
 		InputMap inputMap = getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
