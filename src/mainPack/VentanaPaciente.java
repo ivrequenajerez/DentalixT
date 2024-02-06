@@ -106,7 +106,7 @@ public class VentanaPaciente extends JFrame {
 		ImageIcon imagen1 = new ImageIcon(urlImagen);
 		panel.setLayout(null);
 
-		// Añadir la imagen al panel
+		// 	 la imagen al panel
 		JLabel labelImagen = new JLabel(imagen1);
 		labelImagen.setBounds(0, 124, 544, 512);
 		panel.add(labelImagen);
@@ -196,24 +196,24 @@ public class VentanaPaciente extends JFrame {
 
 		panel.add(textField_tlf);
 
-		textField_UltimaConsulta = new JTextField();
+		JTextField textField_UltimaConsulta = new JTextField();
 		textField_UltimaConsulta.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyTyped(KeyEvent e) {
-				char c = e.getKeyChar();
-				if (c == KeyEvent.VK_BACK_SPACE) {
-					return;
-				}
+		    @Override
+		    public void keyTyped(KeyEvent e) {
+		        char c = e.getKeyChar();
+		        if (c == KeyEvent.VK_BACK_SPACE) {
+		            return;
+		        }
 
-				if (!Character.isDigit(c) && c != '-') {
-					e.consume();
-					JOptionPane.showMessageDialog(null, "Solo se pueden introducir números y '-'", "Advertencia",
-							JOptionPane.WARNING_MESSAGE);
-
-				}
-
-			}
+		        if (!Character.isDigit(c) && c != '-') {
+		            e.consume();
+		            JOptionPane.showMessageDialog(null, "Solo se pueden introducir números y '-'", "Advertencia",
+		                    JOptionPane.WARNING_MESSAGE);
+		        }
+		    }
 		});
+
+		
 		textField_UltimaConsulta.setBounds(673, 375, 379, 38);
 		panel.add(textField_UltimaConsulta);
 
@@ -239,6 +239,7 @@ public class VentanaPaciente extends JFrame {
 
 			}
 		});
+		
 		labelPaciente.setHorizontalAlignment(SwingConstants.CENTER);
 
 		labelPaciente.setBounds(0, 40, 533, 47);

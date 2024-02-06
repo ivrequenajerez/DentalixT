@@ -87,8 +87,6 @@ public class VentanaPrincipal extends JFrame {
 
 	public VentanaPrincipal() {
 
-		// asdasd
-
 		super("Dentilax");
 
 		setResizable(false);

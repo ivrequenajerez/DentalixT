@@ -77,7 +77,7 @@ public class VentanaCitas extends JFrame {
 		panel.setLayout(null);
 
 		labelCitas.setFont(new Font("Dialog", Font.PLAIN, 74));
-		labelCitas.setBounds(154, 51, 419, 76);
+		labelCitas.setBounds(154, 51, 706, 76);
 		panel.add(labelCitas);
 
 		// Cargar la imagen desde la carpeta de recursos
