@@ -177,6 +177,7 @@ public class VentanaInicial extends JFrame {
 				loginBoton.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
+						
 						String usuario = usuarioTextField.getText();
 						char[] contrasenia = contraseniaTextField.getPassword();
 
@@ -197,6 +198,8 @@ public class VentanaInicial extends JFrame {
 						try {
 							conector.conectarConBBDD();
 							if (conector.conexion != null) {
+								
+								// Verifica si eres admin o doctor, entre otras cosas.
 								boolean credencialesValidas = conector.verificarCredencialesEnBaseDeDatos(usuario,
 										new String(contrasenia));
 

@@ -42,14 +42,21 @@ public class VentanaPaciente extends JFrame {
 	private JPanel contentPane;
 	private static final Font fuenteLabel = new Font("Montserrat", Font.PLAIN, 20);
 	private static final Font fuenteGrande = new Font("Montserrat", Font.PLAIN, 50);
+	
 	int yPosition = 40;
 	int separacionVertical = 70;
-	private JTextField textField_UltimaConsulta;
 	private JTextField textField_Id;
 	JButton btnGuardar;
-	JLabel labelPaciente = new JLabel("Nombre y Apellidos");
 	static ConectorBBDD conectorBBDDD;
 	private JasperReport reporte;
+	
+	public JLabel lblIDPaciente = new JLabel(" "); // ID o Documento del Paciente
+	public JLabel labelPaciente = new JLabel(" "); // Nombre y Apellidos del Paciente
+	public JTextField textField_nombre = new JTextField();
+	public JTextField textField_apellidos = new JTextField();
+	public JTextField textField_direccion = new JTextField();
+	public JTextField textField_tlf = new JTextField();
+	public JTextField textField_UltimaConsulta;
 
 	/**
 	 * Launch the application.
@@ -117,7 +124,7 @@ public class VentanaPaciente extends JFrame {
 		ImageIcon imagen1 = new ImageIcon(urlImagen);
 		panel.setLayout(null);
 
-		// Añadir la imagen al panel
+		// 	 la imagen al panel
 		JLabel labelImagen = new JLabel(imagen1);
 		labelImagen.setBounds(0, 124, 544, 512);
 		panel.add(labelImagen);
@@ -173,21 +180,19 @@ public class VentanaPaciente extends JFrame {
 		String rutaImagen2 = "/guardarIcono.png"; // Ajusta la ruta según la ubicación de tu recurso
 		java.net.URL urlImagen2 = getClass().getResource(rutaImagen2);
 
-		// TextFields separados equitativamente
-
-		JTextField textField_nombre = new JTextField();
+		textField_nombre = new JTextField();
 		textField_nombre.setBounds(673, yPosition + separacionVertical * 1, 379, 38);
 		panel.add(textField_nombre);
 
-		JTextField textField_apellidos = new JTextField();
+		textField_apellidos = new JTextField();
 		textField_apellidos.setBounds(673, 175, 379, 38);
 		panel.add(textField_apellidos);
 
-		JTextField textField_direccion = new JTextField();
+		textField_direccion = new JTextField();
 		textField_direccion.setBounds(673, 245, 379, 38);
 		panel.add(textField_direccion);
 
-		JTextField textField_tlf = new JTextField();
+		textField_tlf = new JTextField();
 		textField_tlf.setBounds(673, 315, 379, 38);
 		textField_tlf.addKeyListener(new KeyAdapter() {
 			@Override
@@ -207,49 +212,27 @@ public class VentanaPaciente extends JFrame {
 
 		panel.add(textField_tlf);
 
-		textField_UltimaConsulta = new JTextField();
+		JTextField textField_UltimaConsulta = new JTextField();
 		textField_UltimaConsulta.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyTyped(KeyEvent e) {
-				char c = e.getKeyChar();
-				if (c == KeyEvent.VK_BACK_SPACE) {
-					return;
-				}
+		    @Override
+		    public void keyTyped(KeyEvent e) {
+		        char c = e.getKeyChar();
+		        if (c == KeyEvent.VK_BACK_SPACE) {
+		            return;
+		        }
 
-				if (!Character.isDigit(c) && c != '-') {
-					e.consume();
-					JOptionPane.showMessageDialog(null, "Solo se pueden introducir números y '-'", "Advertencia",
-							JOptionPane.WARNING_MESSAGE);
-
-				}
-
-			}
+		        if (!Character.isDigit(c) && c != '-') {
+		            e.consume();
+		            JOptionPane.showMessageDialog(null, "Solo se pueden introducir números y '-'", "Advertencia",
+		                    JOptionPane.WARNING_MESSAGE);
+		        }
+		    }
 		});
+
+		
 		textField_UltimaConsulta.setBounds(673, 375, 379, 38);
 		panel.add(textField_UltimaConsulta);
-
-		textField_Id = new JTextField();
-		textField_Id.setBounds(673, 435, 379, 38);
-		panel.add(textField_Id);
-
-		// ERRORES
-
-		textField_Id.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyTyped(KeyEvent e) {
-				char c = e.getKeyChar();
-				if (c == KeyEvent.VK_BACK_SPACE) {
-					return;
-				}
-				if (!Character.isDigit(c)) {
-					e.consume();
-					JOptionPane.showMessageDialog(null, "Solo se pueden introducir números", "Advertencia",
-							JOptionPane.WARNING_MESSAGE);
-
-				}
-
-			}
-		});
+		
 		labelPaciente.setHorizontalAlignment(SwingConstants.CENTER);
 
 		labelPaciente.setBounds(0, 40, 533, 47);
@@ -279,7 +262,7 @@ public class VentanaPaciente extends JFrame {
 				String direccion = textField_direccion.getText();
 				String telefono = textField_tlf.getText();
 				String ultimaConsulta = textField_UltimaConsulta.getText();
-				String id = textField_Id.getText();
+				String id = lblIDPaciente.getText();
 
 				if (nombre.isEmpty() || apellidos.isEmpty() || direccion.isEmpty() || telefono.isEmpty()
 						|| ultimaConsulta.isEmpty() || id.isEmpty()) {
@@ -302,6 +285,7 @@ public class VentanaPaciente extends JFrame {
 		// BOTÓN VOLVER
 		JButton btnVolver = new JButton(icon13);
 		btnVolver.addActionListener(new ActionListener() {
+			
 			public void actionPerformed(ActionEvent e) {
 
 				// Instancia
@@ -326,7 +310,6 @@ public class VentanaPaciente extends JFrame {
 				ventanaPrincipal.getButton1().doClick();
 				ventanaPrincipal.getButton1().setVisible(true);
 
-
 			}
 		});
 		btnVolver.setBounds(391, 0, 164, 80);
@@ -344,7 +327,7 @@ public class VentanaPaciente extends JFrame {
 				textField_direccion.setText("");
 				textField_tlf.setText("");
 				textField_UltimaConsulta.setText("");
-				textField_Id.setText("");
+				lblIDPaciente.setText("");
 
 			}
 		});
@@ -375,6 +358,10 @@ public class VentanaPaciente extends JFrame {
 		btnNewButton.setBounds(647, 40, 137, 42);
 		panel.add(btnNewButton);
 
+		lblIDPaciente.setFont(new Font("Montserrat", Font.BOLD, 20));
+		lblIDPaciente.setBounds(675, 440, 200, 25);
+		panel.add(lblIDPaciente);
+
 		// Atajo de teclado
 		InputMap inputMap = getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
 		KeyStroke keyStroke = KeyStroke.getKeyStroke(KeyEvent.VK_W, InputEvent.CTRL_DOWN_MASK);
@@ -398,4 +385,5 @@ public class VentanaPaciente extends JFrame {
 	public JLabel getLabelPaciente() {
 		return labelPaciente;
 	}
+
 }
