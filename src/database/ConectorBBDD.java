@@ -19,6 +19,7 @@ import javax.swing.table.DefaultTableModel;
 import com.mysql.cj.jdbc.DatabaseMetaData;
 
 import mainPack.VentanaOdontograma;
+import mainPack.VentanaPaciente;
 import mainPack.VentanaEspectador;
 import mainPack.VentanaInicial;
 import mainPack.VentanaPrincipal;
@@ -103,50 +104,52 @@ public class ConectorBBDD {
 	}
 
 	public void insertarPaciente(String nombre, String apellidos, String direccion, String telefono,
-            String ultimaConsulta, String id) {
-        try {
-            if (this.conexion != null) {
-                // Verificar y formatear la fecha de última consulta
-                SimpleDateFormat formatoEntrada = new SimpleDateFormat("dd-MM-yyyy");
-                SimpleDateFormat formatoSalida = new SimpleDateFormat("yyyy-MM-dd");
-                try {
-                    // Convertir fecha de formato de entrada a java.util.Date
-                    Date fechaUltimaConsulta = formatoEntrada.parse(ultimaConsulta);
-                    // Convertir la fecha a formato de salida
-                    ultimaConsulta = formatoSalida.format(fechaUltimaConsulta);
-                } catch (ParseException e) {
-                    JOptionPane.showMessageDialog(null, "Formato de fecha de última consulta incorrecto. Utiliza el formato 'DD-MM-YYYY'", "Error", JOptionPane.ERROR_MESSAGE);
-                    return; // Salir del método si la fecha es inválida
-                }
+			String ultimaConsulta, String id) {
+		try {
+			if (this.conexion != null) {
+				// Verificar y formatear la fecha de última consulta
+				SimpleDateFormat formatoEntrada = new SimpleDateFormat("dd-MM-yyyy");
+				SimpleDateFormat formatoSalida = new SimpleDateFormat("yyyy-MM-dd");
+				try {
+					// Convertir fecha de formato de entrada a java.util.Date
+					Date fechaUltimaConsulta = formatoEntrada.parse(ultimaConsulta);
+					// Convertir la fecha a formato de salida
+					ultimaConsulta = formatoSalida.format(fechaUltimaConsulta);
+				} catch (ParseException e) {
+					JOptionPane.showMessageDialog(null,
+							"Formato de fecha de última consulta incorrecto. Utiliza el formato 'DD-MM-YYYY'", "Error",
+							JOptionPane.ERROR_MESSAGE);
+					return; // Salir del método si la fecha es inválida
+				}
 
-                // Consulta de inserción
-                String consulta = "INSERT INTO paciente (nombre, apellidos, dirección, teléfono, ultimaConsulta) VALUES (?, ?, ?, ?, ?)";
-                PreparedStatement statement = conexion.prepareStatement(consulta);
-                statement.setString(1, nombre);
-                statement.setString(2, apellidos);
-                statement.setString(3, direccion);
-                statement.setString(4, telefono);
-                statement.setString(5, ultimaConsulta);
+				// Consulta de inserción
+				String consulta = "INSERT INTO paciente (nombre, apellidos, dirección, teléfono, ultimaConsulta) VALUES (?, ?, ?, ?, ?)";
+				PreparedStatement statement = conexion.prepareStatement(consulta);
+				statement.setString(1, nombre);
+				statement.setString(2, apellidos);
+				statement.setString(3, direccion);
+				statement.setString(4, telefono);
+				statement.setString(5, ultimaConsulta);
 
-                // Si id es un campo autoincremental, no es necesario incluirlo en la consulta
+				// Si id es un campo autoincremental, no es necesario incluirlo en la consulta
 
-                int filasAfectadas = statement.executeUpdate();
+				int filasAfectadas = statement.executeUpdate();
 
-                if (filasAfectadas > 0) {
-                    JOptionPane.showMessageDialog(null, "Paciente insertado correctamente", "Éxito",
-                            JOptionPane.INFORMATION_MESSAGE);
-                } else {
-                    JOptionPane.showMessageDialog(null, "Error al insertar paciente", "Error",
-                            JOptionPane.ERROR_MESSAGE);
-                }
+				if (filasAfectadas > 0) {
+					JOptionPane.showMessageDialog(null, "Paciente insertado correctamente", "Éxito",
+							JOptionPane.INFORMATION_MESSAGE);
+				} else {
+					JOptionPane.showMessageDialog(null, "Error al insertar paciente", "Error",
+							JOptionPane.ERROR_MESSAGE);
+				}
 
-                cerrarConexion();
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Error SQL al insertar paciente", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }
+				cerrarConexion();
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Error SQL al insertar paciente", "Error", JOptionPane.ERROR_MESSAGE);
+		}
+	}
 
 	public void insertarCita(String idPaciente, String motivo, String fecha, String hora, String idDoctor) {
 		try {
@@ -257,10 +260,14 @@ public class ConectorBBDD {
 			}
 
 			// CONSULTA SQL para la tabla 'dentilax.paciente'
-			String consultaPaciente = "SELECT nombre, apellidos, idPaciente, ultimaConsulta FROM dentilax.paciente WHERE nombre LIKE ? OR idPaciente LIKE ?";
+			String consultaPaciente = "SELECT nombre, apellidos, idPaciente, direccion, telefono, ultimaConsulta FROM dentilax.paciente WHERE nombre LIKE ? OR apellidos LIKE ? OR idPaciente LIKE ? OR direccion LIKE ? OR telefono LIKE ? OR ultimaConsulta LIKE ?";
 			statementPaciente = conexion.prepareStatement(consultaPaciente);
 			statementPaciente.setString(1, "%" + criterio + "%");
 			statementPaciente.setString(2, "%" + criterio + "%");
+			statementPaciente.setString(3, "%" + criterio + "%");
+			statementPaciente.setString(4, "%" + criterio + "%");
+			statementPaciente.setString(5, "%" + criterio + "%");
+			statementPaciente.setString(6, "%" + criterio + "%");
 
 			resultadoPaciente = statementPaciente.executeQuery();
 
@@ -294,10 +301,16 @@ public class ConectorBBDD {
 				String nombre = resultadoPaciente.getString("nombre");
 				String apellidos = resultadoPaciente.getString("apellidos");
 				int idPaciente = resultadoPaciente.getInt("idPaciente");
+				String direccion = resultadoPaciente.getString("direccion");
+				String telefono = resultadoPaciente.getString("telefono");
 				String ultimaConsulta = resultadoPaciente.getString("ultimaConsulta");
 
 				// Agregar la fila a la tabla
-				modeloTabla.addRow(new Object[] { nombre, apellidos, idPaciente, ultimaConsulta });
+				modeloTabla.addRow(new Object[] { nombre, apellidos, idPaciente, direccion, telefono, ultimaConsulta });
+
+				// Si solo necesitas el primer resultado, puedes salir del bucle después de la
+				// primera iteración
+				break;
 			}
 
 			// Procesar y mostrar los resultados para 'dentilax.doctor'
@@ -422,19 +435,17 @@ public class ConectorBBDD {
 			Vector<String> columnas = new Vector<>();
 			columnas.add("Nombre");
 			columnas.add("Apellidos");
-			columnas.add("Documento");
+			columnas.add("Documento"); // idPaciente
+			columnas.add("Dirección");
+			columnas.add("Teléfono");
 			columnas.add("Última Consulta");
 
 			modeloTabla.setColumnIdentifiers(columnas);
 
-			// Verifica si la conexión es null antes de utilizarla
-//			System.out.println("Conexión a la base de datos: " + (this.conexion != null ? "exitosa" : "fallida"));
-
+			// Verifica si hay conexión, si la hay se realiza la consulta
 			if (this.conexion != null) {
-				// CONSULTA SQL
-				String consulta = "SELECT nombre, apellidos, idPaciente, ultimaConsulta FROM dentilax.paciente";
-//				System.out.println("Consulta SQL: " + consulta);
 
+				String consulta = "SELECT nombre, apellidos, idPaciente, direccion, telefono, ultimaConsulta FROM dentilax.paciente";
 				Statement statement = conexion.createStatement();
 				ResultSet resultado = statement.executeQuery(consulta);
 
@@ -444,21 +455,21 @@ public class ConectorBBDD {
 
 				while (resultado.next()) {
 					Object[] fila = { resultado.getString("nombre"), resultado.getString("apellidos"),
-							resultado.getInt("idPaciente"), resultado.getString("ultimaConsulta") };
+							resultado.getInt("idPaciente"), resultado.getString("direccion"),
+							resultado.getString("telefono"), resultado.getString("ultimaConsulta") };
 					modeloTabla.addRow(fila);
 				}
 
-//				System.out.println("Filas en la tabla de pacientes: " + modeloTabla.getRowCount());
 			} else {
-//				System.out.println("La conexión es null. Asegúrate de haber establecido la conexión.");
+
 			}
 
 			// cerrarConexion(); // Puedes habilitar esto si necesitas cerrar la conexión en
 			// este punto
 			if (modeloTabla.getRowCount() > 0) {
-				return true; // Devuelve true solo si se cargaron datos
+				return true;
 			} else {
-				return false; // Devuelve false si no se cargaron datos
+				return false;
 			}
 		} catch (SQLException ex) {
 			ex.printStackTrace();
@@ -475,14 +486,6 @@ public class ConectorBBDD {
 			setCargandoDatos(false);
 		}
 	}
-	
-//////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////
-
-	
 
 	public void insertarMaterial(String nombre, String cantidad, String precio) {
 		try {
@@ -513,12 +516,6 @@ public class ConectorBBDD {
 			JOptionPane.showMessageDialog(null, "Error SQL al insertar material", "Error", JOptionPane.ERROR_MESSAGE);
 		}
 	}
-
-//////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////
 
 	public void insertarDoctor(String nombre, String apellidos, String telefono, String direccion, int idEspecialidad,
 			int salario, String email) {
@@ -604,7 +601,7 @@ public class ConectorBBDD {
 			setCargandoDatos(false);
 		}
 	}
-	
+
 	public boolean cargarDatosMaterial(DefaultTableModel modeloTabla) {
 		try {
 
@@ -651,24 +648,23 @@ public class ConectorBBDD {
 			} else {
 				return false; // Devuelve false si no se cargaron datos
 			}
-			
+
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Error SQL al cargar los datos de materal", "Error",
 					JOptionPane.ERROR_MESSAGE);
 			return false;
-			
+
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Error al cargar los datos de material", "Error",
 					JOptionPane.ERROR_MESSAGE);
 			return false;
-			
+
 		} finally {
 			// Indicar que se ha terminado de cargar datos, ya sea con éxito o con error
 			setCargandoDatos(false);
-		    
-		    
+
 		}
 	}
 
@@ -776,11 +772,11 @@ public class ConectorBBDD {
 							Toolkit.getDefaultToolkit().getImage(VentanaInicial.class.getResource("/logoAzul.png")));
 					ventanaPrincipal.setLocationRelativeTo(null);
 					ventanaPrincipal.setVisible(true);
-					new VentanaEspectador().setVisible(false); // Se oculta la ventana de doctores
+					new VentanaEspectador().setVisible(false);
 
 				} else if ("doctor".equals(rol)) {
 					credencialesValidas = true;
-					
+
 					VentanaEspectador ventanaEspectador = new VentanaEspectador();
 					ventanaEspectador.setResizable(false);
 					ventanaEspectador.setIconImage(
