@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.20.6.final using JasperReports Library version 6.20.6-5c96b6aa8a39ac1dc6b6bea4b81168e16dd39231  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="factura" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e7eebaa4-068b-407f-bf7a-d4c2e72a1292">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Conexion"/>
-	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="factura1" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e7eebaa4-068b-407f-bf7a-d4c2e72a1292">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Conexion Jasper"/>
+	<property name="com.jaspersoft.studio.data.sql.tables">
+		<![CDATA[cGFjaWVudGUgLDE2NywxNSxkNDY2ZTAyYy1iOWI1LTRkZjktODg3Zi1jNGY3YzFkNWYxZDM7ZmFj
+dHVyYSAsMTUsNDYsMWMxNmQ5ODUtOGJjNS00ZThmLWE1ZTEtNDE0MjZmZTRhNzUwO3RyYXRhbWll
+bnRvICwxNjcsMTA0LDljZmRjMDY2LTRlZmItNDEwZC04OGUzLWQxYzE4ZDJkMmNiYzs=]]>
+	</property>
 	<style name="Title" fontName="Arial" fontSize="26" isBold="true"/>
 	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
 	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
@@ -15,7 +19,7 @@ FROM factura
 	 factura.idPaciente_FK4 = paciente.idPaciente 
 	JOIN tratamiento ON 
 	 factura.idTratamientoFK = tratamiento.idTratamiento
-	 WHERE idPaciente= $P{idPaciente}]]>
+	 WHERE idPaciente=$P{idPaciente}]]>
 	</queryString>
 	<field name="idFactura" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.name" value="idFactura"/>
@@ -72,14 +76,14 @@ FROM factura
 		<property name="com.jaspersoft.studio.field.label" value="apellidos"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="paciente"/>
 	</field>
-	<field name="dirección" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="dirección"/>
-		<property name="com.jaspersoft.studio.field.label" value="dirección"/>
+	<field name="COLUMN_12" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="direccion"/>
+		<property name="com.jaspersoft.studio.field.label" value="direccion"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="paciente"/>
 	</field>
-	<field name="teléfono" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="teléfono"/>
-		<property name="com.jaspersoft.studio.field.label" value="teléfono"/>
+	<field name="COLUMN_13" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="telefono"/>
+		<property name="com.jaspersoft.studio.field.label" value="telefono"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="paciente"/>
 	</field>
 	<field name="ultimaConsulta" class="java.sql.Date">
@@ -112,12 +116,6 @@ FROM factura
 		<property name="com.jaspersoft.studio.field.label" value="nombre1"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="tratamiento"/>
 	</field>
-	<variable name="coste1" class="java.lang.Integer" resetType="Column" calculation="Count">
-		<variableExpression><![CDATA[$F{coste}]]></variableExpression>
-	</variable>
-	<variable name="coste2" class="java.lang.Integer" resetType="Column" calculation="Count">
-		<variableExpression><![CDATA[$F{coste}]]></variableExpression>
-	</variable>
 	<variable name="precio1" class="java.lang.Integer" resetType="Column" calculation="Sum">
 		<variableExpression><![CDATA[$F{precio}]]></variableExpression>
 	</variable>
@@ -125,11 +123,7 @@ FROM factura
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="70" splitType="Stretch">
-			<image>
-				<reportElement x="275" y="0" width="300" height="64" uuid="d7cb9de5-f1d6-4e9a-8441-72f5e2127742"/>
-				<imageExpression><![CDATA["leaf_banner_green.png"]]></imageExpression>
-			</image>
+		<band height="87" splitType="Stretch">
 			<staticText>
 				<reportElement style="Title" x="0" y="13" width="263" height="33" uuid="3eb8e1ab-7e38-4368-89db-62b6501a8c67"/>
 				<textElement verticalAlignment="Middle"/>
@@ -139,84 +133,93 @@ FROM factura
 				<reportElement style="SubTitle" x="100" y="46" width="174" height="22" uuid="0b5308cc-82cf-49a0-8011-6f875d4c5e32"/>
 				<text><![CDATA[FACTURA]]></text>
 			</staticText>
+			<image>
+				<reportElement x="450" y="0" width="83" height="87" uuid="2587cecb-3ba3-40d2-b530-6563c81445dd"/>
+				<imageExpression><![CDATA["logoDentilax.png"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<pageHeader>
 		<band splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
-		<band height="103" splitType="Stretch">
+		<band height="124" splitType="Stretch">
 			<textField>
-				<reportElement x="-10" y="10" width="70" height="20" uuid="8719b09e-c615-4259-ad9a-8337ea21582d"/>
+				<reportElement x="0" y="10" width="100" height="30" uuid="75254394-08d0-4648-a45d-87ccb2bade4b"/>
 				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="120" y="26" width="60" height="15" uuid="52a04725-02cc-4fe8-b489-74a36b85ce09"/>
+				<reportElement x="130" y="10" width="70" height="20" uuid="b5f74281-1ac8-46a1-8520-be8822bf388a"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Factura a:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="93" y="46" width="55" height="20" uuid="2ec81c53-13b8-4554-8718-4fde137c12e0"/>
+				<reportElement x="110" y="30" width="70" height="20" uuid="98b6bc4f-84f8-4a3f-8fd7-413c6d2c912f"/>
 				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="150" y="46" width="62" height="21" uuid="efc44637-4ab0-477c-8d6b-965e7834ef1b"/>
+				<reportElement x="140" y="28" width="83" height="20" uuid="9cf92e10-699d-4d2d-bb83-391ffdec9bdd"/>
 				<textFieldExpression><![CDATA[$F{apellidos}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="120" y="66" width="80" height="20" uuid="9c6e0a1f-b130-49c0-a8e3-d399e751ca7d"/>
-				<textFieldExpression><![CDATA[$F{dirección}]]></textFieldExpression>
+				<reportElement x="115" y="48" width="135" height="22" uuid="7e5e7152-d391-42c4-ab42-c4c2d2b62760"/>
+				<textFieldExpression><![CDATA[$F{direccion}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="450" y="30" width="23" height="15" uuid="df87d709-c0eb-42b5-baef-7d915e5b786a"/>
+				<reportElement x="450" y="8" width="27" height="25" uuid="693cf8d8-117d-484a-89b8-b8f61bbc933f"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[De:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="440" y="45" width="44" height="21" uuid="b00385e1-bfa8-47ec-b5d2-6a12bade0c14"/>
+				<reportElement x="433" y="30" width="100" height="30" uuid="e3359727-cf20-4754-90b2-5346587ec2e2"/>
 				<text><![CDATA[Dentilax]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="78">
-			<staticText>
-				<reportElement x="340" y="10" width="100" height="21" uuid="ac201b12-409e-45bc-b01d-380b7d2c973a"/>
-				<text><![CDATA[Coste]]></text>
-			</staticText>
+		<band height="59" splitType="Stretch">
 			<rectangle>
-				<reportElement x="100" y="10" width="353" height="21" backcolor="#D1D1D1" uuid="ec750270-7218-44f2-830b-5a803fed6e09"/>
+				<reportElement x="100" y="0" width="333" height="21" backcolor="#C9C9C9" uuid="b37895ce-972c-45ee-92e7-c3747a218c2a"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="123" y="10" width="100" height="21" uuid="0422ae81-1ba8-4bff-aced-a94c7a26c4c9"/>
+				<reportElement x="120" y="0" width="100" height="21" uuid="e320c2e9-f7d8-480f-8aa4-7b80e102fb15"/>
 				<text><![CDATA[Tratamiento]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="120" y="40" width="100" height="21" uuid="6729cb63-3ad0-4fd1-9045-4dc846659df0"/>
+				<reportElement x="115" y="26" width="100" height="30" uuid="27da6798-8b67-49f6-a1ba-877afa47a6e9">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ea4e13de-88f2-4abc-b215-76ee8c282ca8"/>
+				</reportElement>
 				<textFieldExpression><![CDATA[$F{nombre1}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="340" y="40" width="100" height="30" uuid="4d4cf716-cfbd-46ec-a250-8e0a840b98cb">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="18183c6f-7e51-4221-809c-4bcf59303904"/>
+				<reportElement x="340" y="26" width="100" height="30" uuid="d0970620-43fd-46a7-8060-e27a3f82a02d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="29e35f37-a922-4f3b-a93b-b2994d8e3efd"/>
 				</reportElement>
-				<textFieldExpression><![CDATA[$F{precio} + "€"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{precio}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="340" y="6" width="70" height="21" uuid="70345ed6-ae1f-4510-a3ec-27da29309de7"/>
+				<text><![CDATA[Coste]]></text>
+			</staticText>
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="53" splitType="Stretch">
+		<band height="41" splitType="Stretch">
 			<textField>
-				<reportElement x="230" y="10" width="100" height="30" uuid="4cc32582-4a5f-462f-ae7d-20952261b3ea"/>
+				<reportElement x="200" y="11" width="233" height="30" uuid="4827b399-ed24-476c-ad86-7c5d84309d4f"/>
+				<textElement>
+					<font size="16" isBold="true"/>
+				</textElement>
 				<textFieldExpression><![CDATA["Total="+$V{precio1}+"€"]]></textFieldExpression>
 			</textField>
 		</band>
 	</columnFooter>
 	<pageFooter>
-		<band height="32" splitType="Stretch">
+		<band height="20" splitType="Stretch">
 			<textField>
 				<reportElement style="Column header" x="433" y="0" width="80" height="20" uuid="6f13e17d-4b46-4ede-ab63-9d2685ec9c16"/>
 				<textElement textAlignment="Right">
@@ -230,6 +233,13 @@ FROM factura
 					<font size="10" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="0" y="0" width="197" height="20" uuid="ef9fc35f-c45f-4ec6-a5cc-ec2020109ea7"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>

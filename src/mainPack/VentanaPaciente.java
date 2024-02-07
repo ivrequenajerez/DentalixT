@@ -65,7 +65,7 @@ public class VentanaPaciente extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-				  conectorBBDDD = new ConectorBBDD();
+				
 					VentanaPaciente frame = new VentanaPaciente();
 					frame.setResizable(false);
 					frame.setIconImage(
@@ -340,9 +340,10 @@ public class VentanaPaciente extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
+					  conectorBBDDD = new ConectorBBDD();
 				Map<String, Object> parametros = new HashedMap<String, Object>();
-				parametros.put("idPaciente", textField_Id.getText());
-				reporte = JasperCompileManager.compileReport("factura.jrxml");
+				parametros.put("idPaciente", lblIDPaciente.getText());
+				reporte = JasperCompileManager.compileReport("factura1.jrxml");
 				JasperPrint p = JasperFillManager.fillReport(reporte, parametros, conectorBBDDD.conectarConBBDD());
 				JasperViewer viewer = new JasperViewer(p, false);
 	            viewer.setVisible(true);
