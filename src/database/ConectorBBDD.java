@@ -107,7 +107,7 @@ public class ConectorBBDD {
 			String ultimaConsulta, String id) {
 		try {
 			if (this.conexion != null) {
-
+				
 				String consulta = "INSERT INTO paciente (nombre, apellidos, direccion, telefono, ultimaConsulta) VALUES (?, ?, ?, ?, ?)";
 
 				// Verificar y formatear la fecha de última consulta

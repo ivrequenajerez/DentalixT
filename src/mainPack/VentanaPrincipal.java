@@ -491,9 +491,11 @@ public class VentanaPrincipal extends JFrame {
 
 				// Botón para guardar un paciente nuevo
 				ventanaPaciente.btnGuardar.setVisible(true);
-
 				ventanaPaciente.btnGuardarEdición.setVisible(false);
-
+				ventanaPaciente.lblIDPaciente.setVisible(false);
+				ventanaPaciente.textFieldDocumentoPcnt.setVisible(true);
+				ventanaPaciente.btnFacturacion.setVisible(false);
+				
 			}
 		});
 
@@ -549,6 +551,8 @@ public class VentanaPrincipal extends JFrame {
 				// Botón para guardar un paciente editado
 				ventanaPaciente.btnGuardarEdición.setVisible(true);
 				ventanaPaciente.btnGuardar.setVisible(false);
+				ventanaPaciente.lblIDPaciente.setVisible(true);
+				ventanaPaciente.textFieldDocumentoPcnt.setVisible(false);
 				// Comprueba si se ingresó un documento
 				if (documento != null && !documento.isEmpty()) {
 

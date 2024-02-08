@@ -46,6 +46,7 @@ public class VentanaPaciente extends JFrame {
 	private int separacionVertical = 70;
 	public JButton btnGuardar;
 	public JButton btnGuardarEdición;
+	public JButton btnFacturacion;
 	static ConectorBBDD conectorBBDDD;
 	private JasperReport reporte;
 	public JLabel labelPaciente = new JLabel(" "); // Nombre y Apellidos del Paciente
@@ -54,7 +55,8 @@ public class VentanaPaciente extends JFrame {
 	public JTextField textField_direccion = new JTextField();
 	public JTextField textField_tlf = new JTextField();
 	public JTextField textField_UltimaConsulta;
-	public JLabel lblIDPaciente = new JLabel(" "); // ID o Documento del Paciente
+	public JLabel lblIDPaciente = new JLabel(" ");
+	public JTextField textFieldDocumentoPcnt;
 
 	/**
 	 * Launch the application.
@@ -91,43 +93,34 @@ public class VentanaPaciente extends JFrame {
 		setBackground(Color.WHITE);
 		getContentPane().setLayout(null);
 		setBackground(Color.decode("#008cce"));
-		getContentPane().setLayout(null); // Layout nulo para posicionar manualmente los componentes
+		getContentPane().setLayout(null); 
 
-		// BOTON GUARDAR
 		java.net.URL imgUrl11 = getClass().getResource("/save.png");
 		Icon icon11 = new ImageIcon(imgUrl11);
 
-		// BOTON ELIMINAR
 		java.net.URL imgUrl12 = getClass().getResource("/eliminar.png");
 		Icon icon12 = new ImageIcon(imgUrl12);
 
-		// BOTON VOLVER
 		java.net.URL imgUrl13 = getClass().getResource("/volverIcono.png");
 		Icon icon13 = new ImageIcon(imgUrl13);
-
-		// Panel Principal
 
 		JScrollPane editarPanel = new JScrollPane();
 		editarPanel.setBounds(0, -1, 1179, 691);
 		getContentPane().add(editarPanel);
 
-		// Panel donde están los labels
-		JPanel panel = new JPanel(); // PANEL DONDE ESTAN LOS LABELS
+		JPanel panel = new JPanel(); 
 		editarPanel.setViewportView(panel);
 		panel.setBackground(Color.decode("#FFFFFF"));
 
-		// Cargar la imagen desde la carpeta de recursos
-		String rutaImagen = "/paciente.png"; // Ajusta la ruta según la ubicación de tu recurso
+		String rutaImagen = "/paciente.png";
 		java.net.URL urlImagen = getClass().getResource(rutaImagen);
 		ImageIcon imagen1 = new ImageIcon(urlImagen);
 		panel.setLayout(null);
 
-		// 	 la imagen al panel
 		JLabel labelImagen = new JLabel(imagen1);
-		labelImagen.setBounds(0, 124, 544, 512);
+		labelImagen.setBounds(0, 124, 500, 512);
 		panel.add(labelImagen);
 
-		// L NOMBRE
 		JLabel label_Nombre = new JLabel("Nombre:");
 		label_Nombre.setBounds(520, 93, 200, 65);
 		panel.add(label_Nombre);
@@ -135,15 +128,11 @@ public class VentanaPaciente extends JFrame {
 		label_Nombre.setFont(fuenteLabel);
 		label_Nombre.setBackground(Color.decode("#008cce"));
 
-		// APELLIDOS
-
 		JLabel label_Apellidos = new JLabel("Apellidos:");
 		label_Apellidos.setBounds(520, 162, 200, 65);
 		panel.add(label_Apellidos);
 
 		label_Apellidos.setFont(fuenteLabel);
-
-		// TELEFONO
 
 		JLabel label_Telefono = new JLabel("Teléfono:");
 		label_Telefono.setBounds(520, 300, 100, 65);
@@ -151,23 +140,17 @@ public class VentanaPaciente extends JFrame {
 
 		label_Telefono.setFont(fuenteLabel);
 
-		// DIRECCION
-
 		JLabel label_Direccion = new JLabel("Dirección:");
 		label_Direccion.setBounds(520, 231, 200, 65);
 		panel.add(label_Direccion);
 
 		label_Direccion.setFont(fuenteLabel);
 
-		// SALARIO
-
-		JLabel lblId = new JLabel("ID:");
-		lblId.setBounds(555, 420, 40, 65);
+		JLabel lblId = new JLabel("Documento:");
+		lblId.setBounds(520, 420, 200, 65);
 		panel.add(lblId);
-
+		
 		lblId.setFont(fuenteLabel);
-
-		// EMAIL
 
 		JLabel lblUltimaConsulta = new JLabel("Últ. Consulta:");
 		lblUltimaConsulta.setBounds(520, 360, 200, 65);
@@ -175,7 +158,7 @@ public class VentanaPaciente extends JFrame {
 
 		lblUltimaConsulta.setFont(fuenteLabel);
 
-		String rutaImagen2 = "/guardarIcono.png"; // Ajusta la ruta según la ubicación de tu recurso
+		String rutaImagen2 = "/guardarIcono.png"; 
 		java.net.URL urlImagen2 = getClass().getResource(rutaImagen2);
 
 		textField_nombre = new JTextField();
@@ -254,28 +237,24 @@ public class VentanaPaciente extends JFrame {
 		btnGuardar.setContentAreaFilled(false);
 		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// Obtener los valores de los campos
+				
 				String nombre = textField_nombre.getText();
 				String apellidos = textField_apellidos.getText();
 				String direccion = textField_direccion.getText();
 				String telefono = textField_tlf.getText();
 				String ultimaConsulta = textField_UltimaConsulta.getText();
-				String id = lblIDPaciente.getText();
+				String documento = textFieldDocumentoPcnt.getText();
 
 				if (nombre.isEmpty() || apellidos.isEmpty() || direccion.isEmpty() || telefono.isEmpty()
-						|| ultimaConsulta.isEmpty() || id.isEmpty()) {
+						|| ultimaConsulta.isEmpty() || documento.isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Rellena todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
 				} else {
-					// Crear una instancia de ConectorBBDD (asegúrate de que sea accesible desde
-					// esta clase)
+					
 					ConectorBBDD conectorBBDD = new ConectorBBDD();
 
-					// Llamar al método para insertar paciente en la base de datos
 					((ConectorBBDD) conectorBBDD).insertarPaciente(nombre, apellidos, direccion, telefono,
-							ultimaConsulta, id);
+							ultimaConsulta, documento);
 
-					// Luego, si es necesario, puedes actualizar la tabla o realizar otras acciones
-					// después de la inserción.
 				}
 			}
 		});
@@ -368,8 +347,9 @@ public class VentanaPaciente extends JFrame {
 		btnEliminar.setPreferredSize(new Dimension(96, 96));
 		btnEliminar.setContentAreaFilled(false);
 		
-		JButton btnNewButton = new JButton("Facturacion");
-		btnNewButton.addActionListener(new ActionListener() {
+		btnFacturacion = new JButton("Facturación");
+		btnFacturacion.setFont(new Font("Montserrat", Font.BOLD, 12));
+		btnFacturacion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					  conectorBBDDD = new ConectorBBDD();
@@ -379,7 +359,6 @@ public class VentanaPaciente extends JFrame {
 				JasperPrint p = JasperFillManager.fillReport(reporte, parametros, conectorBBDDD.conectarConBBDD());
 				JasperViewer viewer = new JasperViewer(p, false);
 	            viewer.setVisible(true);
-	            dispose();
 	            viewer.toFront();
 				}catch (JRException e1) {
 					// TODO Auto-generated catch block
@@ -388,12 +367,18 @@ public class VentanaPaciente extends JFrame {
 				
 			}
 		});
-		btnNewButton.setBounds(647, 40, 137, 42);
-		panel.add(btnNewButton);
+		
+		btnFacturacion.setBounds(673, 40, 120, 42);
+		panel.add(btnFacturacion);
 
 		lblIDPaciente.setFont(new Font("Montserrat", Font.BOLD, 20));
 		lblIDPaciente.setBounds(675, 440, 200, 25);
 		panel.add(lblIDPaciente);
+		
+		textFieldDocumentoPcnt = new JTextField();
+		textFieldDocumentoPcnt.setBounds(673, 435, 379, 38);
+		panel.add(textFieldDocumentoPcnt);
+		textFieldDocumentoPcnt.setColumns(10);
 		
 		JButton btnNewButton_1 = new JButton("Historial");
 		btnNewButton_1.addActionListener(new ActionListener() {
