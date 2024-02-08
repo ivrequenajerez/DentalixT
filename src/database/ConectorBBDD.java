@@ -40,8 +40,8 @@ public class ConectorBBDD {
 	private static final String url = "jdbc:mysql://localhost:3306/";
 	private static final String DB = "dentilax";
 	private static final String usuario = "root";
-//	private static final String contrasenia = "pass";
 	private static final String contrasenia = "1234";
+//private static final String contrasenia = "root1234";
 
 	public Connection conexion;
 	public static ConectorBBDD instancia;
@@ -107,6 +107,9 @@ public class ConectorBBDD {
 			String ultimaConsulta, String id) {
 		try {
 			if (this.conexion != null) {
+
+				String consulta = "INSERT INTO paciente (nombre, apellidos, direccion, telefono, ultimaConsulta) VALUES (?, ?, ?, ?, ?)";
+
 				// Verificar y formatear la fecha de última consulta
 				SimpleDateFormat formatoEntrada = new SimpleDateFormat("dd-MM-yyyy");
 				SimpleDateFormat formatoSalida = new SimpleDateFormat("yyyy-MM-dd");
@@ -122,8 +125,6 @@ public class ConectorBBDD {
 					return; // Salir del método si la fecha es inválida
 				}
 
-				// Consulta de inserción
-				String consulta = "INSERT INTO paciente (nombre, apellidos, dirección, teléfono, ultimaConsulta) VALUES (?, ?, ?, ?, ?)";
 				PreparedStatement statement = conexion.prepareStatement(consulta);
 				statement.setString(1, nombre);
 				statement.setString(2, apellidos);
@@ -521,7 +522,7 @@ public class ConectorBBDD {
 			int salario, String email) {
 		try {
 			if (this.conexion != null) {
-				String consulta = "INSERT INTO doctor (nombre, apellidos, teléfono, dirección, idEspecialidad_FK, salario, email) VALUES (?, ?, ?, ?, ?, ?, ?)";
+				String consulta = "INSERT INTO doctor (nombre, apellidos, telefono, direccion, idEspecialidad_FK, salario, email) VALUES (?, ?, ?, ?, ?, ?, ?)";
 				PreparedStatement statement = conexion.prepareStatement(consulta);
 				statement.setString(1, nombre);
 				statement.setString(2, apellidos);
@@ -826,38 +827,6 @@ public class ConectorBBDD {
 		}
 
 		return credencialesValidas;
-	}
-
-	public void insertarPaciente1(String nombre, String apellidos, String direccion, String telefono,
-			String ultimaConsulta, String id) {
-		try {
-			if (this.conexion != null) {
-				String consulta = "INSERT INTO paciente (nombre, apellidos, dirección, teléfono, ultimaConsulta) VALUES (?, ?, ?, ?, ?)";
-				PreparedStatement statement = conexion.prepareStatement(consulta);
-				statement.setString(1, nombre);
-				statement.setString(2, apellidos);
-				statement.setString(3, direccion);
-				statement.setString(4, telefono);
-				statement.setString(5, ultimaConsulta);
-
-				// Si id es un campo autoincremental, no es necesario incluirlo en la consulta
-
-				int filasAfectadas = statement.executeUpdate();
-
-				if (filasAfectadas > 0) {
-					JOptionPane.showMessageDialog(null, "Paciente insertado correctamente", "Éxito",
-							JOptionPane.INFORMATION_MESSAGE);
-				} else {
-					JOptionPane.showMessageDialog(null, "Error al insertar paciente", "Error",
-							JOptionPane.ERROR_MESSAGE);
-				}
-
-				cerrarConexion();
-			}
-		} catch (SQLException ex) {
-			ex.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Error SQL al insertar paciente", "Error", JOptionPane.ERROR_MESSAGE);
-		}
 	}
 
 	// Método para cargar el odontograma por documento
