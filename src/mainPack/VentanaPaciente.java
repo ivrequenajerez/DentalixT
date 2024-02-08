@@ -47,6 +47,7 @@ public class VentanaPaciente extends JFrame {
 	public JButton btnGuardar;
 	public JButton btnGuardarEdición;
 	public JButton btnFacturacion;
+	public JButton btnHistorial;
 	static ConectorBBDD conectorBBDDD;
 	private JasperReport reporte;
 	public JLabel labelPaciente = new JLabel(" "); // Nombre y Apellidos del Paciente
@@ -380,8 +381,9 @@ public class VentanaPaciente extends JFrame {
 		panel.add(textFieldDocumentoPcnt);
 		textFieldDocumentoPcnt.setColumns(10);
 		
-		JButton btnNewButton_1 = new JButton("Historial");
-		btnNewButton_1.addActionListener(new ActionListener() {
+		btnHistorial = new JButton("Historial");
+		btnHistorial.setFont(new Font("Montserrat", Font.BOLD, 12));
+		btnHistorial.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				try {
@@ -401,8 +403,8 @@ public class VentanaPaciente extends JFrame {
 				
 			}
 		});
-		btnNewButton_1.setBounds(812, 40, 137, 42);
-		panel.add(btnNewButton_1);
+		btnHistorial.setBounds(812, 40, 137, 42);
+		panel.add(btnHistorial);
 
 		// Atajo de teclado
 		InputMap inputMap = getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);

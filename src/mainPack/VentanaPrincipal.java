@@ -495,6 +495,7 @@ public class VentanaPrincipal extends JFrame {
 				ventanaPaciente.lblIDPaciente.setVisible(false);
 				ventanaPaciente.textFieldDocumentoPcnt.setVisible(true);
 				ventanaPaciente.btnFacturacion.setVisible(false);
+				ventanaPaciente.btnHistorial.setVisible(false);
 				
 			}
 		});
