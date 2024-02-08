@@ -822,6 +822,8 @@ public class ConectorBBDD {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
+
+			cerrarConexion();
 		}
 
 		return credencialesValidas;
