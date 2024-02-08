@@ -1193,7 +1193,7 @@ public class VentanaPrincipal extends JFrame {
 		mntmNewMenuItem_2.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Ayuda ventanaAyuda = new Ayuda();
+				AyudaAntiguo ventanaAyuda = new AyudaAntiguo();
 
 				ventanaAyuda.setVisible(true);
 				ventanaAyuda.setLocationRelativeTo(null);

@@ -50,7 +50,7 @@ public class VentanaPaciente extends JFrame {
 	public JButton btnHistorial;
 	static ConectorBBDD conectorBBDDD;
 	private JasperReport reporte;
-	public JLabel labelPaciente = new JLabel(" "); // Nombre y Apellidos del Paciente
+	public JLabel labelPaciente = new JLabel(" "); 
 	public JTextField textField_nombre = new JTextField();
 	public JTextField textField_apellidos = new JTextField();
 	public JTextField textField_direccion = new JTextField();

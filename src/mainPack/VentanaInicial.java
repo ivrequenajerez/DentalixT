@@ -43,6 +43,7 @@ public class VentanaInicial extends JFrame {
 	private ConectorBBDD conector = new ConectorBBDD();
 	private static Timer timer;
 	private JCheckBox recordarCheckBox;
+	final JFrame frame1 = this;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(() -> {
@@ -174,6 +175,19 @@ public class VentanaInicial extends JFrame {
 				botonAyuda.setBounds(772, 415, 18, 18);
 				contentPane.add(botonAyuda);
 
+				Ayuda ayuda = new Ayuda();
+				
+				botonAyuda.addActionListener(new ActionListener() {
+				    @Override
+				    public void actionPerformed(ActionEvent e) {
+				        ayuda.mostrarAyuda(frame1);
+				    }
+				});
+
+				frame1.getContentPane().add(botonAyuda);
+				frame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				frame1.setVisible(true);
+				
 				JButton loginBoton = new JButton("Login");
 
 				loginBoton.setBounds(770, 365, 200, 40);
