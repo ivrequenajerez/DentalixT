@@ -82,7 +82,7 @@ public class VentanaInicial extends JFrame {
 		Icon icono = new ImageIcon(imagen.getImage().getScaledInstance(logoInicio.getWidth(), logoInicio.getHeight(),
 				Image.SCALE_DEFAULT));
 		logoInicio.setIcon(icono);
-
+		
 		timer = new Timer(1000, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -132,12 +132,7 @@ public class VentanaInicial extends JFrame {
 				toggleButton.setBorderPainted(false);
 				toggleButton.setFocusPainted(false);
 
-				// CHECKBOX
-				recordarCheckBox = new JCheckBox("Recordar usuario y  contraseña", true);
-				recordarCheckBox.setBounds(970, 350, 200, 30);
-				recordarCheckBox.setOpaque(false);
-				contentPane.add(recordarCheckBox);
-
+				
 				// Cargar preferencias al iniciar
 				cargarPreferencias(usuarioTextField, contraseniaTextField);
 
@@ -167,13 +162,25 @@ public class VentanaInicial extends JFrame {
 					}
 				});
 
+				// Recordar
+				recordarCheckBox = new JCheckBox("Recordar", true);
+				recordarCheckBox.setBounds(767, 330, 350, 30);
+				recordarCheckBox.setOpaque(false);
+				contentPane.add(recordarCheckBox);
+				
+				// BOTÓN AYUDA
+				ImageIcon iconoAyuda = new ImageIcon(getClass().getResource("/ayuda.png"));
+				JButton botonAyuda = new JButton(iconoAyuda);
+				botonAyuda.setBounds(772, 415, 18, 18);
+				contentPane.add(botonAyuda);
+
 				JButton loginBoton = new JButton("Login");
 
-				loginBoton.setBounds(770, 350, 200, 40);
+				loginBoton.setBounds(770, 365, 200, 40);
 				loginBoton.setBackground(new Color(0, 140, 206));
 				loginBoton.setForeground(Color.WHITE);
 				contentPane.add(loginBoton);
-
+				
 				loginBoton.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {

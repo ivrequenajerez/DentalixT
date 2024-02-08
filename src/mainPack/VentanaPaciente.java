@@ -36,14 +36,15 @@ public class VentanaPaciente extends JFrame {
 	private static final Font fuenteGrande = new Font("Montserrat", Font.PLAIN, 50);
 	private int yPosition = 40;
 	private int separacionVertical = 70;
-	private JButton btnGuardar;
-	public JLabel lblIDPaciente = new JLabel(" "); // ID o Documento del Paciente
+	public JButton btnGuardar;
+	public JButton btnGuardarEdición;
 	public JLabel labelPaciente = new JLabel(" "); // Nombre y Apellidos del Paciente
 	public JTextField textField_nombre = new JTextField();
 	public JTextField textField_apellidos = new JTextField();
 	public JTextField textField_direccion = new JTextField();
 	public JTextField textField_tlf = new JTextField();
 	public JTextField textField_UltimaConsulta;
+	public JLabel lblIDPaciente = new JLabel(" "); // ID o Documento del Paciente
 
 	/**
 	 * Launch the application.
@@ -267,10 +268,44 @@ public class VentanaPaciente extends JFrame {
 			}
 		});
 
+		// BOTÓN GUARDAR EDICIÓN
+		btnGuardarEdición = new JButton(icon11);
+		btnGuardarEdición.setBounds(10, 11, 78, 54);
+		panel_1.add(btnGuardarEdición);
+		btnGuardarEdición.setPreferredSize(new Dimension(icon11.getIconWidth(), icon11.getIconHeight()));
+		btnGuardarEdición.setContentAreaFilled(false);
+		btnGuardarEdición.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// Obtener los valores de los campos
+				String nombre = textField_nombre.getText();
+				String apellidos = textField_apellidos.getText();
+				String direccion = textField_direccion.getText();
+				String telefono = textField_tlf.getText();
+				String ultimaConsulta = textField_UltimaConsulta.getText();
+				String id = lblIDPaciente.getText();
+				
+				if (nombre.isEmpty() || apellidos.isEmpty() || direccion.isEmpty() || telefono.isEmpty()
+						|| ultimaConsulta.isEmpty() || id.isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Rellena todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
+				} else {
+					// Crear una instancia de ConectorBBDD (asegúrate de que sea accesible desde
+					// esta clase)
+					ConectorBBDD conectorBBDD = new ConectorBBDD();
+
+					// Llamar al método para insertar paciente en la base de datos
+					((ConectorBBDD) conectorBBDD).insertarPaciente(nombre, apellidos, direccion, telefono,
+							ultimaConsulta, id);
+
+					// Luego, si es necesario, puedes actualizar la tabla o realizar otras acciones
+					// después de la inserción.
+				}
+			}
+		});
+
 		// BOTÓN VOLVER
 		JButton btnVolver = new JButton(icon13);
 		btnVolver.addActionListener(new ActionListener() {
-			
+
 			public void actionPerformed(ActionEvent e) {
 
 				// Instancia

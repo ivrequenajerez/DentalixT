@@ -103,8 +103,54 @@ public class ConectorBBDD {
 	public void insertarPaciente(String nombre, String apellidos, String direccion, String telefono,
 			String ultimaConsulta, String id) {
 		try {
+
+			if (this.conexion != null && !this.conexion.isClosed()) {
+				String consulta = "INSERT INTO paciente (nombre, apellidos, direccion, telefono, ultimaConsulta) VALUES (?, ?, ?, ?, ?)";
+				
+				// Prueba
+				System.out.println("Consulta SQL: " + consulta);
+				
+				PreparedStatement statement = conexion.prepareStatement(consulta);
+				statement.setString(1, nombre);
+				statement.setString(2, apellidos);
+				statement.setString(3, direccion);
+				statement.setString(4, telefono);
+				statement.setString(5, ultimaConsulta);
+				
+				// Prueba
+				System.out.println("Nombre: " + nombre);
+				System.out.println("Apellidos: " + apellidos);
+				System.out.println("Dirección: " + direccion);
+				System.out.println("Tlf: " + telefono);
+				System.out.println("Ult Cons: " + ultimaConsulta);
+
+				int filasAfectadas = statement.executeUpdate();
+
+				if (filasAfectadas > 0) {
+					JOptionPane.showMessageDialog(null, "Paciente insertado correctamente", "Éxito",
+							JOptionPane.INFORMATION_MESSAGE);
+				} else {
+					JOptionPane.showMessageDialog(null, "Error al insertar paciente", "Error",
+							JOptionPane.ERROR_MESSAGE);
+				}
+
+				cerrarConexion();
+			} else {
+				System.err.println("Error: La conexión está cerrada.");
+			}
+		} catch (SQLException ex) {
+		    ex.printStackTrace();
+		    System.err.println("Error SQL al insertar paciente: " + ex.getMessage());
+		    JOptionPane.showMessageDialog(null, "Error SQL al insertar paciente", "Error", JOptionPane.ERROR_MESSAGE);
+		}
+
+	}
+
+	public void insertarPaciente1(String nombre, String apellidos, String direccion, String telefono,
+			String ultimaConsulta, String id) {
+		try {
 			if (this.conexion != null) {
-				String consulta = "INSERT INTO paciente (nombre, apellidos, dirección, teléfono, ultimaConsulta) VALUES (?, ?, ?, ?, ?)";
+				String consulta = "INSERT INTO paciente (nombre, apellidos, direccion, telefono, ultimaConsulta) VALUES (?, ?, ?, ?, ?)";
 				PreparedStatement statement = conexion.prepareStatement(consulta);
 				statement.setString(1, nombre);
 				statement.setString(2, apellidos);
@@ -327,7 +373,7 @@ public class ConectorBBDD {
 				// Agregar la fila a la tabla
 				modeloTabla.addRow(new Object[] { nombre, cantidad, precio });
 			}
-			
+
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Error SQL al realizar la búsqueda", "Error",
@@ -582,7 +628,7 @@ public class ConectorBBDD {
 			int salario, String email) {
 		try {
 			if (this.conexion != null) {
-				String consulta = "INSERT INTO doctor (nombre, apellidos, teléfono, dirección, idEspecialidad_FK, salario, email) VALUES (?, ?, ?, ?, ?, ?, ?)";
+				String consulta = "INSERT INTO doctor (nombre, apellidos, telefono, direccion, idEspecialidad_FK, salario, email) VALUES (?, ?, ?, ?, ?, ?, ?)";
 				PreparedStatement statement = conexion.prepareStatement(consulta);
 				statement.setString(1, nombre);
 				statement.setString(2, apellidos);
@@ -813,38 +859,6 @@ public class ConectorBBDD {
 		}
 
 		return credencialesValidas;
-	}
-
-	public void insertarPaciente1(String nombre, String apellidos, String direccion, String telefono,
-			String ultimaConsulta, String id) {
-		try {
-			if (this.conexion != null) {
-				String consulta = "INSERT INTO paciente (nombre, apellidos, dirección, teléfono, ultimaConsulta) VALUES (?, ?, ?, ?, ?)";
-				PreparedStatement statement = conexion.prepareStatement(consulta);
-				statement.setString(1, nombre);
-				statement.setString(2, apellidos);
-				statement.setString(3, direccion);
-				statement.setString(4, telefono);
-				statement.setString(5, ultimaConsulta);
-
-				// Si id es un campo autoincremental, no es necesario incluirlo en la consulta
-
-				int filasAfectadas = statement.executeUpdate();
-
-				if (filasAfectadas > 0) {
-					JOptionPane.showMessageDialog(null, "Paciente insertado correctamente", "Éxito",
-							JOptionPane.INFORMATION_MESSAGE);
-				} else {
-					JOptionPane.showMessageDialog(null, "Error al insertar paciente", "Error",
-							JOptionPane.ERROR_MESSAGE);
-				}
-
-				cerrarConexion();
-			}
-		} catch (SQLException ex) {
-			ex.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Error SQL al insertar paciente", "Error", JOptionPane.ERROR_MESSAGE);
-		}
 	}
 
 	// Método para cargar el odontograma por documento

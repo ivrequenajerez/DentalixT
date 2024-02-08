@@ -200,9 +200,9 @@ public class VentanaPrincipal extends JFrame {
 		panelComponentes.add(botonAñadirPaciente);
 
 		// Botón Editar
-		JButton botonEditar1 = new JButton("EDITAR");
-		botonEditar1.setBounds(22, 66, 97, 21);
-		panelComponentes.add(botonEditar1);
+		JButton botonEditarPaciente = new JButton("EDITAR");
+		botonEditarPaciente.setBounds(22, 66, 97, 21);
+		panelComponentes.add(botonEditarPaciente);
 
 		// ---- Componentes Panel DOCTORES ---- //
 		JPanel panelComponentes2 = new JPanel();
@@ -276,9 +276,9 @@ public class VentanaPrincipal extends JFrame {
 		botonAñadirPaciente.setBackground(Color.WHITE);
 		botonAñadirPaciente.setForeground(new Color(0, 140, 206));
 		botonAñadirPaciente.setFont(new Font("Montserrat", Font.BOLD, 12));
-		botonEditar1.setBackground(Color.WHITE);
-		botonEditar1.setForeground(new Color(0, 140, 206));
-		botonEditar1.setFont(new Font("Montserrat", Font.BOLD, 12));
+		botonEditarPaciente.setBackground(Color.WHITE);
+		botonEditarPaciente.setForeground(new Color(0, 140, 206));
+		botonEditarPaciente.setFont(new Font("Montserrat", Font.BOLD, 12));
 		fieldBuscar.setBackground(Color.WHITE);
 		fieldBuscar.setForeground(Color.GRAY);
 		fieldBuscar.setFont(new Font("Montserrat", Font.PLAIN, 12));
@@ -485,10 +485,15 @@ public class VentanaPrincipal extends JFrame {
 		botonAñadirPaciente.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+
 				setVisible(false);
 				ventanaPaciente.setVisible(true);
-				
+
+				// Botón para guardar un paciente nuevo
+				ventanaPaciente.btnGuardar.setVisible(true);
+
+				ventanaPaciente.btnGuardarEdición.setVisible(false);
+
 			}
 		});
 
@@ -499,7 +504,7 @@ public class VentanaPrincipal extends JFrame {
 
 				setVisible(false);
 				ventanaDoctor.setVisible(true);
-				
+
 			}
 		});
 
@@ -529,67 +534,68 @@ public class VentanaPrincipal extends JFrame {
 				ventanaMaterial.setLocationRelativeTo(null);
 				dispose();
 				// Esto es para mostrar
-				
+
 			}
 		});
 
 		// Editar //
 
 		// Editar paciente
-		botonEditar1.addActionListener(new ActionListener() {
-		    @Override
-		    public void actionPerformed(ActionEvent e) {
-		        // Muestra un cuadro de diálogo de entrada
-		        String documento = JOptionPane.showInputDialog("Introduzca el Documento:");
+		botonEditarPaciente.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// Muestra un cuadro de diálogo de entrada
+				String documento = JOptionPane.showInputDialog("Introduzca el Documento:");
+				// Botón para guardar un paciente editado
+				ventanaPaciente.btnGuardarEdición.setVisible(true);
+				ventanaPaciente.btnGuardar.setVisible(false);
+				// Comprueba si se ingresó un documento
+				if (documento != null && !documento.isEmpty()) {
 
-		        // Comprueba si se ingresó un documento
-		        if (documento != null && !documento.isEmpty()) {
-		        	
-		        	conector.realizarBusqueda(documento, modeloTabla);
+					conector.realizarBusqueda(documento, modeloTabla);
 
-		            int id = 0;
-		            String nombre = "";
-		            String apellidos = "";
-		            String direccion = "";
-		            String telefono = ""; 
-		            String idString = String.valueOf(id);
-		            String fecha = "";
+					int id = 0;
+					String nombre = "";
+					String apellidos = "";
+					String direccion = "";
+					String telefono = "";
+					String idString = String.valueOf(id);
+					String fecha = "";
 
-		            if (modeloTabla.getRowCount() > 0) {
-		                nombre = (String) modeloTabla.getValueAt(0, 0);
-		                apellidos = (String) modeloTabla.getValueAt(0, 1);
-		                idString = String.valueOf(modeloTabla.getValueAt(0, 2));
-		                direccion = (String) modeloTabla.getValueAt(0, 3);
-		                telefono = (String) modeloTabla.getValueAt(0, 4);
-		                fecha = (String) modeloTabla.getValueAt(0, 5);
-		                
-		            } else {
-		                JOptionPane.showMessageDialog(null, "No se encontraron resultados en la búsqueda.", "Sin Documento", JOptionPane.WARNING_MESSAGE);
-		            }
+					if (modeloTabla.getRowCount() > 0) {
+						nombre = (String) modeloTabla.getValueAt(0, 0);
+						apellidos = (String) modeloTabla.getValueAt(0, 1);
+						idString = String.valueOf(modeloTabla.getValueAt(0, 2));
+						direccion = (String) modeloTabla.getValueAt(0, 3);
+						telefono = (String) modeloTabla.getValueAt(0, 4);
+						fecha = (String) modeloTabla.getValueAt(0, 5);
 
-		            bienvenido.setVisible(false);
-		            texto1.setVisible(false);
-		            botonSalir.setVisible(false);
-		            dispose();
+					} else {
+						JOptionPane.showMessageDialog(null, "No se encontraron resultados en la búsqueda.",
+								"Sin Documento", JOptionPane.WARNING_MESSAGE);
+					}
 
-		            ventanaPaciente.setVisible(true);
-		            ventanaPaciente.labelPaciente.setText(nombre + " " + apellidos);
-		            ventanaPaciente.lblIDPaciente.setText(idString);
-		            ventanaPaciente.textField_nombre.setText(nombre);
-		            ventanaPaciente.textField_apellidos.setText(apellidos);
-		            ventanaPaciente.textField_direccion.setText(direccion);
-		            ventanaPaciente.textField_tlf.setText(telefono);
-		            ventanaPaciente.textField_nombre.setText(nombre);
-		            ventanaPaciente.textField_UltimaConsulta.setText(fecha);
-		            
-		        } else {
-		            JOptionPane.showMessageDialog(null, "No se ingresó un documento.", "Sin Documento", JOptionPane.WARNING_MESSAGE);
-		        }
-		    }
+					bienvenido.setVisible(false);
+					texto1.setVisible(false);
+					botonSalir.setVisible(false);
+					dispose();
+
+					ventanaPaciente.setVisible(true);
+					ventanaPaciente.labelPaciente.setText(nombre + " " + apellidos);
+					ventanaPaciente.lblIDPaciente.setText(idString);
+					ventanaPaciente.textField_nombre.setText(nombre);
+					ventanaPaciente.textField_apellidos.setText(apellidos);
+					ventanaPaciente.textField_direccion.setText(direccion);
+					ventanaPaciente.textField_tlf.setText(telefono);
+					ventanaPaciente.textField_nombre.setText(nombre);
+					ventanaPaciente.textField_UltimaConsulta.setText(fecha);
+
+				} else {
+					JOptionPane.showMessageDialog(null, "No se ingresó un documento.", "Sin Documento",
+							JOptionPane.WARNING_MESSAGE);
+				}
+			}
 		});
-
-
-
 
 		// Editar doctor
 		botonEditar2.addActionListener(new ActionListener() {
@@ -803,14 +809,14 @@ public class VentanaPrincipal extends JFrame {
 					}
 
 				} catch (Exception ex) {
-					
+
 					ex.printStackTrace();
 					JOptionPane.showMessageDialog(VentanaPrincipal.this, "Error al cargar los datos de pacientes",
 							"Error", JOptionPane.ERROR_MESSAGE);
 				}
 
 			}
-			
+
 		});
 
 		java.net.URL imgUrl2 = getClass().getResource("/doctoresIcono.png");
@@ -867,7 +873,7 @@ public class VentanaPrincipal extends JFrame {
 		button3.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				try {   
+				try {
 
 					bienvenido.setVisible(false);
 					texto1.setVisible(false);
@@ -912,14 +918,14 @@ public class VentanaPrincipal extends JFrame {
 					texto1.setVisible(false);
 					botonSalir.setVisible(false);
 					if (conector.conexion != null) {
-						
+
 						conector.cargarDatosMaterial(modeloTabla);
 						tablasPanel.setVisible(true);
 						panelMenuDer3.setVisible(false);
 						panelMenuDer2.setVisible(false);
 						panelMenuDer.setVisible(false);
 						panelMenuDer4.setVisible(true);
-						
+
 					} else {
 						JOptionPane.showMessageDialog(VentanaPrincipal.this, "Error al conectar con la base de datos",
 								"Error", JOptionPane.ERROR_MESSAGE);
@@ -1131,18 +1137,18 @@ public class VentanaPrincipal extends JFrame {
 
 			}
 		});
-		
+
 		JMenuItem botonMenuOdontograma = new JMenuItem("Odontograma");
 		botonMenuOdontograma.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_DOWN_MASK));
 
 		botonMenuOdontograma.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+
 				String numeroDocumento;
 
 				do {
-					
+
 					numeroDocumento = JOptionPane.showInputDialog("Ingrese el número del documento:");
 
 					if (numeroDocumento == null) {
@@ -1161,7 +1167,7 @@ public class VentanaPrincipal extends JFrame {
 					}
 				} while (numeroDocumento == null || numeroDocumento.isEmpty()
 						|| !esNumeroDocumentoValido(numeroDocumento));
-				
+
 				// El número de documento es válido, mostrar la ventana
 				VentanaOdontograma odontogramaV = new VentanaOdontograma();
 
@@ -1326,12 +1332,15 @@ public class VentanaPrincipal extends JFrame {
 	public JButton getButton1() {
 		return button1;
 	}
+
 	public JButton getButton2() {
 		return button2;
 	}
+
 	public JButton getButton3() {
 		return button3;
 	}
+
 	public JButton getButton4() {
 		return button4;
 	}
