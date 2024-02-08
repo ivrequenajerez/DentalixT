@@ -129,7 +129,7 @@ WHERE idPaciente= $P{idPaciente}]]>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="87" splitType="Stretch">
+		<band height="97" splitType="Stretch">
 			<staticText>
 				<reportElement style="Title" x="0" y="13" width="263" height="33" uuid="3eb8e1ab-7e38-4368-89db-62b6501a8c67"/>
 				<textElement verticalAlignment="Middle"/>
@@ -149,10 +149,6 @@ WHERE idPaciente= $P{idPaciente}]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{apellidos}]]></textFieldExpression>
 			</textField>
-			<image>
-				<reportElement x="460" y="10" width="80" height="70" uuid="ef3b3e60-12c4-4d4e-8528-636b96adb848"/>
-				<imageExpression><![CDATA["/recursos/logoDentilax.png"]]></imageExpression>
-			</image>
 		</band>
 	</title>
 	<pageHeader>
@@ -167,50 +163,46 @@ WHERE idPaciente= $P{idPaciente}]]>
 				</graphicElement>
 			</line>
 			<rectangle>
-				<reportElement x="110" y="30" width="320" height="40" backcolor="#B5B5B5" uuid="538fe965-f133-4e2f-acf4-83c63f766dc2"/>
+				<reportElement x="140" y="30" width="260" height="40" backcolor="#B5B5B5" uuid="538fe965-f133-4e2f-acf4-83c63f766dc2"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="120" y="37" width="30" height="21" uuid="160fbf41-ca3c-4b44-a9ce-9b22a1a3cf05"/>
+				<reportElement x="150" y="37" width="30" height="21" uuid="160fbf41-ca3c-4b44-a9ce-9b22a1a3cf05"/>
 				<text><![CDATA[Fecha]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="160" y="37" width="30" height="21" uuid="a4a5ab57-b735-473e-963f-a9d369979c7c"/>
+				<reportElement x="190" y="37" width="30" height="21" uuid="a4a5ab57-b735-473e-963f-a9d369979c7c"/>
 				<text><![CDATA[Hora]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="200" y="37" width="30" height="21" uuid="7a4b6a9e-8702-4c38-8a47-16c4de50375b"/>
+				<reportElement x="230" y="37" width="30" height="21" uuid="7a4b6a9e-8702-4c38-8a47-16c4de50375b"/>
 				<text><![CDATA[Motivo]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="240" y="37" width="50" height="21" uuid="78590cde-4ed8-4b15-8a10-680b76997592"/>
+				<reportElement x="270" y="37" width="50" height="21" uuid="78590cde-4ed8-4b15-8a10-680b76997592"/>
 				<text><![CDATA[N diente]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="300" y="37" width="50" height="21" uuid="3ebee0b4-c89e-4487-855a-ef90f6683631"/>
+				<reportElement x="330" y="37" width="50" height="21" uuid="3ebee0b4-c89e-4487-855a-ef90f6683631"/>
 				<text><![CDATA[H diente]]></text>
 			</staticText>
-			<staticText>
-				<reportElement x="360" y="37" width="60" height="21" uuid="45ab06db-2557-4ce6-8f9a-6c9be07a7212"/>
-				<text><![CDATA[Tratamiento]]></text>
-			</staticText>
 			<textField>
-				<reportElement x="110" y="70" width="43" height="13" uuid="58b16579-7dfd-4739-bc8d-a8c7a6c15e3d"/>
+				<reportElement x="140" y="70" width="43" height="13" uuid="58b16579-7dfd-4739-bc8d-a8c7a6c15e3d"/>
 				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="153" y="70" width="42" height="13" uuid="e055e73f-dfbd-42f9-a4f7-0f7516d40cf7"/>
+				<reportElement x="183" y="70" width="42" height="13" uuid="e055e73f-dfbd-42f9-a4f7-0f7516d40cf7"/>
 				<textFieldExpression><![CDATA[$F{hora}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="190" y="70" width="51" height="40" uuid="b0388c03-a6a5-494f-b3b3-5edad18393e3"/>
+				<reportElement x="220" y="70" width="51" height="40" uuid="b0388c03-a6a5-494f-b3b3-5edad18393e3"/>
 				<textFieldExpression><![CDATA[$F{motivo}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="240" y="70" width="50" height="16" uuid="aad21c70-4d09-4c1e-a356-910f336cfa86"/>
+				<reportElement x="270" y="70" width="50" height="16" uuid="aad21c70-4d09-4c1e-a356-910f336cfa86"/>
 				<textFieldExpression><![CDATA[$F{numero_diente}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="288" y="70" width="75" height="13" uuid="b56f9ad2-db95-4dc7-8d5e-2bab8028c5f4"/>
+				<reportElement x="318" y="70" width="75" height="13" uuid="b56f9ad2-db95-4dc7-8d5e-2bab8028c5f4"/>
 				<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
 			</textField>
 		</band>

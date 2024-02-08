@@ -40,7 +40,7 @@ public class ConectorBBDD {
 	private static final String url = "jdbc:mysql://localhost:3306/";
 	private static final String DB = "dentilax";
 	private static final String usuario = "root";
-	private static final String contrasenia = "1234";
+	private static final String contrasenia = "root1234";
 //private static final String contrasenia = "root1234";
 
 	public Connection conexion;
