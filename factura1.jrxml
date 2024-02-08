@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.6.final using JasperReports Library version 6.20.6-5c96b6aa8a39ac1dc6b6bea4b81168e16dd39231  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="factura1" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e7eebaa4-068b-407f-bf7a-d4c2e72a1292">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Conexion Jasper"/>
+	<property name="com.jaspersoft.studio.data.sql.tables">
+		<![CDATA[cGFjaWVudGUgLDE2NywxNSxkNDY2ZTAyYy1iOWI1LTRkZjktODg3Zi1jNGY3YzFkNWYxZDM7ZmFj
+dHVyYSAsMTUsNDYsMWMxNmQ5ODUtOGJjNS00ZThmLWE1ZTEtNDE0MjZmZTRhNzUwO3RyYXRhbWll
+bnRvICwxNjcsMTA0LDljZmRjMDY2LTRlZmItNDEwZC04OGUzLWQxYzE4ZDJkMmNiYzs=]]>
+	</property>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<parameter name="idPaciente" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT *
+FROM factura
+	JOIN paciente ON 
+	 factura.idPaciente_FK4 = paciente.idPaciente 
+	JOIN tratamiento ON 
+	 factura.idTratamientoFK = tratamiento.idTratamiento
+	 WHERE idPaciente=$P{idPaciente}]]>
+	</queryString>
+	<field name="idFactura" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="idFactura"/>
+		<property name="com.jaspersoft.studio.field.label" value="idFactura"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="factura"/>
+	</field>
+	<field name="precio" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="precio"/>
+		<property name="com.jaspersoft.studio.field.label" value="precio"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="factura"/>
+	</field>
+	<field name="fecha" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="fecha"/>
+		<property name="com.jaspersoft.studio.field.label" value="fecha"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="factura"/>
+	</field>
+	<field name="metodo" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="metodo"/>
+		<property name="com.jaspersoft.studio.field.label" value="metodo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="factura"/>
+	</field>
+	<field name="telefono" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="telefono"/>
+		<property name="com.jaspersoft.studio.field.label" value="telefono"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="factura"/>
+	</field>
+	<field name="direccion" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="direccion"/>
+		<property name="com.jaspersoft.studio.field.label" value="direccion"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="factura"/>
+	</field>
+	<field name="idPaciente_FK4" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="idPaciente_FK4"/>
+		<property name="com.jaspersoft.studio.field.label" value="idPaciente_FK4"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="factura"/>
+	</field>
+	<field name="idTratamientoFK" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="idTratamientoFK"/>
+		<property name="com.jaspersoft.studio.field.label" value="idTratamientoFK"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="factura"/>
+	</field>
+	<field name="idPaciente" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="idPaciente"/>
+		<property name="com.jaspersoft.studio.field.label" value="idPaciente"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="paciente"/>
+	</field>
+	<field name="nombre" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="nombre"/>
+		<property name="com.jaspersoft.studio.field.label" value="nombre"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="paciente"/>
+	</field>
+	<field name="apellidos" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="apellidos"/>
+		<property name="com.jaspersoft.studio.field.label" value="apellidos"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="paciente"/>
+	</field>
+	<field name="COLUMN_12" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="direccion"/>
+		<property name="com.jaspersoft.studio.field.label" value="direccion"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="paciente"/>
+	</field>
+	<field name="COLUMN_13" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="telefono"/>
+		<property name="com.jaspersoft.studio.field.label" value="telefono"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="paciente"/>
+	</field>
+	<field name="ultimaConsulta" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="ultimaConsulta"/>
+		<property name="com.jaspersoft.studio.field.label" value="ultimaConsulta"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="paciente"/>
+	</field>
+	<field name="idTratamiento" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="idTratamiento"/>
+		<property name="com.jaspersoft.studio.field.label" value="idTratamiento"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tratamiento"/>
+	</field>
+	<field name="coste" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="coste"/>
+		<property name="com.jaspersoft.studio.field.label" value="coste"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tratamiento"/>
+	</field>
+	<field name="COLUMN_17" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="nombre"/>
+		<property name="com.jaspersoft.studio.field.label" value="nombre"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tratamiento"/>
+	</field>
+	<field name="idCitaFK" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="idCitaFK"/>
+		<property name="com.jaspersoft.studio.field.label" value="idCitaFK"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tratamiento"/>
+	</field>
+	<field name="nombre1" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="nombre1"/>
+		<property name="com.jaspersoft.studio.field.label" value="nombre1"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tratamiento"/>
+	</field>
+	<variable name="precio1" class="java.lang.Integer" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{precio}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="87" splitType="Stretch">
+			<staticText>
+				<reportElement style="Title" x="0" y="13" width="263" height="33" uuid="3eb8e1ab-7e38-4368-89db-62b6501a8c67"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[DENTILAX]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="SubTitle" x="100" y="46" width="174" height="22" uuid="0b5308cc-82cf-49a0-8011-6f875d4c5e32"/>
+				<text><![CDATA[FACTURA]]></text>
+			</staticText>
+			<image>
+				<reportElement x="450" y="0" width="83" height="87" uuid="2587cecb-3ba3-40d2-b530-6563c81445dd"/>
+				<imageExpression><![CDATA["logoDentilax.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="124" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="10" width="100" height="30" uuid="75254394-08d0-4648-a45d-87ccb2bade4b"/>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="130" y="10" width="70" height="20" uuid="b5f74281-1ac8-46a1-8520-be8822bf388a"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Factura a:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="110" y="30" width="70" height="20" uuid="98b6bc4f-84f8-4a3f-8fd7-413c6d2c912f"/>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="140" y="28" width="83" height="20" uuid="9cf92e10-699d-4d2d-bb83-391ffdec9bdd"/>
+				<textFieldExpression><![CDATA[$F{apellidos}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="115" y="48" width="135" height="22" uuid="7e5e7152-d391-42c4-ab42-c4c2d2b62760"/>
+				<textFieldExpression><![CDATA[$F{direccion}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="450" y="8" width="27" height="25" uuid="693cf8d8-117d-484a-89b8-b8f61bbc933f"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[De:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="433" y="30" width="100" height="30" uuid="e3359727-cf20-4754-90b2-5346587ec2e2"/>
+				<text><![CDATA[Dentilax]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="59" splitType="Stretch">
+			<rectangle>
+				<reportElement x="100" y="0" width="333" height="21" backcolor="#C9C9C9" uuid="b37895ce-972c-45ee-92e7-c3747a218c2a"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="120" y="0" width="100" height="21" uuid="e320c2e9-f7d8-480f-8aa4-7b80e102fb15"/>
+				<text><![CDATA[Tratamiento]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="115" y="26" width="100" height="30" uuid="27da6798-8b67-49f6-a1ba-877afa47a6e9">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ea4e13de-88f2-4abc-b215-76ee8c282ca8"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{nombre1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="340" y="26" width="100" height="30" uuid="d0970620-43fd-46a7-8060-e27a3f82a02d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="29e35f37-a922-4f3b-a93b-b2994d8e3efd"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{precio}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="340" y="6" width="70" height="21" uuid="70345ed6-ae1f-4510-a3ec-27da29309de7"/>
+				<text><![CDATA[Coste]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="41" splitType="Stretch">
+			<textField>
+				<reportElement x="200" y="11" width="233" height="30" uuid="4827b399-ed24-476c-ad86-7c5d84309d4f"/>
+				<textElement>
+					<font size="16" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Total="+$V{precio1}+"€"]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement style="Column header" x="433" y="0" width="80" height="20" uuid="6f13e17d-4b46-4ede-ab63-9d2685ec9c16"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement style="Column header" x="513" y="0" width="40" height="20" uuid="6857db7e-824a-4cda-b8dc-fe5c95aca145"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="0" y="0" width="197" height="20" uuid="ef9fc35f-c45f-4ec6-a5cc-ec2020109ea7"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.Map;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -22,7 +23,15 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import org.apache.commons.collections4.map.HashedMap;
+
 import database.ConectorBBDD;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
 
 import javax.swing.*;
 
@@ -31,13 +40,14 @@ public class VentanaPaciente extends JFrame {
 	// Variables
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private ConectorBBDD conectorBBDDD;
 	private static final Font fuenteLabel = new Font("Montserrat", Font.PLAIN, 20);
 	private static final Font fuenteGrande = new Font("Montserrat", Font.PLAIN, 50);
 	private int yPosition = 40;
 	private int separacionVertical = 70;
 	public JButton btnGuardar;
 	public JButton btnGuardarEdición;
+	static ConectorBBDD conectorBBDDD;
+	private JasperReport reporte;
 	public JLabel labelPaciente = new JLabel(" "); // Nombre y Apellidos del Paciente
 	public JTextField textField_nombre = new JTextField();
 	public JTextField textField_apellidos = new JTextField();
@@ -53,6 +63,7 @@ public class VentanaPaciente extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+				
 					VentanaPaciente frame = new VentanaPaciente();
 					frame.setResizable(false);
 					frame.setIconImage(
@@ -111,7 +122,7 @@ public class VentanaPaciente extends JFrame {
 		ImageIcon imagen1 = new ImageIcon(urlImagen);
 		panel.setLayout(null);
 
-		// Añadir la imagen al panel
+		// 	 la imagen al panel
 		JLabel labelImagen = new JLabel(imagen1);
 		labelImagen.setBounds(0, 124, 544, 512);
 		panel.add(labelImagen);
@@ -199,26 +210,27 @@ public class VentanaPaciente extends JFrame {
 
 		panel.add(textField_tlf);
 
-		textField_UltimaConsulta = new JTextField();
+		JTextField textField_UltimaConsulta = new JTextField();
 		textField_UltimaConsulta.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyTyped(KeyEvent e) {
-				char c = e.getKeyChar();
-				if (c == KeyEvent.VK_BACK_SPACE) {
-					return;
-				}
+		    @Override
+		    public void keyTyped(KeyEvent e) {
+		        char c = e.getKeyChar();
+		        if (c == KeyEvent.VK_BACK_SPACE) {
+		            return;
+		        }
 
-				if (!Character.isDigit(c) && c != '-') {
-					e.consume();
-					JOptionPane.showMessageDialog(null, "Solo se pueden introducir números y '-'", "Advertencia",
-							JOptionPane.WARNING_MESSAGE);
-
-				}
-
-			}
+		        if (!Character.isDigit(c) && c != '-') {
+		            e.consume();
+		            JOptionPane.showMessageDialog(null, "Solo se pueden introducir números y '-'", "Advertencia",
+		                    JOptionPane.WARNING_MESSAGE);
+		        }
+		    }
 		});
+
+		
 		textField_UltimaConsulta.setBounds(673, 375, 379, 38);
 		panel.add(textField_UltimaConsulta);
+		
 		labelPaciente.setHorizontalAlignment(SwingConstants.CENTER);
 
 		labelPaciente.setBounds(0, 40, 533, 47);
@@ -355,6 +367,29 @@ public class VentanaPaciente extends JFrame {
 		panel_1.add(btnEliminar);
 		btnEliminar.setPreferredSize(new Dimension(96, 96));
 		btnEliminar.setContentAreaFilled(false);
+		
+		JButton btnNewButton = new JButton("Facturacion");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					  conectorBBDDD = new ConectorBBDD();
+				Map<String, Object> parametros = new HashedMap<String, Object>();
+				parametros.put("idPaciente", lblIDPaciente.getText());
+				reporte = JasperCompileManager.compileReport("factura1.jrxml");
+				JasperPrint p = JasperFillManager.fillReport(reporte, parametros, conectorBBDDD.conectarConBBDD());
+				JasperViewer viewer = new JasperViewer(p, false);
+	            viewer.setVisible(true);
+	            dispose();
+	            viewer.toFront();
+				}catch (JRException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+			}
+		});
+		btnNewButton.setBounds(647, 40, 137, 42);
+		panel.add(btnNewButton);
 
 		lblIDPaciente.setFont(new Font("Montserrat", Font.BOLD, 20));
 		lblIDPaciente.setBounds(675, 440, 200, 25);
