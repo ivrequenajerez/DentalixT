@@ -40,8 +40,8 @@ public class ConectorBBDD {
 	private static final String url = "jdbc:mysql://localhost:3306/";
 	private static final String DB = "dentilax";
 	private static final String usuario = "root";
-//	private static final String contrasenia = "pass";
-	private static final String contrasenia = "root1234";
+	private static final String contrasenia = "1234";
+//private static final String contrasenia = "root1234";
 
 	public Connection conexion;
 	public static ConectorBBDD instancia;
@@ -104,52 +104,6 @@ public class ConectorBBDD {
 	}
 
 	public void insertarPaciente(String nombre, String apellidos, String direccion, String telefono,
-			String ultimaConsulta, String id) {
-		try {
-
-			if (this.conexion != null && !this.conexion.isClosed()) {
-				String consulta = "INSERT INTO paciente (nombre, apellidos, direccion, telefono, ultimaConsulta) VALUES (?, ?, ?, ?, ?)";
-				
-				// Prueba
-				System.out.println("Consulta SQL: " + consulta);
-				
-				PreparedStatement statement = conexion.prepareStatement(consulta);
-				statement.setString(1, nombre);
-				statement.setString(2, apellidos);
-				statement.setString(3, direccion);
-				statement.setString(4, telefono);
-				statement.setString(5, ultimaConsulta);
-				
-				// Prueba
-				System.out.println("Nombre: " + nombre);
-				System.out.println("Apellidos: " + apellidos);
-				System.out.println("Dirección: " + direccion);
-				System.out.println("Tlf: " + telefono);
-				System.out.println("Ult Cons: " + ultimaConsulta);
-
-				int filasAfectadas = statement.executeUpdate();
-
-				if (filasAfectadas > 0) {
-					JOptionPane.showMessageDialog(null, "Paciente insertado correctamente", "Éxito",
-							JOptionPane.INFORMATION_MESSAGE);
-				} else {
-					JOptionPane.showMessageDialog(null, "Error al insertar paciente", "Error",
-							JOptionPane.ERROR_MESSAGE);
-				}
-
-				cerrarConexion();
-			} else {
-				System.err.println("Error: La conexión está cerrada.");
-			}
-		} catch (SQLException ex) {
-		    ex.printStackTrace();
-		    System.err.println("Error SQL al insertar paciente: " + ex.getMessage());
-		    JOptionPane.showMessageDialog(null, "Error SQL al insertar paciente", "Error", JOptionPane.ERROR_MESSAGE);
-		}
-
-	}
-
-	public void insertarPaciente1(String nombre, String apellidos, String direccion, String telefono,
 			String ultimaConsulta, String id) {
 		try {
 			if (this.conexion != null) {

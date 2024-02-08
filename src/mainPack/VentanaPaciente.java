@@ -271,7 +271,7 @@ public class VentanaPaciente extends JFrame {
 					ConectorBBDD conectorBBDD = new ConectorBBDD();
 
 					// Llamar al método para insertar paciente en la base de datos
-					((ConectorBBDD) conectorBBDD).insertarPaciente(nombre, apellidos, direccion, telefono,
+					((ConectorBBDD) conectorBBDD).insertarPaciente1(nombre, apellidos, direccion, telefono,
 							ultimaConsulta, id);
 
 					// Luego, si es necesario, puedes actualizar la tabla o realizar otras acciones
