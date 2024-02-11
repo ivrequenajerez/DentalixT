@@ -18,7 +18,7 @@ JOIN diente ON
 diente.idPacienteFK1=paciente.idPaciente
 JOIN tratamiento ON
 tratamiento.idCitaFK=cita.idCita
-WHERE idPaciente= $P{idPaciente}]]>
+WHERE paciente.idPaciente = $P{idPaciente}]]>
 	</queryString>
 	<field name="idCita" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.name" value="idCita"/>
@@ -129,7 +129,7 @@ WHERE idPaciente= $P{idPaciente}]]>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="97" splitType="Stretch">
+		<band height="178" splitType="Stretch">
 			<staticText>
 				<reportElement style="Title" x="0" y="13" width="263" height="33" uuid="3eb8e1ab-7e38-4368-89db-62b6501a8c67"/>
 				<textElement verticalAlignment="Middle"/>
@@ -155,7 +155,7 @@ WHERE idPaciente= $P{idPaciente}]]>
 		<band splitType="Stretch"/>
 	</pageHeader>
 	<detail>
-		<band height="145" splitType="Stretch">
+		<band height="190" splitType="Stretch">
 			<line>
 				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1" uuid="f367c019-9cb7-431c-8713-5a96f9b889aa"/>
 				<graphicElement>

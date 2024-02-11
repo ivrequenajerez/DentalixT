@@ -10,6 +10,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.swing.Icon;
@@ -50,7 +52,7 @@ public class VentanaPaciente extends JFrame {
 	public JButton btnHistorial;
 	static ConectorBBDD conectorBBDDD;
 	private JasperReport reporte;
-	public JLabel labelPaciente = new JLabel(" "); 
+	public JLabel labelPaciente = new JLabel(" ");
 	public JTextField textField_nombre = new JTextField();
 	public JTextField textField_apellidos = new JTextField();
 	public JTextField textField_direccion = new JTextField();
@@ -66,7 +68,7 @@ public class VentanaPaciente extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-				
+
 					VentanaPaciente frame = new VentanaPaciente();
 					frame.setResizable(false);
 					frame.setIconImage(
@@ -94,7 +96,7 @@ public class VentanaPaciente extends JFrame {
 		setBackground(Color.WHITE);
 		getContentPane().setLayout(null);
 		setBackground(Color.decode("#008cce"));
-		getContentPane().setLayout(null); 
+		getContentPane().setLayout(null);
 
 		java.net.URL imgUrl11 = getClass().getResource("/save.png");
 		Icon icon11 = new ImageIcon(imgUrl11);
@@ -109,7 +111,7 @@ public class VentanaPaciente extends JFrame {
 		editarPanel.setBounds(0, -1, 1179, 691);
 		getContentPane().add(editarPanel);
 
-		JPanel panel = new JPanel(); 
+		JPanel panel = new JPanel();
 		editarPanel.setViewportView(panel);
 		panel.setBackground(Color.decode("#FFFFFF"));
 
@@ -150,7 +152,7 @@ public class VentanaPaciente extends JFrame {
 		JLabel lblId = new JLabel("Documento:");
 		lblId.setBounds(520, 420, 200, 65);
 		panel.add(lblId);
-		
+
 		lblId.setFont(fuenteLabel);
 
 		JLabel lblUltimaConsulta = new JLabel("Últ. Consulta:");
@@ -159,7 +161,7 @@ public class VentanaPaciente extends JFrame {
 
 		lblUltimaConsulta.setFont(fuenteLabel);
 
-		String rutaImagen2 = "/guardarIcono.png"; 
+		String rutaImagen2 = "/guardarIcono.png";
 		java.net.URL urlImagen2 = getClass().getResource(rutaImagen2);
 
 		textField_nombre = new JTextField();
@@ -196,25 +198,24 @@ public class VentanaPaciente extends JFrame {
 
 		textField_UltimaConsulta = new JTextField();
 		textField_UltimaConsulta.addKeyListener(new KeyAdapter() {
-		    @Override
-		    public void keyTyped(KeyEvent e) {
-		        char c = e.getKeyChar();
-		        if (c == KeyEvent.VK_BACK_SPACE) {
-		            return;
-		        }
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				if (c == KeyEvent.VK_BACK_SPACE) {
+					return;
+				}
 
-		        if (!Character.isDigit(c) && c != '-') {
-		            e.consume();
-		            JOptionPane.showMessageDialog(null, "Solo se pueden introducir números y '-'", "Advertencia",
-		                    JOptionPane.WARNING_MESSAGE);
-		        }
-		    }
+				if (!Character.isDigit(c) && c != '-') {
+					e.consume();
+					JOptionPane.showMessageDialog(null, "Solo se pueden introducir números y '-'", "Advertencia",
+							JOptionPane.WARNING_MESSAGE);
+				}
+			}
 		});
 
-		
 		textField_UltimaConsulta.setBounds(673, 375, 379, 38);
 		panel.add(textField_UltimaConsulta);
-		
+
 		labelPaciente.setHorizontalAlignment(SwingConstants.CENTER);
 
 		labelPaciente.setBounds(0, 40, 533, 47);
@@ -238,7 +239,7 @@ public class VentanaPaciente extends JFrame {
 		btnGuardar.setContentAreaFilled(false);
 		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				String nombre = textField_nombre.getText();
 				String apellidos = textField_apellidos.getText();
 				String direccion = textField_direccion.getText();
@@ -250,7 +251,7 @@ public class VentanaPaciente extends JFrame {
 						|| ultimaConsulta.isEmpty() || documento.isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Rellena todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
 				} else {
-					
+
 					ConectorBBDD conectorBBDD = new ConectorBBDD();
 
 					((ConectorBBDD) conectorBBDD).insertarPaciente(nombre, apellidos, direccion, telefono,
@@ -275,7 +276,7 @@ public class VentanaPaciente extends JFrame {
 				String telefono = textField_tlf.getText();
 				String ultimaConsulta = textField_UltimaConsulta.getText();
 				String id = lblIDPaciente.getText();
-				
+
 				if (nombre.isEmpty() || apellidos.isEmpty() || direccion.isEmpty() || telefono.isEmpty()
 						|| ultimaConsulta.isEmpty() || id.isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Rellena todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
@@ -347,63 +348,99 @@ public class VentanaPaciente extends JFrame {
 		panel_1.add(btnEliminar);
 		btnEliminar.setPreferredSize(new Dimension(96, 96));
 		btnEliminar.setContentAreaFilled(false);
-		
+
 		btnFacturacion = new JButton("Facturación");
 		btnFacturacion.setFont(new Font("Montserrat", Font.BOLD, 12));
 		btnFacturacion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					  conectorBBDDD = new ConectorBBDD();
-				Map<String, Object> parametros = new HashedMap<String, Object>();
-				parametros.put("idPaciente", lblIDPaciente.getText());
-				reporte = JasperCompileManager.compileReport("factura1.jrxml");
-				JasperPrint p = JasperFillManager.fillReport(reporte, parametros, conectorBBDDD.conectarConBBDD());
-				JasperViewer viewer = new JasperViewer(p, false);
-	            viewer.setVisible(true);
-	            viewer.toFront();
-				}catch (JRException e1) {
+					conectorBBDDD = new ConectorBBDD();
+					Map<String, Object> parametros = new HashedMap<String, Object>();
+					parametros.put("idPaciente", lblIDPaciente.getText());
+					reporte = JasperCompileManager.compileReport("factura1.jrxml");
+					JasperPrint p = JasperFillManager.fillReport(reporte, parametros, conectorBBDDD.conectarConBBDD());
+					JasperViewer viewer = new JasperViewer(p, false);
+					viewer.setVisible(true);
+					viewer.toFront();
+				} catch (JRException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				
+
 			}
 		});
-		
+
 		btnFacturacion.setBounds(673, 40, 120, 42);
 		panel.add(btnFacturacion);
 
 		lblIDPaciente.setFont(new Font("Montserrat", Font.BOLD, 20));
 		lblIDPaciente.setBounds(675, 440, 200, 25);
 		panel.add(lblIDPaciente);
-		
+
 		textFieldDocumentoPcnt = new JTextField();
 		textFieldDocumentoPcnt.setBounds(673, 435, 379, 38);
 		panel.add(textFieldDocumentoPcnt);
 		textFieldDocumentoPcnt.setColumns(10);
-		
+
+		// Crear un botón llamado "Historial"
 		btnHistorial = new JButton("Historial");
+
+		btnHistorial = new JButton("Historial");
+
 		btnHistorial.setFont(new Font("Montserrat", Font.BOLD, 12));
+
 		btnHistorial.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
 				try {
-					  conectorBBDDD = new ConectorBBDD();
-				Map<String, Object> parametros = new HashedMap<String, Object>();
-				parametros.put("idPaciente", lblIDPaciente.getText());
-				reporte = JasperCompileManager.compileReport("historial.jrxml");
-				JasperPrint p = JasperFillManager.fillReport(reporte, parametros, conectorBBDDD.conectarConBBDD());
-				JasperViewer viewer = new JasperViewer(p, false);
-	            viewer.setVisible(true);
-	            dispose();
-	            viewer.toFront();
-				}catch (JRException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					// Verificar si la conexión está cerrada y abrir si es necesario
+					if (conectorBBDDD == null || conectorBBDDD.obtenerConexion().isClosed()) {
+					    System.out.println("Conexión cerrada o nula. Estableciendo una nueva conexión.");
+					    System.out.println("Antes de la creación de la conexión.");
+					    conectorBBDDD = new ConectorBBDD();
+					    System.out.println("Después de la creación de la conexión.");
+					}
+
+					// Crear un mapa para almacenar parámetros del informe
+					Map<String, Object> parametros = new HashMap<>();
+
+					// Verificar si lblIDPaciente no es nulo antes de obtener el texto
+					if (lblIDPaciente != null) {
+					    parametros.put("idPaciente", lblIDPaciente.getText());
+					} else {
+					    System.out.println("Error: lblIDPaciente es nulo.");
+					    return; // Salir del método si no se puede obtener el identificador del paciente
+					}
+
+					// Compilar el informe JasperReport desde un archivo llamado "historial.jrxml"
+					reporte = JasperCompileManager.compileReport("historial.jrxml");
+
+					// Llenar el informe con datos utilizando JasperFillManager
+					JasperPrint p = JasperFillManager.fillReport(reporte, parametros, conectorBBDDD.obtenerConexion());
+
+					// Crear un visor de informes (JasperViewer) y mostrarlo
+					JasperViewer viewer = new JasperViewer(p, false);
+					viewer.setVisible(true);
+
+					// Poner la ventana del visor de informes al frente
+					viewer.toFront();
+
+				} catch (JRException | SQLException ex) {
+					// Manejar excepciones relacionadas con la generación de informes Jasper o la
+					// conexión a la base de datos
+					System.out.println("error");
+					ex.printStackTrace();
 				}
-				
 			}
 		});
+
 		btnHistorial.setBounds(812, 40, 137, 42);
+
+		panel.add(btnHistorial);
+
+		// Establecer la posición y tamaño del botón en el panel
+		btnHistorial.setBounds(812, 40, 137, 42);
+
+		// Agregar el botón al panel
 		panel.add(btnHistorial);
 
 		// Atajo de teclado
